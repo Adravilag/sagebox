@@ -127,21 +127,22 @@ A flexible, accessible SVG icon component for the MediQ UI library. Supports bot
 
 ## Properties
 
-| Property      | Attribute      | Description                                                 | Type               | Default          |
-| ------------- | -------------- | ----------------------------------------------------------- | ------------------ | ---------------- |
-| `ariaLabel`   | `aria-label`   | Accessible label for screen readers                         | `string`           | `undefined`      |
-| `color`       | `color`        | Color of the icon (CSS color value)                         | `string`           | `'currentColor'` |
-| `decorative`  | `decorative`   | Whether the icon is decorative (hidden from screen readers) | `boolean`          | `false`          |
-| `flipH`       | `flip-h`       | Flip the icon horizontally                                  | `boolean`          | `false`          |
-| `flipV`       | `flip-v`       | Flip the icon vertically                                    | `boolean`          | `false`          |
-| `height`      | `height`       | Height of the icon (overrides size)                         | `number \| string` | `undefined`      |
-| `name`        | `name`         | The name of the icon from the built-in library              | `string`           | `undefined`      |
-| `rotate`      | `rotate`       | Rotation angle in degrees                                   | `number`           | `undefined`      |
-| `size`        | `size`         | Size of the icon in pixels                                  | `number \| string` | `24`             |
-| `spin`        | `spin`         | Whether the icon should spin (useful for loading icons)     | `boolean`          | `false`          |
-| `src`         | `src`          | URL to a custom SVG icon (alternative to name)              | `string`           | `undefined`      |
-| `strokeWidth` | `stroke-width` | Stroke width for outline icons                              | `number`           | `undefined`      |
-| `width`       | `width`        | Width of the icon (overrides size)                          | `number \| string` | `undefined`      |
+| Property      | Attribute      | Description                                                                                                     | Type               | Default          |
+| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | ------------------ | ---------------- |
+| `ariaLabel`   | `aria-label`   | Accessible label for screen readers                                                                             | `string`           | `undefined`      |
+| `color`       | `color`        | Color of the icon (CSS color value)                                                                             | `string`           | `'currentColor'` |
+| `decorative`  | `decorative`   | Whether the icon is decorative (hidden from screen readers)                                                     | `boolean`          | `false`          |
+| `fill`        | `fill`         | Alias for color (for compatibility with legacy svg-icon components)                                             | `string`           | `undefined`      |
+| `flipH`       | `flip-h`       | Flip the icon horizontally                                                                                      | `boolean`          | `false`          |
+| `flipV`       | `flip-v`       | Flip the icon vertically                                                                                        | `boolean`          | `false`          |
+| `height`      | `height`       | Height of the icon (overrides size)                                                                             | `number \| string` | `undefined`      |
+| `name`        | `name`         | The name of the icon from the built-in library. Supports both 'name' and 'icon-name' formats for compatibility. | `string`           | `undefined`      |
+| `rotate`      | `rotate`       | Rotation angle in degrees                                                                                       | `number`           | `undefined`      |
+| `size`        | `size`         | Size of the icon in pixels                                                                                      | `number \| string` | `24`             |
+| `spin`        | `spin`         | Whether the icon should spin (useful for loading icons)                                                         | `boolean`          | `false`          |
+| `src`         | `src`          | URL to a custom SVG icon (alternative to name)                                                                  | `string`           | `undefined`      |
+| `strokeWidth` | `stroke-width` | Stroke width for outline icons                                                                                  | `number`           | `undefined`      |
+| `width`       | `width`        | Width of the icon (overrides size)                                                                              | `number \| string` | `undefined`      |
 
 
 ----------------------------------------------

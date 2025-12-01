@@ -1,5 +1,5 @@
 import { Component, Prop, h, Host, Watch, State } from '@stencil/core';
-import { icons, IconName, IconDefinition } from './icons';
+import { icons, IconDefinition } from './icons';
 
 /**
  * @component sg-icon
@@ -8,12 +8,14 @@ import { icons, IconName, IconDefinition } from './icons';
  * @example
  * <!-- Basic usage with built-in icons -->
  * <sg-icon name="home"></sg-icon>
+ * <sg-icon name="icon-home"></sg-icon>
  *
  * <!-- With custom size -->
  * <sg-icon name="settings" size="32"></sg-icon>
  *
- * <!-- With custom color -->
+ * <!-- With custom color (fill is an alias for color) -->
  * <sg-icon name="heart" color="#ff0000"></sg-icon>
+ * <sg-icon name="heart" fill="#ff0000"></sg-icon>
  *
  * <!-- Custom icon via src (fetches SVG file) -->
  * <sg-icon src="/assets/custom-icon.svg"></sg-icon>
@@ -25,9 +27,10 @@ import { icons, IconName, IconDefinition } from './icons';
 })
 export class SgIcon {
   /**
-   * The name of the icon from the built-in library
+   * The name of the icon from the built-in library.
+   * Supports both 'name' and 'icon-name' formats for compatibility.
    */
-  @Prop() name?: IconName;
+  @Prop() name?: string;
 
   /**
    * URL to a custom SVG icon (alternative to name)
@@ -55,6 +58,12 @@ export class SgIcon {
    * @default 'currentColor'
    */
   @Prop() color: string = 'currentColor';
+
+  /**
+   * Alias for color (for compatibility with legacy svg-icon components)
+   * @default undefined
+   */
+  @Prop() fill?: string;
 
   /**
    * Stroke width for outline icons
@@ -124,9 +133,30 @@ export class SgIcon {
     }
   }
 
+  /**
+   * Get the effective color (fill takes precedence over color for compatibility)
+   */
+  private getEffectiveColor(): string {
+    return this.fill ?? this.color;
+  }
+
+  /**
+   * Normalize icon name - removes 'icon-' prefix if present
+   */
+  private normalizeIconName(name: string): string {
+    return name.startsWith('icon-') ? name.slice(5) : name;
+  }
+
   private getIcon(): IconDefinition | null {
-    if (this.name && icons[this.name]) {
-      return icons[this.name];
+    if (this.name) {
+      const normalizedName = this.normalizeIconName(this.name);
+      if (icons[normalizedName]) {
+        return icons[normalizedName];
+      }
+      // Also try with original name in case it exists
+      if (icons[this.name]) {
+        return icons[this.name];
+      }
     }
     return null;
   }
@@ -165,7 +195,8 @@ export class SgIcon {
   }
 
   private renderSvgContent(icon: IconDefinition) {
-    return icon.paths.map(path => <path d={path} fill={this.color} fill-rule={icon.fillRule || 'nonzero'} />);
+    const effectiveColor = this.getEffectiveColor();
+    return icon.paths.map(path => <path d={path} fill={effectiveColor} fill-rule={icon.fillRule || 'nonzero'} />);
   }
 
   private renderCustomSvg() {
@@ -186,7 +217,7 @@ export class SgIcon {
       <svg
         viewBox={viewBox}
         xmlns="http://www.w3.org/2000/svg"
-        style={{ fill: this.color }}
+        style={{ fill: this.getEffectiveColor() }}
         // eslint-disable-next-line react/no-danger
         {...({ innerHTML: svgContent } as any)}
       />
@@ -199,13 +230,15 @@ export class SgIcon {
     const height = this.getSize('height');
     const transform = this.getTransform();
 
+    const effectiveColor = this.getEffectiveColor();
+
     const hostStyle: { [key: string]: string } = {
       'width': width,
       'height': height,
       '--icon-size': this.normalizeSize(this.size),
       '--icon-width': width,
       '--icon-height': height,
-      '--icon-color': this.color,
+      '--icon-color': effectiveColor,
     };
 
     if (transform) {
@@ -239,7 +272,7 @@ export class SgIcon {
         return (
           <Host class={{ ...hostClasses, 'icon--error': true }} style={hostStyle}>
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill={this.color} />
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill={effectiveColor} />
             </svg>
           </Host>
         );

@@ -10,26 +10,29 @@
   "unpkg": "dist/saged-ui/saged-ui.esm.js",
   "exports": {
     ".": {
+      "types": "./dist/types/index.d.ts",
       "import": "./dist/saged-ui/saged-ui.esm.js",
-      "require": "./dist/saged-ui/saged-ui.cjs.js",
-      "types": "./dist/types/index.d.ts"
+      "require": "./dist/saged-ui/saged-ui.cjs.js"
+    },
+    "./dist/components/*": {
+      "import": "./dist/components/*"
     },
     "./skeleton": {
-      "import": "./dist/components/skeleton.js",
-      "types": "./dist/components/skeleton.d.ts"
+      "types": "./dist/components/skeleton.d.ts",
+      "import": "./dist/components/skeleton.js"
     },
     "./svg-icon": {
-      "import": "./dist/components/svg-icon.js",
-      "types": "./dist/components/svg-icon.d.ts"
+      "types": "./dist/components/svg-icon.d.ts",
+      "import": "./dist/components/svg-icon.js"
     },
     "./article-editor": {
-      "import": "./dist/components/article-editor.js",
-      "types": "./dist/components/article-editor.d.ts"
+      "types": "./dist/components/article-editor.d.ts",
+      "import": "./dist/components/article-editor.js"
     },
     "./loader": {
+      "types": "./loader/index.d.ts",
       "import": "./loader/index.js",
-      "require": "./loader/index.cjs",
-      "types": "./loader/index.d.ts"
+      "require": "./loader/index.cjs"
     },
     "./styles/*": {
       "import": "./dist/styles/*"
