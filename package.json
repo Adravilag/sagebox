@@ -14,9 +14,6 @@
       "import": "./dist/saged-ui/saged-ui.esm.js",
       "require": "./dist/saged-ui/saged-ui.cjs.js"
     },
-    "./dist/components/*": {
-      "import": "./dist/components/*"
-    },
     "./skeleton": {
       "types": "./dist/components/skeleton.d.ts",
       "import": "./dist/components/skeleton.js"
