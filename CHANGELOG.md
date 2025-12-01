@@ -1,3 +1,15 @@
+## [1.1.0](https://github.com/Adravilag/saged-ui/compare/v1.0.1...v1.1.0) (2025-12-01)
+
+
+### ✨ Features
+
+* **svg-icon:** add fill property as alias for color and enhance icon name handling ([b86410f](https://github.com/Adravilag/saged-ui/commit/b86410f098d280d015b3f9a57c07af44dc0ee8e2))
+
+
+### ♻️ Code Refactoring
+
+* improve code structure for readability and maintainability ([076603b](https://github.com/Adravilag/saged-ui/commit/076603b24ac4681330d7c0a45b7f77bc580f2d8f))
+
 ## [1.0.1](https://github.com/Adravilag/saged-ui/compare/v1.0.0...v1.0.1) (2025-12-01)
 
 
