@@ -39,6 +39,10 @@ import PropsTable from './PropsTable.astro';
 
 const { id, title, tag, description, docsUrl, props = [], events = [], slots = [], methods = [] } = Astro.props;
 const hasApiDocs = props.length > 0 || events.length > 0 || slots.length > 0 || methods.length > 0;
+
+// Get base URL and resolve docs path
+const base = import.meta.env.BASE_URL;
+const resolvedDocsUrl = docsUrl ? `${base}${docsUrl.startsWith('/') ? docsUrl.slice(1) : docsUrl}` : undefined;
 ---
 
 <article class="card" id={id}>
@@ -56,8 +60,8 @@ const hasApiDocs = props.length > 0 || events.length > 0 || slots.length > 0 || 
       </div>
     </div>
     <div class="card-header-right">
-      {docsUrl && (
-        <a href={docsUrl} class="card-docs-link" title="Ver documentación completa">
+      {resolvedDocsUrl && (
+        <a href={resolvedDocsUrl} class="card-docs-link" title="Ver documentación completa">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
             <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>

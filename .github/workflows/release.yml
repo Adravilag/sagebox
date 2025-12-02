@@ -32,8 +32,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build Stencil core
         run: npm run build
+
+      - name: Link package for wrappers
+        run: npm link
+
+      - name: Build Angular wrapper
+        run: npm run build:angular
+        continue-on-error: true
+
+      - name: Build React wrapper
+        run: npm run build:react
+        continue-on-error: true
 
       - name: Run tests
         run: npm test

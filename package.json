@@ -86,7 +86,8 @@
         "loader/index.js"
     ],
     "scripts": {
-        "build": "stencil build && npm link && npm run build:angular && npm run build:react",
+        "build": "stencil build",
+        "build:all": "stencil build && npm link && npm run build:angular && npm run build:react",
         "build:angular": "ng-packagr -p angular/ng-package.json",
         "build:react": "cd react && npx tsc -p tsconfig.json",
         "start": "stencil build --dev --watch --config stencil.dev.config.ts",

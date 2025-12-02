@@ -35,6 +35,7 @@ jobs:
 
       - name: Copy build to docs/public
         run: |
+          rm -rf docs/public/saged-ui
           mkdir -p docs/public/saged-ui
           cp -r dist/saged-ui/* docs/public/saged-ui/
 
