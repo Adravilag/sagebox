@@ -3,9 +3,15 @@
  * 
  * Este módulo exporta los componentes de SagedUI como componentes standalone de Angular.
  * 
+ * IMPORTANTE: Asegúrate de importar 'saged-ui' en tu main.ts para registrar los custom elements.
+ * 
  * @example
  * ```typescript
- * import { SgIcon, SgButton, SgBadge, SgDropdown, SgSkeleton } from 'saged-ui/angular';
+ * // main.ts
+ * import 'saged-ui';
+ * 
+ * // my-component.ts
+ * import { SgIcon, SgButton } from 'saged-ui/angular';
  * 
  * @Component({
  *   selector: 'my-component',
@@ -20,11 +26,14 @@
  * ```
  */
 
-// Export all directives/components
-export * from './directives/proxies';
-
-// Export the directives array for module imports
-export { DIRECTIVES } from './directives/index';
-
-// Re-export types from saged-ui for convenience
-export type { Components } from 'saged-ui/components';
+// Export all components
+export {
+  SgArticleEditor,
+  SgBadge,
+  SgButton,
+  SgDropdown,
+  SgIcon,
+  SgSkeleton,
+  SgThemeToggle,
+  DIRECTIVES,
+} from './directives/index';

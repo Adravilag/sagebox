@@ -1,11 +1,33 @@
+import {
+  SgArticleEditor,
+  SgBadge,
+  SgButton,
+  SgDropdown,
+  SgIcon,
+  SgSkeleton,
+  SgThemeToggle,
+} from './proxies';
 
-import * as d from './proxies';
-
+/**
+ * Array of all SagedUI Angular components.
+ * Can be spread into the imports array of a component or module.
+ */
 export const DIRECTIVES = [
-  d.SgArticleEditor,
-  d.SgBadge,
-  d.SgButton,
-  d.SgDropdown,
-  d.SgIcon,
-  d.SgSkeleton
+  SgArticleEditor,
+  SgBadge,
+  SgButton,
+  SgDropdown,
+  SgIcon,
+  SgSkeleton,
+  SgThemeToggle,
 ];
+
+export {
+  SgArticleEditor,
+  SgBadge,
+  SgButton,
+  SgDropdown,
+  SgIcon,
+  SgSkeleton,
+  SgThemeToggle,
+};
