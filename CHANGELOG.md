@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/Adravilag/saged-ui/compare/v1.2.0...v1.2.1) (2025-12-02)
+
+
+### 🐛 Bug Fixes
+
+* **angular:** add event binding to angular wrapper proxies ([3506f50](https://github.com/Adravilag/saged-ui/commit/3506f5056b00e4a92c1ada77e862cc9a9d67fcb1))
+
 ## [1.2.0](https://github.com/Adravilag/saged-ui/compare/v1.1.0...v1.2.0) (2025-12-02)
 
 

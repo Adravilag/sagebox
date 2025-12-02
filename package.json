@@ -1,6 +1,6 @@
 {
   "name": "saged-ui",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "SagedUI - Modern Web Components Library - Reusable UI components for any project",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -14,7 +14,10 @@
       "import": "./dist/saged-ui/saged-ui.esm.js",
       "require": "./dist/saged-ui/saged-ui.cjs.js"
     },
-    "./angular": { "types": "./angular/fesm2022/index.d.ts", "import": "./angular/fesm2022/index.js" },
+    "./angular": {
+      "types": "./angular/fesm2022/index.d.ts",
+      "import": "./angular/fesm2022/index.js"
+    },
     "./components": {
       "types": "./dist/types/components.d.ts",
       "import": "./dist/components/index.js"
