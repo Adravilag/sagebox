@@ -30,8 +30,13 @@ jobs:
       - name: Install root dependencies
         run: npm ci
 
-      - name: Build Stencil components
-        run: npm run build
+      - name: Build Stencil components only
+        run: npx stencil build
+
+      - name: Copy build to docs/public
+        run: |
+          mkdir -p docs/public/saged-ui
+          cp -r dist/saged-ui/* docs/public/saged-ui/
 
       - name: Install docs dependencies
         working-directory: ./docs
