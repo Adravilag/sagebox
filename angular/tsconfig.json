@@ -19,8 +19,9 @@
       "saged-ui/components": ["../dist/types/components.d.ts"],
       "saged-ui/components/*": ["../dist/components/*"]
     },
+    "typeRoots": ["../dist/types", "../node_modules/@types"],
     "baseUrl": "."
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "../dist/types/**/*.d.ts"],
   "exclude": ["node_modules"]
 }
