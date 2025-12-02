@@ -1,6 +1,5 @@
 import { Config } from '@stencil/core';
-// Angular proxies are now manually maintained in angular/src/directives/proxies.ts
-// import { angularOutputTarget } from '@stencil/angular-output-target';
+import { angularOutputTarget } from '@stencil/angular-output-target';
 
 export const config: Config = {
   namespace: 'saged-ui',
@@ -19,14 +18,12 @@ export const config: Config = {
       customElementsExportBehavior: 'auto-define-custom-elements',
       externalRuntime: false,
     },
-    // Angular proxies are manually maintained - don't auto-generate
-    // This avoids issues with file: dependencies and saged-ui/components imports
-    // angularOutputTarget({
-    //   componentCorePackage: 'saged-ui',
-    //   outputType: 'standalone',
-    //   directivesProxyFile: './angular/src/directives/proxies.ts',
-    //   directivesArrayFile: './angular/src/directives/index.ts',
-    // }),
+    angularOutputTarget({
+      componentCorePackage: 'saged-ui',
+      outputType: 'standalone',
+      directivesProxyFile: './angular/src/directives/proxies.ts',
+      directivesArrayFile: './angular/src/directives/index.ts',
+    }),
     {
       type: 'docs-readme',
     },
