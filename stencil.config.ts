@@ -36,5 +36,16 @@ export const config: Config = {
   ],
   testing: {
     browserHeadless: "shell",
+    testPathIgnorePatterns: [
+      '/node_modules/',
+      '/angular/',
+      '/react/',
+      '/docs/',
+    ],
+    modulePathIgnorePatterns: [
+      '<rootDir>/angular/',
+      '<rootDir>/react/',
+      '<rootDir>/docs/',
+    ],
   },
 };
