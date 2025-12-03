@@ -1,0 +1,16 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "saged",
+    "sagedui",
+    "stencil",
+    "stenciljs"
+  ],
+  "ignorePaths": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "*.min.js"
+  ]
+}

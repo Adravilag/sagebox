@@ -2,6 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/saged-ui.svg)](https://www.npmjs.com/package/saged-ui)
 [![CI](https://github.com/adravilag/saged-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/adravilag/saged-ui/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/adravilag/saged-ui/branch/main/graph/badge.svg)](https://codecov.io/gh/adravilag/saged-ui)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/saged-ui)](https://bundlephobia.com/package/saged-ui)
 

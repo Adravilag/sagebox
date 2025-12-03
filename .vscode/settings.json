@@ -26,5 +26,6 @@
     "**/loader": true,
     "**/.turbo": true,
     "**/.stencil": true
-  }
+  },
+  "jest.enable": false
 }

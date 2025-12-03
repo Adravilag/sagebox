@@ -8,24 +8,12 @@ const CONFIG_KEY = '__sgIconConfig';
 /** Global key for loaded JSON paths */
 const LOADED_KEY = '__sgIconsLoaded';
 
-/** Type-safe global storage interface */
-interface SgIconGlobal {
-  [ICONS_KEY]?: Record<string, IconDefinition | string>;
-  [CONFIG_KEY]?: { jsonSrc?: string };
-  [LOADED_KEY]?: Record<string, boolean>;
-}
-
-/** Get typed globalThis */
-function getGlobal(): SgIconGlobal {
-  return globalThis as SgIconGlobal;
-}
-
 /**
  * Get user-registered icons from global storage
  */
 function getUserIcons(): Record<string, IconDefinition | string> {
-  if (typeof globalThis !== 'undefined' && getGlobal()[ICONS_KEY]) {
-    return getGlobal()[ICONS_KEY]!;
+  if (typeof globalThis !== 'undefined' && (globalThis as any)[ICONS_KEY]) {
+    return (globalThis as any)[ICONS_KEY];
   }
   return {};
 }
@@ -34,8 +22,8 @@ function getUserIcons(): Record<string, IconDefinition | string> {
  * Get icon configuration
  */
 function getIconConfig(): { jsonSrc?: string } {
-  if (typeof globalThis !== 'undefined' && getGlobal()[CONFIG_KEY]) {
-    return getGlobal()[CONFIG_KEY]!;
+  if (typeof globalThis !== 'undefined' && (globalThis as any)[CONFIG_KEY]) {
+    return (globalThis as any)[CONFIG_KEY];
   }
   return {};
 }
@@ -45,7 +33,7 @@ function getIconConfig(): { jsonSrc?: string } {
  */
 function isJsonLoaded(path: string): boolean {
   if (typeof globalThis !== 'undefined') {
-    return !!getGlobal()[LOADED_KEY]?.[path];
+    return !!(globalThis as any)[LOADED_KEY]?.[path];
   }
   return false;
 }
@@ -55,11 +43,10 @@ function isJsonLoaded(path: string): boolean {
  */
 function markJsonLoaded(path: string): void {
   if (typeof globalThis !== 'undefined') {
-    const g = getGlobal();
-    if (!g[LOADED_KEY]) {
-      g[LOADED_KEY] = {};
+    if (!(globalThis as any)[LOADED_KEY]) {
+      (globalThis as any)[LOADED_KEY] = {};
     }
-    g[LOADED_KEY]![path] = true;
+    (globalThis as any)[LOADED_KEY][path] = true;
   }
 }
 
@@ -68,11 +55,10 @@ function markJsonLoaded(path: string): void {
  */
 function registerIconsGlobal(icons: Record<string, string>): void {
   if (typeof globalThis !== 'undefined') {
-    const g = getGlobal();
-    if (!g[ICONS_KEY]) {
-      g[ICONS_KEY] = {};
+    if (!(globalThis as any)[ICONS_KEY]) {
+      (globalThis as any)[ICONS_KEY] = {};
     }
-    Object.assign(g[ICONS_KEY]!, icons);
+    Object.assign((globalThis as any)[ICONS_KEY], icons);
   }
 }
 
@@ -184,9 +170,10 @@ export class SgIcon {
   @Prop() flipV: boolean = false;
 
   /**
-   * Accessible label for screen readers
+   * Accessible label for screen readers.
+   * If not provided, defaults to "{name} icon" for non-decorative icons.
    */
-  @Prop() ariaLabel?: string;
+  @Prop({ mutable: true }) ariaLabel?: string;
 
   /**
    * Whether the icon is decorative (hidden from screen readers)
@@ -211,7 +198,7 @@ export class SgIcon {
    */
   static configure(config: { jsonSrc?: string }): void {
     if (typeof globalThis !== 'undefined') {
-      getGlobal()[CONFIG_KEY] = { ...getIconConfig(), ...config };
+      (globalThis as any)[CONFIG_KEY] = { ...getIconConfig(), ...config };
     }
   }
 
@@ -256,11 +243,10 @@ export class SgIcon {
   @Method()
   async registerIcons(icons: Record<string, IconDefinition | string>): Promise<void> {
     if (typeof globalThis !== 'undefined') {
-      const g = getGlobal();
-      if (!g[ICONS_KEY]) {
-        g[ICONS_KEY] = {};
+      if (!(globalThis as any)[ICONS_KEY]) {
+        (globalThis as any)[ICONS_KEY] = {};
       }
-      Object.assign(g[ICONS_KEY]!, icons);
+      Object.assign((globalThis as any)[ICONS_KEY], icons);
     }
   }
 
@@ -274,11 +260,10 @@ export class SgIcon {
   @Method()
   async registerIcon(name: string, icon: IconDefinition | string): Promise<void> {
     if (typeof globalThis !== 'undefined') {
-      const g = getGlobal();
-      if (!g[ICONS_KEY]) {
-        g[ICONS_KEY] = {};
+      if (!(globalThis as any)[ICONS_KEY]) {
+        (globalThis as any)[ICONS_KEY] = {};
       }
-      g[ICONS_KEY]![name] = icon;
+      (globalThis as any)[ICONS_KEY][name] = icon;
     }
   }
 
@@ -340,6 +325,13 @@ export class SgIcon {
     if (jsonPath && !isJsonLoaded(jsonPath)) {
       this.jsonLoading = true;
       this.loadIconsFromJson(jsonPath);
+    }
+  }
+
+  componentWillRender() {
+    // Set default ariaLabel before render to avoid "state changed during rendering" warning
+    if (!this.decorative && !this.ariaLabel && this.name) {
+      this.ariaLabel = `${this.name} icon`;
     }
   }
 
@@ -472,9 +464,8 @@ export class SgIcon {
         viewBox={viewBox}
         xmlns="http://www.w3.org/2000/svg"
         style={{ fill: this.getEffectiveColor() }}
-        ref={el => {
-          if (el) el.innerHTML = svgContent;
-        }}
+        // Using innerHTML for custom SVG content
+        {...({ innerHTML: svgContent } as Record<string, string>)}
       />
     );
   }
@@ -509,12 +500,11 @@ export class SgIcon {
     // Accessibility attributes
     const ariaHidden = this.decorative ? 'true' : undefined;
     const role = this.decorative ? 'presentation' : 'img';
-    const label = this.ariaLabel || (this.name ? `${this.name} icon` : undefined);
 
     // 1. Render custom SVG from src
     if (this.src && this.customSvg) {
       return (
-        <Host class={hostClasses} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? label : undefined}>
+        <Host class={hostClasses} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? this.ariaLabel : undefined}>
           {this.renderCustomSvg()}
         </Host>
       );
@@ -542,7 +532,7 @@ export class SgIcon {
           style={hostStyle}
           aria-hidden={ariaHidden}
           role={role}
-          aria-label={!this.decorative ? label : undefined}
+          aria-label={!this.decorative ? this.ariaLabel : undefined}
         >
           <div
             class="svg-container"
@@ -556,7 +546,7 @@ export class SgIcon {
 
     // 4. Render IconDefinition (built-in or user-registered)
     return (
-      <Host class={hostClasses} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? label : undefined}>
+      <Host class={hostClasses} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? this.ariaLabel : undefined}>
         <svg viewBox={icon.viewBox || '0 0 24 24'} xmlns="http://www.w3.org/2000/svg">
           {this.renderSvgContent(icon)}
         </svg>

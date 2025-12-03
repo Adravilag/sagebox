@@ -103,6 +103,7 @@ npx saged-ui icons build
 ```
 
 Then you can either:
+
 1. Import the TypeScript file (icons auto-register)
 2. Use the JSON file with `json-src` for lazy loading
 
@@ -128,36 +129,47 @@ Then you can either:
 ## Available Icons
 
 ### Navigation & UI
+
 `menu`, `close`, `chevron-left`, `chevron-right`, `chevron-up`, `chevron-down`, `arrow-left`, `arrow-right`, `arrow-up`, `arrow-down`, `home`, `settings`, `search`, `more-vert`, `more-horiz`
 
 ### Actions
+
 `add`, `remove`, `edit`, `delete`, `save`, `copy`, `download`, `upload`, `share`, `print`, `refresh`, `filter`, `sort`
 
 ### Status & Feedback
+
 `check`, `check-circle`, `error`, `warning`, `info`, `help`, `notification`
 
 ### User & Account
+
 `user`, `users`, `login`, `logout`
 
 ### Content & Media
+
 `image`, `video`, `audio`, `file`, `folder`, `folder-open`, `link`, `attachment`
 
 ### Communication
+
 `email`, `chat`, `phone`, `send`
 
-### Medical (MediQ specific)
+### Medical
+
 `heart`, `heart-pulse`, `medical`, `stethoscope`, `pill`, `hospital`, `calendar`, `clock`
 
 ### Visibility
+
 `visibility`, `visibility-off`
 
 ### Toggle States
+
 `star`, `star-outline`, `favorite`, `favorite-outline`, `bookmark`, `bookmark-outline`
 
 ### Layout
+
 `dashboard`, `grid`, `list`
 
 ### Misc
+
 `lock`, `unlock`, `language`, `dark-mode`, `light-mode`, `drag`, `expand`, `collapse`, `fullscreen`, `fullscreen-exit`
 
 ## CSS Custom Properties
@@ -177,7 +189,7 @@ Then you can either:
 
 | Property      | Attribute      | Description                                                                                                                                                | Type               | Default          |
 | ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ---------------- |
-| `ariaLabel`   | `aria-label`   | Accessible label for screen readers                                                                                                                        | `string`           | `undefined`      |
+| `ariaLabel`   | `aria-label`   | Accessible label for screen readers. If not provided, defaults to "{name} icon" for non-decorative icons.                                                  | `string`           | `undefined`      |
 | `color`       | `color`        | Color of the icon (CSS color value)                                                                                                                        | `string`           | `'currentColor'` |
 | `decorative`  | `decorative`   | Whether the icon is decorative (hidden from screen readers)                                                                                                | `boolean`          | `false`          |
 | `fill`        | `fill`         | Alias for color (for compatibility with legacy svg-icon components)                                                                                        | `string`           | `undefined`      |

@@ -483,7 +483,7 @@ export namespace Components {
      */
     interface SgIcon {
         /**
-          * Accessible label for screen readers
+          * Accessible label for screen readers. If not provided, defaults to "{name} icon" for non-decorative icons.
          */
         "ariaLabel"?: string;
         /**
@@ -1346,7 +1346,7 @@ declare namespace LocalJSX {
      */
     interface SgIcon {
         /**
-          * Accessible label for screen readers
+          * Accessible label for screen readers. If not provided, defaults to "{name} icon" for non-decorative icons.
          */
         "ariaLabel"?: string;
         /**

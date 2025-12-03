@@ -15,16 +15,6 @@ import type { IconDefinition } from './icons/builtin';
 /** Global key for user-registered icons */
 const ICONS_KEY = '__sgUserIcons';
 
-/** Type-safe global storage interface */
-interface SgIconGlobal {
-  [ICONS_KEY]?: Record<string, IconDefinition | string>;
-}
-
-/** Get typed globalThis */
-function getGlobal(): SgIconGlobal {
-  return globalThis as SgIconGlobal;
-}
-
 /** Internal storage for user-registered icons */
 const _userIcons: Record<string, IconDefinition | string> = {};
 
@@ -48,7 +38,7 @@ export function registerIcons(icons: Record<string, IconDefinition | string>): v
   Object.assign(_userIcons, icons);
   // Sync with component's userIcons
   if (typeof globalThis !== 'undefined') {
-    getGlobal()[ICONS_KEY] = _userIcons;
+    (globalThis as any)[ICONS_KEY] = _userIcons;
   }
 }
 
@@ -65,7 +55,7 @@ export function registerIcons(icons: Record<string, IconDefinition | string>): v
 export function registerIcon(name: string, icon: IconDefinition | string): void {
   _userIcons[name] = icon;
   if (typeof globalThis !== 'undefined') {
-    getGlobal()[ICONS_KEY] = _userIcons;
+    (globalThis as any)[ICONS_KEY] = _userIcons;
   }
 }
 
