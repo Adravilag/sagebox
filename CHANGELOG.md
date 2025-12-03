@@ -1,3 +1,12 @@
+## [1.4.0](https://github.com/Adravilag/saged-ui/compare/v1.3.0...v1.4.0) (2025-12-03)
+
+
+### ✨ Features
+
+* **docs:** add about page and improve i18n ([d97db23](https://github.com/Adravilag/saged-ui/commit/d97db236842e6fee8b1df460f8ac8179a3b09484))
+* **docs:** add design tokens page and i18n system ([474ed90](https://github.com/Adravilag/saged-ui/commit/474ed90af065e48c3e6b656ae3bf8ed729c0db4d))
+* **docs:** add i18n translations for design tokens page ([c320dfc](https://github.com/Adravilag/saged-ui/commit/c320dfcf548e5a729c4090a5d0dbcdcd445fd1d3))
+
 ## [1.3.0](https://github.com/Adravilag/saged-ui/compare/v1.2.1...v1.3.0) (2025-12-02)
 
 
