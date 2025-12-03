@@ -7,7 +7,7 @@
 
 Modern Web Components Library - Reusable UI components built with Stencil.js
 
-🌐 **[Documentation](https://adravilag.github.io/saged-ui/)** | 📦 **[npm](https://www.npmjs.com/package/saged-ui)** | 🐙 **[GitHub](https://github.com/adravilag/saged-ui)**
+🌐 **[Documentation](https://adravilag.github.io/saged-ui/)** | 📦 **[npm](https://www.npmjs.com/package/saged-ui)** | 🐙 **[GitHub](https://github.com/adravilag/saged-ui)** | 📋 **[Changelog](./CHANGELOG.md)**
 
 ## ✨ Features
 
