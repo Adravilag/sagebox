@@ -236,7 +236,7 @@ export function markdownToHtml(markdown: string): string {
   html = html.replace(/^___$/gm, '<hr />');
 
   // Line breaks (two spaces at end of line or backslash)
-  html = html.replace(/  \n/g, '<br />\n');
+  html = html.replace(/ {2}\n/g, '<br />\n');
   html = html.replace(/\\\n/g, '<br />\n');
 
   // Paragraphs - wrap remaining text blocks (not code block placeholders)

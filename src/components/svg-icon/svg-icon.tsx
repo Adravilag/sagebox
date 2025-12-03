@@ -1,5 +1,66 @@
-import { Component, Prop, h, Host, Watch, State } from '@stencil/core';
-import { icons, IconDefinition } from './icons';
+import { Component, Prop, h, Host, Watch, State, Method, Element } from '@stencil/core';
+import { builtinIcons, IconDefinition } from './icons/builtin';
+
+/** Global key for user-registered icons */
+const ICONS_KEY = '__sgUserIcons';
+/** Global key for icons configuration */
+const CONFIG_KEY = '__sgIconConfig';
+/** Global key for loaded JSON paths */
+const LOADED_KEY = '__sgIconsLoaded';
+
+/**
+ * Get user-registered icons from global storage
+ */
+function getUserIcons(): Record<string, IconDefinition | string> {
+  if (typeof globalThis !== 'undefined' && (globalThis as any)[ICONS_KEY]) {
+    return (globalThis as any)[ICONS_KEY];
+  }
+  return {};
+}
+
+/**
+ * Get icon configuration
+ */
+function getIconConfig(): { jsonSrc?: string } {
+  if (typeof globalThis !== 'undefined' && (globalThis as any)[CONFIG_KEY]) {
+    return (globalThis as any)[CONFIG_KEY];
+  }
+  return {};
+}
+
+/**
+ * Check if a JSON path has been loaded
+ */
+function isJsonLoaded(path: string): boolean {
+  if (typeof globalThis !== 'undefined') {
+    return !!(globalThis as any)[LOADED_KEY]?.[path];
+  }
+  return false;
+}
+
+/**
+ * Mark a JSON path as loaded
+ */
+function markJsonLoaded(path: string): void {
+  if (typeof globalThis !== 'undefined') {
+    if (!(globalThis as any)[LOADED_KEY]) {
+      (globalThis as any)[LOADED_KEY] = {};
+    }
+    (globalThis as any)[LOADED_KEY][path] = true;
+  }
+}
+
+/**
+ * Register icons globally
+ */
+function registerIconsGlobal(icons: Record<string, string>): void {
+  if (typeof globalThis !== 'undefined') {
+    if (!(globalThis as any)[ICONS_KEY]) {
+      (globalThis as any)[ICONS_KEY] = {};
+    }
+    Object.assign((globalThis as any)[ICONS_KEY], icons);
+  }
+}
 
 /**
  * @component sg-icon
@@ -19,6 +80,9 @@ import { icons, IconDefinition } from './icons';
  *
  * <!-- Custom icon via src (fetches SVG file) -->
  * <sg-icon src="/assets/custom-icon.svg"></sg-icon>
+ *
+ * <!-- Load icons from JSON file -->
+ * <sg-icon name="my-icon" json-src="/assets/icons.json"></sg-icon>
  */
 @Component({
   tag: 'sg-icon',
@@ -26,6 +90,8 @@ import { icons, IconDefinition } from './icons';
   shadow: true,
 })
 export class SgIcon {
+  @Element() el!: HTMLElement;
+
   /**
    * The name of the icon from the built-in library.
    * Supports both 'name' and 'icon-name' formats for compatibility.
@@ -36,6 +102,16 @@ export class SgIcon {
    * URL to a custom SVG icon (alternative to name)
    */
   @Prop() src?: string;
+
+  /**
+   * URL to a JSON file containing icon definitions.
+   * The JSON should be an object mapping icon names to SVG strings.
+   * Icons are loaded once and cached globally.
+   *
+   * @example
+   * <sg-icon name="my-icon" json-src="/assets/custom-icons.json"></sg-icon>
+   */
+  @Prop() jsonSrc?: string;
 
   /**
    * Size of the icon in pixels
@@ -94,9 +170,10 @@ export class SgIcon {
   @Prop() flipV: boolean = false;
 
   /**
-   * Accessible label for screen readers
+   * Accessible label for screen readers.
+   * If not provided, defaults to "{name} icon" for non-decorative icons.
    */
-  @Prop() ariaLabel?: string;
+  @Prop({ mutable: true }) ariaLabel?: string;
 
   /**
    * Whether the icon is decorative (hidden from screen readers)
@@ -106,6 +183,117 @@ export class SgIcon {
 
   @State() customSvg: string | null = null;
   @State() loadError: boolean = false;
+  @State() jsonLoading: boolean = false;
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // STATIC METHODS - Global Configuration API
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Configure global settings for sg-icon
+   * @param config - Configuration object
+   * @example
+   * // Set a default JSON source for all icons
+   * SgIcon.configure({ jsonSrc: '/assets/custom-icons.json' });
+   */
+  static configure(config: { jsonSrc?: string }): void {
+    if (typeof globalThis !== 'undefined') {
+      (globalThis as any)[CONFIG_KEY] = { ...getIconConfig(), ...config };
+    }
+  }
+
+  /**
+   * Pre-load icons from a JSON file
+   * @param jsonPath - Path to the JSON file
+   */
+  static async loadIcons(jsonPath: string): Promise<void> {
+    if (isJsonLoaded(jsonPath)) return;
+
+    try {
+      const response = await fetch(jsonPath);
+      if (response.ok) {
+        const iconsData = await response.json();
+        registerIconsGlobal(iconsData);
+        markJsonLoaded(jsonPath);
+      }
+    } catch (error) {
+      console.error('[SagedUI] Failed to load icons from:', jsonPath, error);
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // INSTANCE METHODS - Icon Registration API for users
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Register multiple icons at once
+   * @param icons - Object with icon names as keys and SVG strings or IconDefinition as values
+   * @example
+   * // Using SVG strings (recommended for users)
+   * SgIcon.registerIcons({
+   *   'my-icon': '<svg viewBox="0 0 24 24">...</svg>',
+   *   'another-icon': '<svg>...</svg>'
+   * });
+   *
+   * // Using IconDefinition objects
+   * SgIcon.registerIcons({
+   *   'my-icon': { paths: ['M12 2...'], viewBox: '0 0 24 24' }
+   * });
+   */
+  @Method()
+  async registerIcons(icons: Record<string, IconDefinition | string>): Promise<void> {
+    if (typeof globalThis !== 'undefined') {
+      if (!(globalThis as any)[ICONS_KEY]) {
+        (globalThis as any)[ICONS_KEY] = {};
+      }
+      Object.assign((globalThis as any)[ICONS_KEY], icons);
+    }
+  }
+
+  /**
+   * Register a single icon
+   * @param name - Icon name to register
+   * @param icon - SVG string or IconDefinition
+   * @example
+   * SgIcon.registerIcon('my-custom-icon', '<svg viewBox="0 0 24 24">...</svg>');
+   */
+  @Method()
+  async registerIcon(name: string, icon: IconDefinition | string): Promise<void> {
+    if (typeof globalThis !== 'undefined') {
+      if (!(globalThis as any)[ICONS_KEY]) {
+        (globalThis as any)[ICONS_KEY] = {};
+      }
+      (globalThis as any)[ICONS_KEY][name] = icon;
+    }
+  }
+
+  /**
+   * Get list of all registered user icons
+   */
+  @Method()
+  async getRegisteredIcons(): Promise<string[]> {
+    return Object.keys(getUserIcons());
+  }
+
+  /**
+   * Check if an icon exists (built-in or user-registered)
+   */
+  @Method()
+  async hasIcon(name: string): Promise<boolean> {
+    const normalizedName = this.normalizeIconName(name);
+    const userIcons = getUserIcons();
+    return !!(userIcons[normalizedName] || userIcons[name] || builtinIcons[normalizedName] || builtinIcons[name]);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  @Watch('jsonSrc')
+  async onJsonSrcChange(newJsonSrc: string) {
+    if (newJsonSrc && !isJsonLoaded(newJsonSrc)) {
+      this.jsonLoading = true;
+      await this.loadIconsFromJson(newJsonSrc);
+    }
+  }
 
   @Watch('src')
   async loadCustomIcon(newSrc: string) {
@@ -131,6 +319,38 @@ export class SgIcon {
     if (this.src) {
       this.loadCustomIcon(this.src);
     }
+
+    // Load icons from JSON if specified (instance prop or global config)
+    const jsonPath = this.jsonSrc || getIconConfig().jsonSrc;
+    if (jsonPath && !isJsonLoaded(jsonPath)) {
+      this.jsonLoading = true;
+      this.loadIconsFromJson(jsonPath);
+    }
+  }
+
+  componentWillRender() {
+    // Set default ariaLabel before render to avoid "state changed during rendering" warning
+    if (!this.decorative && !this.ariaLabel && this.name) {
+      this.ariaLabel = `${this.name} icon`;
+    }
+  }
+
+  /**
+   * Load icons from JSON file
+   */
+  private async loadIconsFromJson(jsonPath: string): Promise<void> {
+    try {
+      const response = await fetch(jsonPath);
+      if (response.ok) {
+        const iconsData = await response.json();
+        registerIconsGlobal(iconsData);
+        markJsonLoaded(jsonPath);
+      }
+    } catch (error) {
+      console.error('[SagedUI] Failed to load icons from:', jsonPath, error);
+    } finally {
+      this.jsonLoading = false;
+    }
   }
 
   /**
@@ -141,24 +361,50 @@ export class SgIcon {
   }
 
   /**
-   * Normalize icon name - removes 'icon-' prefix if present
+   * Normalize icon name:
+   * - Removes 'icon-' prefix if present
+   * - Converts ':' to '-' (e.g., 'tabler:home' -> 'tabler-home')
    */
   private normalizeIconName(name: string): string {
-    return name.startsWith('icon-') ? name.slice(5) : name;
+    let normalized = name.startsWith('icon-') ? name.slice(5) : name;
+    // Convert prefix:name format to prefix-name
+    normalized = normalized.replace(':', '-');
+    return normalized;
   }
 
-  private getIcon(): IconDefinition | null {
+  /**
+   * Get icon from user-registered icons or built-in icons
+   * User icons take priority over built-in icons
+   */
+  private getIcon(): IconDefinition | string | null {
     if (this.name) {
       const normalizedName = this.normalizeIconName(this.name);
-      if (icons[normalizedName]) {
-        return icons[normalizedName];
+      const userIcons = getUserIcons();
+
+      // 1. Check user-registered icons first (priority)
+      if (userIcons[normalizedName]) {
+        return userIcons[normalizedName];
       }
-      // Also try with original name in case it exists
-      if (icons[this.name]) {
-        return icons[this.name];
+      if (userIcons[this.name]) {
+        return userIcons[this.name];
+      }
+
+      // 2. Check built-in icons (minimal set)
+      if (builtinIcons[normalizedName]) {
+        return builtinIcons[normalizedName];
+      }
+      if (builtinIcons[this.name]) {
+        return builtinIcons[this.name];
       }
     }
     return null;
+  }
+
+  /**
+   * Check if the icon is an SVG string (user-provided) vs IconDefinition
+   */
+  private isSvgString(icon: IconDefinition | string): icon is string {
+    return typeof icon === 'string';
   }
 
   private normalizeSize(value: number | string): string {
@@ -218,8 +464,8 @@ export class SgIcon {
         viewBox={viewBox}
         xmlns="http://www.w3.org/2000/svg"
         style={{ fill: this.getEffectiveColor() }}
-        // eslint-disable-next-line react/no-danger
-        {...({ innerHTML: svgContent } as any)}
+        // Using innerHTML for custom SVG content
+        {...({ innerHTML: svgContent } as Record<string, string>)}
       />
     );
   }
@@ -233,8 +479,8 @@ export class SgIcon {
     const effectiveColor = this.getEffectiveColor();
 
     const hostStyle: { [key: string]: string } = {
-      'width': width,
-      'height': height,
+      width: width,
+      height: height,
       '--icon-size': this.normalizeSize(this.size),
       '--icon-width': width,
       '--icon-height': height,
@@ -246,7 +492,7 @@ export class SgIcon {
     }
 
     const hostClasses = {
-      'icon': true,
+      icon: true,
       'icon--spin': this.spin,
       'icon--custom': !!this.src,
     };
@@ -254,20 +500,18 @@ export class SgIcon {
     // Accessibility attributes
     const ariaHidden = this.decorative ? 'true' : undefined;
     const role = this.decorative ? 'presentation' : 'img';
-    const label = this.ariaLabel || (this.name ? `${this.name} icon` : undefined);
 
     // 1. Render custom SVG from src
     if (this.src && this.customSvg) {
       return (
-        <Host class={hostClasses} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? label : undefined}>
+        <Host class={hostClasses} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? this.ariaLabel : undefined}>
           {this.renderCustomSvg()}
         </Host>
       );
     }
 
-    // 2. Render from built-in icon registry
+    // 2. No icon found - render error or nothing
     if (!icon) {
-      // Fallback: render a placeholder or nothing
       if (this.loadError) {
         return (
           <Host class={{ ...hostClasses, 'icon--error': true }} style={hostStyle}>
@@ -280,8 +524,29 @@ export class SgIcon {
       return null;
     }
 
+    // 3. Render user-registered SVG string
+    if (this.isSvgString(icon)) {
+      return (
+        <Host
+          class={{ ...hostClasses, 'icon--user': true }}
+          style={hostStyle}
+          aria-hidden={ariaHidden}
+          role={role}
+          aria-label={!this.decorative ? this.ariaLabel : undefined}
+        >
+          <div
+            class="svg-container"
+            ref={el => {
+              if (el) el.innerHTML = icon;
+            }}
+          ></div>
+        </Host>
+      );
+    }
+
+    // 4. Render IconDefinition (built-in or user-registered)
     return (
-      <Host class={hostClasses} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? label : undefined}>
+      <Host class={hostClasses} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? this.ariaLabel : undefined}>
         <svg viewBox={icon.viewBox || '0 0 24 24'} xmlns="http://www.w3.org/2000/svg">
           {this.renderSvgContent(icon)}
         </svg>

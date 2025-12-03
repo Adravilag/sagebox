@@ -170,14 +170,15 @@ export declare interface SgDropdown extends Components.SgDropdown {
 
 @ProxyCmp({
   defineCustomElementFn: defineSgIcon,
-  inputs: ['ariaLabel', 'color', 'decorative', 'fill', 'flipH', 'flipV', 'height', 'name', 'rotate', 'size', 'spin', 'src', 'strokeWidth', 'width']
+  inputs: ['ariaLabel', 'color', 'decorative', 'fill', 'flipH', 'flipV', 'height', 'jsonSrc', 'name', 'rotate', 'size', 'spin', 'src', 'strokeWidth', 'width'],
+  methods: ['registerIcons', 'registerIcon', 'getRegisteredIcons', 'hasIcon']
 })
 @Component({
   selector: 'sg-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['ariaLabel', 'color', 'decorative', 'fill', 'flipH', 'flipV', 'height', 'name', 'rotate', 'size', 'spin', 'src', 'strokeWidth', 'width'],
+  inputs: ['ariaLabel', 'color', 'decorative', 'fill', 'flipH', 'flipV', 'height', 'jsonSrc', 'name', 'rotate', 'size', 'spin', 'src', 'strokeWidth', 'width'],
 })
 export class SgIcon {
   protected el: HTMLSgIconElement;

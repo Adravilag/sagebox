@@ -1,25 +1,109 @@
 /**
- * Script para importar iconos desde un archivo sprites.svg al sistema de iconos
+ * Script to import icons from a sprites.svg file into the icon system
  *
- * Uso: node scripts/import-sprites.js <ruta-sprites.svg>
- * Ejemplo: node scripts/import-sprites.js ../MediQ-Monorepo/frontend/public/sprites.svg
+ * Usage: node scripts/import-sprites.js <path-to-sprites.svg>
+ * Example: node scripts/import-sprites.js ../my-project/public/sprites.svg
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
-// Rutas
+// Paths
 const ICONS_JSON_PATH = path.join(__dirname, '..', 'src', 'components', 'svg-icon', 'icons', 'icons.json');
 
 /**
- * Parsea un archivo SVG sprite y extrae los symbols
- * @param {string} svgContent - Contenido del archivo SVG
- * @returns {Object} - Objeto con los iconos extraídos
+ * Extracts the icon name from the symbol id
+ * @param {string} iconId - Symbol ID
+ * @returns {string} - Normalized icon name
+ */
+function extractIconName(iconId) {
+  // Remove "icon-" prefix if exists, status- is kept
+  return iconId.startsWith('icon-') ? iconId.substring(5) : iconId;
+}
+
+/**
+ * Extracts all paths from SVG content
+ * @param {string} content - Symbol content
+ * @returns {string[]} - Array of paths
+ */
+function extractPaths(content) {
+  const pathRegex = /<path\s+([^>]*)\/?>/gi;
+  const paths = [];
+  let pathMatch;
+
+  while ((pathMatch = pathRegex.exec(content)) !== null) {
+    const pathAttrs = pathMatch[1];
+    const dMatch = pathAttrs.match(/d="([^"]+)"/);
+    if (dMatch) {
+      paths.push(dMatch[1]);
+    }
+  }
+
+  return paths;
+}
+
+/**
+ * Extracts all circles from SVG content
+ * @param {string} content - Symbol content
+ * @returns {Array<{cx: number, cy: number, r: number}>} - Array of circles
+ */
+function extractCircles(content) {
+  const circleRegex = /<circle\s+([^>]*)\/?>/gi;
+  const circles = [];
+  let circleMatch;
+
+  while ((circleMatch = circleRegex.exec(content)) !== null) {
+    const circleAttrs = circleMatch[1];
+    const cxMatch = circleAttrs.match(/cx="([^"]+)"/);
+    const cyMatch = circleAttrs.match(/cy="([^"]+)"/);
+    const rMatch = circleAttrs.match(/r="([^"]+)"/);
+
+    if (cxMatch && cyMatch && rMatch) {
+      circles.push({
+        cx: Number.parseFloat(cxMatch[1]),
+        cy: Number.parseFloat(cyMatch[1]),
+        r: Number.parseFloat(rMatch[1]),
+      });
+    }
+  }
+
+  return circles;
+}
+
+/**
+ * Builds the icon data object
+ * @param {string[]} paths - Array of paths
+ * @param {string} viewBox - Icon viewBox
+ * @param {Array} circles - Array of circles
+ * @returns {Object|null} - Icon data or null if no paths
+ */
+function buildIconData(paths, viewBox, circles) {
+  if (paths.length === 0) {
+    return null;
+  }
+
+  const iconData = { paths };
+
+  // Add viewBox if not the standard 0 0 24 24
+  if (viewBox !== '0 0 24 24') {
+    iconData.viewBox = viewBox;
+  }
+
+  // Add circles if any
+  if (circles.length > 0) {
+    iconData.circles = circles;
+  }
+
+  return iconData;
+}
+
+/**
+ * Parses an SVG sprite file and extracts symbols
+ * @param {string} svgContent - SVG file content
+ * @returns {Object} - Object with extracted icons
  */
 function parseSpritesSVG(svgContent) {
   const icons = {};
-
-  // Regex para encontrar symbols
   const symbolRegex = /<symbol\s+([^>]*)>([\s\S]*?)<\/symbol>/gi;
   let symbolMatch;
 
@@ -27,72 +111,23 @@ function parseSpritesSVG(svgContent) {
     const attributes = symbolMatch[1];
     const content = symbolMatch[2].trim();
 
-    // Extraer id del symbol
+    // Extract symbol id
     const idMatch = attributes.match(/id="([^"]+)"/);
     if (!idMatch) continue;
 
-    let iconId = idMatch[1];
+    const iconName = extractIconName(idMatch[1]);
 
-    // Remover prefijo "icon-" o "status-" si existe para el nombre
-    let iconName = iconId;
-    if (iconName.startsWith('icon-')) {
-      iconName = iconName.substring(5);
-    } else if (iconName.startsWith('status-')) {
-      // Mantener el prefijo status- como parte del nombre
-      iconName = iconName;
-    }
-
-    // Extraer viewBox
+    // Extract viewBox
     const viewBoxMatch = attributes.match(/viewBox="([^"]+)"/);
     const viewBox = viewBoxMatch ? viewBoxMatch[1] : '0 0 24 24';
 
-    // Extraer todos los paths
-    const pathRegex = /<path\s+([^>]*)\/?>/gi;
-    const paths = [];
-    let pathMatch;
+    // Extract paths and circles
+    const paths = extractPaths(content);
+    const circles = extractCircles(content);
 
-    while ((pathMatch = pathRegex.exec(content)) !== null) {
-      const pathAttrs = pathMatch[1];
-      const dMatch = pathAttrs.match(/d="([^"]+)"/);
-      if (dMatch) {
-        paths.push(dMatch[1]);
-      }
-    }
-
-    // Extraer círculos y convertirlos a path si es necesario
-    const circleRegex = /<circle\s+([^>]*)\/?>/gi;
-    const circles = [];
-    let circleMatch;
-
-    while ((circleMatch = circleRegex.exec(content)) !== null) {
-      const circleAttrs = circleMatch[1];
-      const cxMatch = circleAttrs.match(/cx="([^"]+)"/);
-      const cyMatch = circleAttrs.match(/cy="([^"]+)"/);
-      const rMatch = circleAttrs.match(/r="([^"]+)"/);
-
-      if (cxMatch && cyMatch && rMatch) {
-        circles.push({
-          cx: parseFloat(cxMatch[1]),
-          cy: parseFloat(cyMatch[1]),
-          r: parseFloat(rMatch[1])
-        });
-      }
-    }
-
-    // Solo agregar si tiene paths
-    if (paths.length > 0) {
-      const iconData = { paths };
-
-      // Agregar viewBox si no es el estándar 0 0 24 24
-      if (viewBox !== '0 0 24 24') {
-        iconData.viewBox = viewBox;
-      }
-
-      // Agregar círculos si los hay
-      if (circles.length > 0) {
-        iconData.circles = circles;
-      }
-
+    // Build icon data
+    const iconData = buildIconData(paths, viewBox, circles);
+    if (iconData) {
       icons[iconName] = iconData;
     }
   }
@@ -101,81 +136,84 @@ function parseSpritesSVG(svgContent) {
 }
 
 /**
- * Función principal
+ * Main function
  */
 async function main() {
-  // Obtener ruta del archivo sprites.svg desde argumentos o usar ruta por defecto
-  let spritesPath = process.argv[2];
+  // Get sprites.svg file path from arguments
+  const spritesPath = process.argv[2];
 
   if (!spritesPath) {
-    // Ruta por defecto
-    spritesPath = path.join(__dirname, '..', '..', 'MediQ-Monorepo', 'frontend', 'public', 'sprites.svg');
-  }
-
-  // Resolver ruta absoluta
-  spritesPath = path.resolve(spritesPath);
-
-  console.log('📂 Buscando sprites en:', spritesPath);
-
-  // Verificar que existe el archivo
-  if (!fs.existsSync(spritesPath)) {
-    console.error('❌ Error: No se encontró el archivo sprites.svg en:', spritesPath);
+    console.error('❌ Error: You must provide the path to the sprites.svg file');
+    console.log('');
+    console.log('Usage: node scripts/import-sprites.js <path-to-sprites.svg>');
+    console.log('Example: node scripts/import-sprites.js ../my-project/public/sprites.svg');
     process.exit(1);
   }
 
-  // Leer el archivo sprites.svg
-  console.log('📖 Leyendo archivo sprites.svg...');
-  const svgContent = fs.readFileSync(spritesPath, 'utf-8');
+  // Resolve absolute path
+  const resolvedPath = path.resolve(spritesPath);
 
-  // Parsear los iconos
-  console.log('🔍 Parseando symbols...');
+  console.log('📂 Looking for sprites at:', resolvedPath);
+
+  // Verify file exists
+  if (!fs.existsSync(resolvedPath)) {
+    console.error('❌ Error: sprites.svg file not found at:', resolvedPath);
+    process.exit(1);
+  }
+
+  // Read sprites.svg file
+  console.log('📖 Reading sprites.svg file...');
+  const svgContent = fs.readFileSync(resolvedPath, 'utf-8');
+
+  // Parse icons
+  console.log('🔍 Parsing symbols...');
   const newIcons = parseSpritesSVG(svgContent);
   const newIconCount = Object.keys(newIcons).length;
-  console.log(`   Encontrados ${newIconCount} iconos en el sprite`);
+  console.log(`   Found ${newIconCount} icons in sprite`);
 
-  // Leer el archivo icons.json existente
-  console.log('📖 Leyendo icons.json existente...');
+  // Read existing icons.json file
+  console.log('📖 Reading existing icons.json...');
   let existingIcons = {};
   if (fs.existsSync(ICONS_JSON_PATH)) {
     existingIcons = JSON.parse(fs.readFileSync(ICONS_JSON_PATH, 'utf-8'));
   }
   const existingCount = Object.keys(existingIcons).length;
-  console.log(`   Existentes: ${existingCount} iconos`);
+  console.log(`   Existing: ${existingCount} icons`);
 
-  // Merge de iconos (los nuevos sobrescriben los existentes si hay conflicto)
+  // Merge icons (new ones overwrite existing if conflict)
   const mergedIcons = { ...existingIcons, ...newIcons };
   const mergedCount = Object.keys(mergedIcons).length;
   const addedCount = mergedCount - existingCount;
   const replacedCount = newIconCount - addedCount;
 
-  // Ordenar alfabéticamente
+  // Sort alphabetically
   const sortedIcons = {};
-  Object.keys(mergedIcons).sort().forEach(key => {
+  for (const key of Object.keys(mergedIcons).sort()) {
     sortedIcons[key] = mergedIcons[key];
-  });
+  }
 
-  // Guardar el archivo actualizado
-  console.log('💾 Guardando icons.json actualizado...');
+  // Save updated file
+  console.log('💾 Saving updated icons.json...');
   fs.writeFileSync(ICONS_JSON_PATH, JSON.stringify(sortedIcons, null, 2));
 
   console.log('');
-  console.log('✅ Importación completada:');
-  console.log(`   📥 Iconos importados: ${newIconCount}`);
-  console.log(`   ➕ Nuevos añadidos: ${addedCount}`);
-  console.log(`   🔄 Reemplazados: ${replacedCount}`);
-  console.log(`   📊 Total final: ${mergedCount}`);
+  console.log('✅ Import completed:');
+  console.log(`   📥 Icons imported: ${newIconCount}`);
+  console.log(`   ➕ New added: ${addedCount}`);
+  console.log(`   🔄 Replaced: ${replacedCount}`);
+  console.log(`   📊 Final total: ${mergedCount}`);
   console.log('');
 
-  // Mostrar lista de iconos importados
-  console.log('📋 Iconos importados del sprite:');
-  Object.keys(newIcons).sort().forEach((name, i) => {
+  // Show list of imported icons
+  console.log('📋 Icons imported from sprite:');
+  for (const name of Object.keys(newIcons).sort()) {
     const isNew = !existingIcons[name];
     const marker = isNew ? '➕' : '🔄';
     console.log(`   ${marker} ${name}`);
-  });
+  }
 
   console.log('');
-  console.log('🔧 Ejecuta "node scripts/generate-icons.js" para regenerar el TypeScript');
+  console.log('🔧 Run "node scripts/generate-icons.js" to regenerate TypeScript');
 }
 
-main().catch(console.error);
+await main();

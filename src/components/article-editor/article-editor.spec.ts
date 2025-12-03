@@ -98,7 +98,7 @@ describe('sg-article-editor', () => {
       html: `<sg-article-editor min-height="600"></sg-article-editor>`,
     });
 
-    const editor = page.root.shadowRoot.querySelector('.article-editor') as HTMLElement;
+    const editor: HTMLElement = page.root.shadowRoot.querySelector('.article-editor');
     expect(editor.style.getPropertyValue('--editor-min-height')).toBe('600px');
   });
 

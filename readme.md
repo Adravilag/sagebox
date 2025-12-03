@@ -1,23 +1,23 @@
 # SagedUI
 
 [![npm version](https://img.shields.io/npm/v/saged-ui.svg)](https://www.npmjs.com/package/saged-ui)
+[![CI](https://github.com/adravilag/saged-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/adravilag/saged-ui/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/adravilag/saged-ui/branch/main/graph/badge.svg)](https://codecov.io/gh/adravilag/saged-ui)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue.svg)](https://www.typescriptlang.org/)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/saged-ui)](https://bundlephobia.com/package/saged-ui)
 
 Modern Web Components Library - Reusable UI components built with Stencil.js
 
-🌐 **[Documentation](https://adravilag.github.io/saged-ui/)** | 📦 **[npm](https://www.npmjs.com/package/saged-ui)** | 🐙 **[GitHub](https://github.com/adravilag/saged-ui)**
+🌐 **[Documentation](https://adravilag.github.io/saged-ui/)** | 📦 **[npm](https://www.npmjs.com/package/saged-ui)** | 🐙 **[GitHub](https://github.com/adravilag/saged-ui)** | 📋 **[Changelog](./CHANGELOG.md)**
 
 ## ✨ Features
 
 - 🎨 **Themeable** - CSS Custom Properties for easy theming
-- 🌙 **Dark Mode Ready** - Built-in support for dark mode with smooth transitions
-- ♿ **Accessible** - WCAG 2.1 compliant with ARIA attributes and keyboard navigation
+- 🌙 **Dark Mode Ready** - Built-in support for dark mode
+- ♿ **Accessible** - ARIA attributes and keyboard navigation
 - 🔧 **Framework Agnostic** - Native wrappers for Angular, React, Vue, or vanilla JS
-- 🪶 **Lightweight** - Zero dependencies, tree-shakeable, only load what you need
-- 📘 **TypeScript** - 100% TypeScript with full type definitions
-- 🎯 **Design Tokens** - Consistent design system with CSS variables
+- 🪶 **Lightweight** - Tree-shakeable, only load what you need
+- 📘 **TypeScript** - Full TypeScript support with type definitions
 
 ## 📦 Installation
 
@@ -97,36 +97,13 @@ defineCustomElements();
 
 Explore all components in the [documentation](https://adravilag.github.io/saged-ui/).
 
-| Component | Description |
-|-----------|-------------|
-| `sg-button` | Customizable button with variants and sizes |
-| `sg-badge` | Labels and status indicators |
-| `sg-icon` | SVG icon system (190+ icons) |
-| `sg-dropdown` | Accessible dropdown menu |
-| `sg-skeleton` | Loading placeholder animations |
-| `sg-article-editor` | Rich text editor with markdown support |
-| `sg-theme-toggle` | Dark/light mode toggle switch |
-
-## 🎨 Design Tokens
-
-Import design tokens for consistent styling:
-
-```css
-/* CSS Import */
-@import 'saged-ui/dist/saged-ui/styles/tokens.css';
-```
-
-```js
-// JavaScript/Bundler
-import 'saged-ui/dist/saged-ui/styles/tokens.css';
-```
-
-```html
-<!-- CDN -->
-<link rel="stylesheet" href="https://unpkg.com/saged-ui/dist/saged-ui/styles/tokens.css">
-```
-
-Available tokens include colors, spacing, typography, shadows, and transitions. See the [Design Tokens documentation](https://adravilag.github.io/saged-ui/tokens/) for the complete list.
+- `sg-button` - Customizable button
+- `sg-badge` - Labels and status indicators
+- `sg-icon` - SVG icons (190+)
+- `sg-dropdown` - Dropdown menu
+- `sg-skeleton` - Loading placeholder
+- `sg-article-editor` - Rich text editor
+- `sg-theme-toggle` - Dark/light mode toggle
 
 ## 🎨 Theming
 
@@ -158,8 +135,8 @@ Customize components using CSS Custom Properties:
 # Install dependencies
 npm install
 
-# Start dev server with hot reload
-npm start
+# Start dev server with docs
+npm run docs:dev
 
 # Build components
 npm run build
@@ -174,10 +151,6 @@ npm test
 npm run storybook
 ```
 
-## 🤝 Contributing
-
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
-
 ## 📄 License
 
-MIT © [Adrián Dávila Guerra](https://github.com/adravilag)
+MIT © [adravilag](https://github.com/adravilag)

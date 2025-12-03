@@ -28,7 +28,7 @@ describe('sg-badge', () => {
   describe('variants', () => {
     const variants = ['primary', 'secondary', 'success', 'warning', 'error', 'info', 'neutral', 'purple', 'cyan'] as const;
 
-    variants.forEach(variant => {
+    for (const variant of variants) {
       it(`renders ${variant} variant correctly`, async () => {
         const page = await newSpecPage({
           components: [SgBadge],
@@ -39,13 +39,13 @@ describe('sg-badge', () => {
         expect(page.root.getAttribute('variant')).toBe(variant);
         expect(page.root).toHaveClass(`sg-badge--${variant}`);
       });
-    });
+    }
   });
 
   describe('sizes', () => {
     const sizes = ['xs', 'sm', 'md', 'lg'] as const;
 
-    sizes.forEach(size => {
+    for (const size of sizes) {
       it(`renders ${size} size correctly`, async () => {
         const page = await newSpecPage({
           components: [SgBadge],
@@ -56,7 +56,7 @@ describe('sg-badge', () => {
         expect(page.root.getAttribute('size')).toBe(size);
         expect(page.root).toHaveClass(`sg-badge--${size}`);
       });
-    });
+    }
   });
 
   describe('pill style', () => {

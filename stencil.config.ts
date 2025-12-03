@@ -41,11 +41,20 @@ export const config: Config = {
       '/angular/',
       '/react/',
       '/docs/',
+      '/tests/', // Playwright E2E tests
     ],
     modulePathIgnorePatterns: [
       '<rootDir>/angular/',
       '<rootDir>/react/',
       '<rootDir>/docs/',
+      '<rootDir>/tests/', // Playwright E2E tests
     ],
+    collectCoverageFrom: [
+      'src/components/**/*.{ts,tsx}',
+      '!src/components/**/*.stories.ts',
+      '!src/components/**/*.d.ts',
+    ],
+    coverageReporters: ['text', 'lcov', 'html'],
+    coverageDirectory: 'coverage',
   },
 };
