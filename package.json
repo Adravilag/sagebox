@@ -5,11 +5,23 @@
     "main": "dist/index.cjs.js",
     "module": "dist/index.js",
     "types": "dist/types/index.d.ts",
+    "workspaces": [
+        "docs",
+        "tools/*"
+    ],
+    "bin": {
+        "saged-ui": "./bin/cli.js"
+    },
     "collection": "dist/collection/collection-manifest.json",
     "collection:main": "dist/collection/index.js",
     "unpkg": "dist/saged-ui/saged-ui.esm.js",
     "exports": {
         ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs.js"
+        },
+        "./components": {
             "types": "./dist/types/index.d.ts",
             "import": "./dist/saged-ui/saged-ui.esm.js",
             "require": "./dist/saged-ui/saged-ui.cjs.js"
@@ -66,6 +78,12 @@
             "default": "./dist/react/index.js",
             "types": "./dist/react/index.d.ts",
             "import": "./dist/react/index.js"
+        },
+        "./cli": {
+            "require": "./cli/index.js"
+        },
+        "./cli/plugins/vite": {
+            "require": "./cli/plugins/vite.js"
         }
     },
     "repository": {
@@ -79,7 +97,11 @@
     "files": [
         "dist/",
         "loader/",
-        "scripts/"
+        "scripts/",
+        "bin/",
+        "cli/",
+        "tools/",
+        "react/"
     ],
     "sideEffects": [
         "dist/saged-ui/saged-ui.esm.js",
@@ -146,6 +168,9 @@
         "storybook": "^8.6.14",
         "typescript": "^5.9.3",
         "vite": "^6.4.1"
+    },
+    "dependencies": {
+        "commander": "^12.1.0"
     },
     "keywords": [
         "saged-ui",

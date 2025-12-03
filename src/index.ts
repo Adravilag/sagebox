@@ -10,3 +10,6 @@
 
 export { format } from './utils/utils';
 export type * from './components.d.ts';
+
+// Icon management utilities
+export { registerIcons, registerIcon, getRegisteredIcons, hasRegisteredIcon, type IconDefinition } from './components/svg-icon';

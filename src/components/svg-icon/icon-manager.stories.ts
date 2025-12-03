@@ -8,7 +8,7 @@
  * así que siempre verás los datos más recientes al recargar la página.
  */
 
-const API_URL = 'http://localhost:3456/api/icons';
+const API_URL = 'http://localhost:4567/api/icons';
 
 // Tipos
 interface IconDefinition {

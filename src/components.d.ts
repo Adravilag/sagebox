@@ -9,11 +9,13 @@ import { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, View
 import { EditorTranslations, SupportedLocale } from "./components/article-editor/utils/i18n";
 import { BadgeSize, BadgeVariant } from "./components/badge/badge";
 import { ButtonShape, ButtonSize, ButtonVariant } from "./components/button/button";
+import { IconDefinition } from "./components/svg-icon/icons/builtin";
 import { ThemeMode } from "./components/theme-toggle/theme-toggle";
 export { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from "./components/article-editor/utils";
 export { EditorTranslations, SupportedLocale } from "./components/article-editor/utils/i18n";
 export { BadgeSize, BadgeVariant } from "./components/badge/badge";
 export { ButtonShape, ButtonSize, ButtonVariant } from "./components/button/button";
+export { IconDefinition } from "./components/svg-icon/icons/builtin";
 export { ThemeMode } from "./components/theme-toggle/theme-toggle";
 export namespace Components {
     /**
@@ -476,6 +478,8 @@ export namespace Components {
      * <sg-icon name="heart" fill="#ff0000"></sg-icon>
      * <!-- Custom icon via src (fetches SVG file) -->
      * <sg-icon src="/assets/custom-icon.svg"></sg-icon>
+     * <!-- Load icons from JSON file -->
+     * <sg-icon name="my-icon" json-src="/assets/icons.json"></sg-icon>
      */
     interface SgIcon {
         /**
@@ -508,13 +512,39 @@ export namespace Components {
          */
         "flipV": boolean;
         /**
+          * Get list of all registered user icons
+         */
+        "getRegisteredIcons": () => Promise<string[]>;
+        /**
+          * Check if an icon exists (built-in or user-registered)
+         */
+        "hasIcon": (name: string) => Promise<boolean>;
+        /**
           * Height of the icon (overrides size)
          */
         "height"?: number | string;
         /**
+          * URL to a JSON file containing icon definitions. The JSON should be an object mapping icon names to SVG strings. Icons are loaded once and cached globally.
+          * @example <sg-icon name="my-icon" json-src="/assets/custom-icons.json"></sg-icon>
+         */
+        "jsonSrc"?: string;
+        /**
           * The name of the icon from the built-in library. Supports both 'name' and 'icon-name' formats for compatibility.
          */
         "name"?: string;
+        /**
+          * Register a single icon
+          * @param name - Icon name to register
+          * @param icon - SVG string or IconDefinition
+          * @example SgIcon.registerIcon('my-custom-icon', '<svg viewBox="0 0 24 24">...</svg>');
+         */
+        "registerIcon": (name: string, icon: IconDefinition | string) => Promise<void>;
+        /**
+          * Register multiple icons at once
+          * @param icons - Object with icon names as keys and SVG strings or IconDefinition as values
+          * @example // Using SVG strings (recommended for users) SgIcon.registerIcons({   'my-icon': '<svg viewBox="0 0 24 24">...</svg>',   'another-icon': '<svg>...</svg>' });  // Using IconDefinition objects SgIcon.registerIcons({   'my-icon': { paths: ['M12 2...'], viewBox: '0 0 24 24' } });
+         */
+        "registerIcons": (icons: Record<string, IconDefinition | string>) => Promise<void>;
         /**
           * Rotation angle in degrees
          */
@@ -797,6 +827,8 @@ declare global {
      * <sg-icon name="heart" fill="#ff0000"></sg-icon>
      * <!-- Custom icon via src (fetches SVG file) -->
      * <sg-icon src="/assets/custom-icon.svg"></sg-icon>
+     * <!-- Load icons from JSON file -->
+     * <sg-icon name="my-icon" json-src="/assets/icons.json"></sg-icon>
      */
     interface HTMLSgIconElement extends Components.SgIcon, HTMLStencilElement {
     }
@@ -1309,6 +1341,8 @@ declare namespace LocalJSX {
      * <sg-icon name="heart" fill="#ff0000"></sg-icon>
      * <!-- Custom icon via src (fetches SVG file) -->
      * <sg-icon src="/assets/custom-icon.svg"></sg-icon>
+     * <!-- Load icons from JSON file -->
+     * <sg-icon name="my-icon" json-src="/assets/icons.json"></sg-icon>
      */
     interface SgIcon {
         /**
@@ -1344,6 +1378,11 @@ declare namespace LocalJSX {
           * Height of the icon (overrides size)
          */
         "height"?: number | string;
+        /**
+          * URL to a JSON file containing icon definitions. The JSON should be an object mapping icon names to SVG strings. Icons are loaded once and cached globally.
+          * @example <sg-icon name="my-icon" json-src="/assets/custom-icons.json"></sg-icon>
+         */
+        "jsonSrc"?: string;
         /**
           * The name of the icon from the built-in library. Supports both 'name' and 'icon-name' formats for compatibility.
          */
@@ -1570,6 +1609,8 @@ declare module "@stencil/core" {
              * <sg-icon name="heart" fill="#ff0000"></sg-icon>
              * <!-- Custom icon via src (fetches SVG file) -->
              * <sg-icon src="/assets/custom-icon.svg"></sg-icon>
+             * <!-- Load icons from JSON file -->
+             * <sg-icon name="my-icon" json-src="/assets/icons.json"></sg-icon>
              */
             "sg-icon": LocalJSX.SgIcon & JSXBase.HTMLAttributes<HTMLSgIconElement>;
             /**

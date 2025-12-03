@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
@@ -7,6 +8,11 @@ export default defineConfig({
   base: '/saged-ui',
   outDir: '../dist-docs',
   trailingSlash: 'always',
+  // Static by default, SSR only where needed (Icon Manager)
+  output: 'static',
+  adapter: node({
+    mode: 'standalone'
+  }),
   build: {
     assets: 'assets'
   },
