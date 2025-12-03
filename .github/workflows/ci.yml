@@ -77,6 +77,9 @@ jobs:
         run: npm run format:check
         continue-on-error: true
 
+      - name: Build for size check
+        run: npm run build
+
       - name: Check bundle size
         run: npm run size
 
