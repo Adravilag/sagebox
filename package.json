@@ -152,7 +152,7 @@
     }
   },
   "devDependencies": {
-    "@angular/common": "^20.3.0",
+    "@angular/common": "^21.0.3",
     "@angular/compiler-cli": "^20.3.0",
     "@angular/core": "^20.3.0",
     "@commitlint/cli": "^18.6.1",
