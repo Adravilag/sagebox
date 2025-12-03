@@ -495,6 +495,39 @@ describe('sg-article-editor', () => {
     expect(page.rootInstance.locale).toBe('es');
   });
 
+  it('supports RTL locales', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor locale="ar"></sg-article-editor>`,
+    });
+
+    expect(page.rootInstance.isRtl).toBe(true);
+    const editor = page.root.shadowRoot.querySelector('.article-editor');
+    expect(editor.getAttribute('dir')).toBe('rtl');
+  });
+
+  it('supports custom translations', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    page.rootInstance.customTranslations = {
+      modes: { html: 'Custom HTML' },
+      toolbar: { bold: 'Custom Bold' },
+      status: { words: 'Custom Words' },
+      actions: {},
+      placeholders: {},
+      preview: {},
+      aria: {},
+    };
+    await page.waitForChanges();
+
+    const t = page.rootInstance.t;
+    expect(t.modes.html).toBe('Custom HTML');
+    expect(t.toolbar.bold).toBe('Custom Bold');
+  });
+
   // =====================================================
   // COMPONENT LIFECYCLE TESTS
   // =====================================================
@@ -520,5 +553,789 @@ describe('sg-article-editor', () => {
     await page.waitForChanges();
 
     expect(page.rootInstance.internalValue).toBe('Updated content');
+  });
+
+  it('calls disconnectedCallback and cleans up external window', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    // Mock external window
+    const mockWindow = { closed: false, close: jest.fn() };
+    page.rootInstance.externalWindow = mockWindow;
+
+    // Trigger disconnectedCallback
+    page.rootInstance.disconnectedCallback();
+
+    expect(mockWindow.close).toHaveBeenCalled();
+  });
+
+  it('does not update internal value if same as current', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor value="Same"></sg-article-editor>`,
+    });
+
+    const initialValue = page.rootInstance.internalValue;
+    page.rootInstance.handleValueChange('Same');
+    expect(page.rootInstance.internalValue).toBe(initialValue);
+  });
+
+  // =====================================================
+  // EXTERNAL PREVIEW TESTS
+  // =====================================================
+
+  it('toggleExternalPreview opens preview window', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor enable-external-preview="true" value="Test content"></sg-article-editor>`,
+    });
+
+    // Mock window.open
+    const mockWindow = {
+      closed: false,
+      close: jest.fn(),
+      document: {
+        open: jest.fn(),
+        write: jest.fn(),
+        close: jest.fn(),
+      },
+    };
+
+    const originalOpen = global.window.open;
+    global.window.open = jest.fn().mockReturnValue(mockWindow);
+
+    page.rootInstance.toggleExternalPreview();
+
+    expect(global.window.open).toHaveBeenCalled();
+    expect(page.rootInstance.isExternalPreviewOpen).toBe(true);
+
+    global.window.open = originalOpen;
+  });
+
+  it('toggleExternalPreview closes preview window if already open', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor enable-external-preview="true"></sg-article-editor>`,
+    });
+
+    const mockWindow = { closed: false, close: jest.fn() };
+    page.rootInstance.externalWindow = mockWindow;
+    page.rootInstance.isExternalPreviewOpen = true;
+
+    page.rootInstance.toggleExternalPreview();
+
+    expect(mockWindow.close).toHaveBeenCalled();
+    expect(page.rootInstance.isExternalPreviewOpen).toBe(false);
+  });
+
+  it('updateExternalPreview does nothing if window is closed', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    page.rootInstance.externalWindow = { closed: true };
+    // Should not throw
+    page.rootInstance.updateExternalPreview();
+  });
+
+  it('updateExternalPreview writes content to external window', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor value="<p>Test</p>"></sg-article-editor>`,
+    });
+
+    const mockDocument = {
+      open: jest.fn(),
+      write: jest.fn(),
+      close: jest.fn(),
+    };
+    page.rootInstance.externalWindow = { closed: false, document: mockDocument };
+
+    page.rootInstance.updateExternalPreview();
+
+    expect(mockDocument.open).toHaveBeenCalled();
+    expect(mockDocument.write).toHaveBeenCalled();
+    expect(mockDocument.close).toHaveBeenCalled();
+  });
+
+  it('startExternalPreviewPolling detects closed window', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    page.rootInstance.isExternalPreviewOpen = true;
+    page.rootInstance.externalWindow = { closed: true };
+
+    // Call the method
+    page.rootInstance.startExternalPreviewPolling();
+
+    // Wait for requestAnimationFrame
+    await new Promise(resolve => setTimeout(resolve, 50));
+
+    expect(page.rootInstance.isExternalPreviewOpen).toBe(false);
+    expect(page.rootInstance.externalWindow).toBeNull();
+  });
+
+  it('componentDidLoad starts polling if external preview is open', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const spy = jest.spyOn(page.rootInstance, 'startExternalPreviewPolling');
+    page.rootInstance.isExternalPreviewOpen = true;
+    page.rootInstance.componentDidLoad();
+
+    expect(spy).toHaveBeenCalled();
+  });
+
+  // =====================================================
+  // TOOLBAR ACTION TESTS
+  // =====================================================
+
+  it('handleToolbarAction opens media library for image action', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const spy = jest.fn();
+    page.root.addEventListener('mediaLibraryOpen', spy);
+
+    page.rootInstance.handleToolbarAction('image');
+
+    expect(page.rootInstance.isMediaLibraryOpen).toBe(true);
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('handleToolbarAction returns early if no textareaRef', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    page.rootInstance.textareaRef = null;
+    // Should not throw
+    page.rootInstance.handleToolbarAction('bold');
+  });
+
+  it('handleToolbarAction applies formatting when textarea is available', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor value="test" content-type="markdown"></sg-article-editor>`,
+    });
+
+    await page.waitForChanges();
+
+    const textarea = page.root.shadowRoot.querySelector('textarea');
+    Object.defineProperty(textarea, 'selectionStart', { value: 0, writable: true, configurable: true });
+    Object.defineProperty(textarea, 'selectionEnd', { value: 4, writable: true, configurable: true });
+    Object.defineProperty(textarea, 'value', { value: 'test', writable: true, configurable: true });
+
+    page.rootInstance.handleToolbarAction('bold');
+    await page.waitForChanges();
+
+    const content = await page.rootInstance.getContent();
+    expect(content).toContain('**');
+  });
+
+  // =====================================================
+  // KEYBOARD SHORTCUT TESTS
+  // =====================================================
+
+  it('handleKeyDown calls handleToolbarAction for valid shortcut', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    // Mock textareaRef to prevent error in handleToolbarAction
+    page.rootInstance.textareaRef = null;
+
+    const event = {
+      key: 'b',
+      ctrlKey: true,
+      metaKey: false,
+      shiftKey: false,
+      altKey: false,
+      preventDefault: jest.fn(),
+    };
+
+    page.rootInstance.handleKeyDown(event as unknown as KeyboardEvent);
+
+    // preventDefault should be called for valid shortcuts
+    expect(event.preventDefault).toHaveBeenCalled();
+  });
+
+  it('handleKeyDown does nothing for non-shortcut key', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const spy = jest.spyOn(page.rootInstance, 'handleToolbarAction');
+
+    const event = {
+      key: 'x',
+      ctrlKey: false,
+      metaKey: false,
+      shiftKey: false,
+      altKey: false,
+      preventDefault: jest.fn(),
+    };
+
+    page.rootInstance.handleKeyDown(event as unknown as KeyboardEvent);
+
+    expect(event.preventDefault).not.toHaveBeenCalled();
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  // =====================================================
+  // INPUT HANDLING TESTS
+  // =====================================================
+
+  it('handleInput updates value and emits change', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const spy = jest.fn();
+    page.root.addEventListener('editorChange', spy);
+
+    const mockEvent = {
+      target: { value: 'New content from input' },
+    };
+
+    page.rootInstance.handleInput(mockEvent);
+    await page.waitForChanges();
+
+    expect(page.rootInstance.internalValue).toBe('New content from input');
+    expect(spy).toHaveBeenCalled();
+  });
+
+  // =====================================================
+  // VIEW MODE CHANGE TESTS
+  // =====================================================
+
+  it('handleViewModeChange does nothing if same mode', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor view-mode="editor"></sg-article-editor>`,
+    });
+
+    const spy = jest.fn();
+    page.root.addEventListener('viewModeChange', spy);
+
+    page.rootInstance.handleViewModeChange('editor');
+
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('handleViewModeChange emits event on mode change', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor view-mode="editor"></sg-article-editor>`,
+    });
+
+    const spy = jest.fn();
+    page.root.addEventListener('viewModeChange', spy);
+
+    page.rootInstance.handleViewModeChange('preview');
+
+    expect(spy).toHaveBeenCalled();
+    expect(page.rootInstance.viewMode).toBe('preview');
+  });
+
+  // =====================================================
+  // CONTENT TYPE CHANGE TESTS
+  // =====================================================
+
+  it('handleContentTypeChange does nothing if same type', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor content-type="html"></sg-article-editor>`,
+    });
+
+    const spy = jest.fn();
+    page.root.addEventListener('contentTypeChange', spy);
+
+    page.rootInstance.handleContentTypeChange('html');
+
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('handleContentTypeChange converts content and emits event', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor content-type="html" value="<p>Hello</p>"></sg-article-editor>`,
+    });
+
+    const spy = jest.fn();
+    page.root.addEventListener('contentTypeChange', spy);
+
+    page.rootInstance.handleContentTypeChange('markdown');
+
+    expect(spy).toHaveBeenCalled();
+    expect(page.rootInstance.contentType).toBe('markdown');
+  });
+
+  // =====================================================
+  // SPLIT PANEL RESIZE TESTS
+  // =====================================================
+
+  it('handleResizeStart initiates resize', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor view-mode="split"></sg-article-editor>`,
+    });
+
+    await page.waitForChanges();
+
+    const mockEvent = {
+      preventDefault: jest.fn(),
+      clientX: 400,
+    };
+
+    page.rootInstance.handleResizeStart(mockEvent as unknown as MouseEvent);
+
+    expect(mockEvent.preventDefault).toHaveBeenCalled();
+    expect(page.rootInstance.isResizing).toBe(true);
+  });
+
+  it('handleResizeStart handles touch events', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor view-mode="split"></sg-article-editor>`,
+    });
+
+    await page.waitForChanges();
+
+    const mockEvent = {
+      preventDefault: jest.fn(),
+      touches: [{ clientX: 400 }],
+    };
+
+    page.rootInstance.handleResizeStart(mockEvent as unknown as TouchEvent);
+
+    expect(page.rootInstance.isResizing).toBe(true);
+  });
+
+  it('handleResizeStart adds and removes event listeners for mouse', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor view-mode="split"></sg-article-editor>`,
+    });
+
+    await page.waitForChanges();
+
+    // Set up contentRef mock
+    page.rootInstance.contentRef = {
+      getBoundingClientRect: () => ({ left: 0, width: 800 }),
+    };
+
+    const addEventSpy = jest.spyOn(document, 'addEventListener');
+    const removeEventSpy = jest.spyOn(document, 'removeEventListener');
+
+    const mockStartEvent = {
+      preventDefault: jest.fn(),
+      clientX: 400,
+    };
+
+    page.rootInstance.handleResizeStart(mockStartEvent as unknown as MouseEvent);
+
+    expect(addEventSpy).toHaveBeenCalledWith('mousemove', expect.any(Function));
+    expect(addEventSpy).toHaveBeenCalledWith('mouseup', expect.any(Function));
+
+    // Simulate mouse move
+    const mousemoveHandler = addEventSpy.mock.calls.find(call => call[0] === 'mousemove')?.[1] as (e: MouseEvent) => void;
+    if (mousemoveHandler) {
+      mousemoveHandler({ clientX: 500 } as MouseEvent);
+      expect(page.rootInstance.splitPosition).toBeGreaterThan(50);
+    }
+
+    // Simulate mouse up
+    const mouseupHandler = addEventSpy.mock.calls.find(call => call[0] === 'mouseup')?.[1] as () => void;
+    if (mouseupHandler) {
+      mouseupHandler();
+      expect(page.rootInstance.isResizing).toBe(false);
+      expect(removeEventSpy).toHaveBeenCalledWith('mousemove', expect.any(Function));
+    }
+
+    addEventSpy.mockRestore();
+    removeEventSpy.mockRestore();
+  });
+
+  it('handleResizeStart handles touch move events', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor view-mode="split"></sg-article-editor>`,
+    });
+
+    await page.waitForChanges();
+
+    page.rootInstance.contentRef = {
+      getBoundingClientRect: () => ({ left: 0, width: 800 }),
+    };
+
+    const addEventSpy = jest.spyOn(document, 'addEventListener');
+
+    const mockStartEvent = {
+      preventDefault: jest.fn(),
+      touches: [{ clientX: 400 }],
+    };
+
+    page.rootInstance.handleResizeStart(mockStartEvent as unknown as TouchEvent);
+
+    // Simulate touch move
+    const touchmoveHandler = addEventSpy.mock.calls.find(call => call[0] === 'touchmove')?.[1] as (e: TouchEvent) => void;
+    if (touchmoveHandler) {
+      touchmoveHandler({ touches: [{ clientX: 600 }] } as unknown as TouchEvent);
+      expect(page.rootInstance.splitPosition).toBeGreaterThan(60);
+    }
+
+    addEventSpy.mockRestore();
+  });
+
+  it('handleResizeStart clamps position between 20 and 80', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor view-mode="split"></sg-article-editor>`,
+    });
+
+    await page.waitForChanges();
+
+    page.rootInstance.contentRef = {
+      getBoundingClientRect: () => ({ left: 0, width: 100 }),
+    };
+
+    const addEventSpy = jest.spyOn(document, 'addEventListener');
+
+    page.rootInstance.handleResizeStart({ preventDefault: jest.fn(), clientX: 50 } as unknown as MouseEvent);
+
+    const mousemoveHandler = addEventSpy.mock.calls.find(call => call[0] === 'mousemove')?.[1] as (e: MouseEvent) => void;
+    if (mousemoveHandler) {
+      // Try to set below 20%
+      mousemoveHandler({ clientX: 10 } as MouseEvent);
+      expect(page.rootInstance.splitPosition).toBe(20);
+
+      // Try to set above 80%
+      mousemoveHandler({ clientX: 90 } as MouseEvent);
+      expect(page.rootInstance.splitPosition).toBe(80);
+    }
+
+    addEventSpy.mockRestore();
+  });
+
+  it('handleResizeStart returns early if not resizing or no contentRef', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor view-mode="split"></sg-article-editor>`,
+    });
+
+    await page.waitForChanges();
+
+    const addEventSpy = jest.spyOn(document, 'addEventListener');
+
+    page.rootInstance.handleResizeStart({ preventDefault: jest.fn(), clientX: 50 } as unknown as MouseEvent);
+
+    const mousemoveHandler = addEventSpy.mock.calls.find(call => call[0] === 'mousemove')?.[1] as (e: MouseEvent) => void;
+    if (mousemoveHandler) {
+      // Test when contentRef is null
+      page.rootInstance.contentRef = null;
+      const initialPosition = page.rootInstance.splitPosition;
+      mousemoveHandler({ clientX: 500 } as MouseEvent);
+      expect(page.rootInstance.splitPosition).toBe(initialPosition);
+
+      // Test when not resizing
+      page.rootInstance.isResizing = false;
+      page.rootInstance.contentRef = { getBoundingClientRect: () => ({ left: 0, width: 800 }) };
+      mousemoveHandler({ clientX: 600 } as MouseEvent);
+      expect(page.rootInstance.splitPosition).toBe(initialPosition);
+    }
+
+    addEventSpy.mockRestore();
+  });
+
+  // =====================================================
+  // ICON RENDERING TESTS
+  // =====================================================
+
+  it('renderContentTypeIcon returns SVG for html', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderContentTypeIcon('html');
+    expect(icon).toBeDefined();
+  });
+
+  it('renderContentTypeIcon returns SVG for markdown', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderContentTypeIcon('markdown');
+    expect(icon).toBeDefined();
+  });
+
+  it('renderViewModeIcon returns SVG for editor', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderViewModeIcon('editor');
+    expect(icon).toBeDefined();
+  });
+
+  it('renderViewModeIcon returns SVG for preview', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderViewModeIcon('preview');
+    expect(icon).toBeDefined();
+  });
+
+  it('renderViewModeIcon returns SVG for split', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderViewModeIcon('split');
+    expect(icon).toBeDefined();
+  });
+
+  it('renderToolbarIcon returns SVG for bold', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderToolbarIcon('bold');
+    expect(icon).toBeDefined();
+  });
+
+  it('renderToolbarIcon returns SVG for italic', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderToolbarIcon('italic');
+    expect(icon).toBeDefined();
+  });
+
+  it('renderToolbarIcon returns SVG for link', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderToolbarIcon('link');
+    expect(icon).toBeDefined();
+  });
+
+  it('renderToolbarIcon returns SVG for heading', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderToolbarIcon('heading');
+    expect(icon).toBeDefined();
+  });
+
+  it('renderToolbarIcon returns SVG for list', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderToolbarIcon('list');
+    expect(icon).toBeDefined();
+  });
+
+  it('renderToolbarIcon returns SVG for code', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderToolbarIcon('code');
+    expect(icon).toBeDefined();
+  });
+
+  it('renderToolbarIcon returns SVG for quote', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderToolbarIcon('quote');
+    expect(icon).toBeDefined();
+  });
+
+  it('renderToolbarIcon returns SVG for image', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderToolbarIcon('image');
+    expect(icon).toBeDefined();
+  });
+
+  it('renderToolbarIcon returns default for unknown action', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    const icon = page.rootInstance.renderToolbarIcon('unknown');
+    expect(icon).toBeDefined();
+  });
+
+  // =====================================================
+  // CUSTOM STYLE PROPS TESTS
+  // =====================================================
+
+  it('applies custom style props', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor 
+        editor-bg="#fff" 
+        editor-bg-secondary="#f5f5f5"
+        editor-bg-tertiary="#eee"
+        editor-text="#333"
+        editor-text-secondary="#666"
+        editor-border="#ddd"
+        editor-accent="#007bff"
+        editor-border-radius="8px"
+        editor-font-sans="Arial"
+        editor-font-mono="Consolas"
+        editor-font-size="16px"
+      ></sg-article-editor>`,
+    });
+
+    const styles = page.rootInstance.getCustomStyles();
+    expect(styles['--editor-bg']).toBe('#fff');
+    expect(styles['--editor-bg-secondary']).toBe('#f5f5f5');
+    expect(styles['--editor-bg-tertiary']).toBe('#eee');
+    expect(styles['--editor-text']).toBe('#333');
+    expect(styles['--editor-text-secondary']).toBe('#666');
+    expect(styles['--editor-border']).toBe('#ddd');
+    expect(styles['--editor-accent']).toBe('#007bff');
+    expect(styles['--editor-border-radius']).toBe('8px');
+    expect(styles['--editor-font-sans']).toBe('Arial');
+    expect(styles['--editor-font-mono']).toBe('Consolas');
+    expect(styles['--editor-font-size']).toBe('16px');
+  });
+
+  // =====================================================
+  // DISABLED AND READONLY TESTS
+  // =====================================================
+
+  it('renders disabled state correctly', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor disabled></sg-article-editor>`,
+    });
+
+    const editor = page.root.shadowRoot.querySelector('.article-editor');
+    expect(editor.classList.contains('article-editor--disabled')).toBe(true);
+    expect(page.rootInstance.disabled).toBe(true);
+  });
+
+  it('renders readonly state correctly', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor readonly></sg-article-editor>`,
+    });
+
+    expect(page.rootInstance.readonly).toBe(true);
+    const textarea = page.root.shadowRoot.querySelector('textarea');
+    expect(textarea.hasAttribute('readonly')).toBe(true);
+  });
+
+  // =====================================================
+  // WORD COUNT TESTS
+  // =====================================================
+
+  it('hides word count when showWordCount is false', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor show-word-count="false"></sg-article-editor>`,
+    });
+
+    const statusBar = page.root.shadowRoot.querySelector('.article-editor__status-bar');
+    expect(statusBar).toBeNull();
+  });
+
+  // =====================================================
+  // PLACEHOLDER TEST
+  // =====================================================
+
+  it('renders custom placeholder', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor placeholder="Custom placeholder text"></sg-article-editor>`,
+    });
+
+    expect(page.rootInstance.placeholder).toBe('Custom placeholder text');
+  });
+
+  // =====================================================
+  // SPELLCHECK TEST
+  // =====================================================
+
+  it('respects spellcheck prop', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor spellcheck="false"></sg-article-editor>`,
+    });
+
+    expect(page.rootInstance.spellcheck).toBe(false);
+  });
+
+  // =====================================================
+  // MIN HEIGHT TEST
+  // =====================================================
+
+  it('applies min-height from prop', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor min-height="500"></sg-article-editor>`,
+    });
+
+    const styles = page.rootInstance.getCustomStyles();
+    expect(styles['--editor-min-height']).toBe('500px');
+  });
+
+  // =====================================================
+  // INSERT AT CURSOR EARLY RETURN TEST
+  // =====================================================
+
+  it('insertAtCursor returns early if no textareaRef', async () => {
+    const page = await newSpecPage({
+      components: [ArticleEditor],
+      html: `<sg-article-editor></sg-article-editor>`,
+    });
+
+    page.rootInstance.textareaRef = null;
+    const initialValue = page.rootInstance.internalValue;
+
+    await page.rootInstance.insertAtCursor('test');
+
+    expect(page.rootInstance.internalValue).toBe(initialValue);
   });
 });
