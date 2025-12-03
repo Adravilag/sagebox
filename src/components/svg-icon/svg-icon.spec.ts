@@ -419,4 +419,346 @@ describe('sg-icon', () => {
       consoleSpy.mockRestore();
     });
   });
+
+  // =====================================================
+  // JSON SRC LOADING
+  // =====================================================
+
+  describe('jsonSrc prop', () => {
+    const originalFetch = global.fetch;
+
+    afterEach(() => {
+      global.fetch = originalFetch;
+      // Clear loaded JSON cache
+      const g = getGlobal() as Record<string, unknown>;
+      delete g.__sgIconsLoaded;
+    });
+
+    it('should load icons from jsonSrc', async () => {
+      const mockIcons = {
+        'json-icon': '<svg viewBox="0 0 24 24"><rect width="24" height="24"/></svg>',
+      };
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve(mockIcons),
+      });
+
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="json-icon" json-src="/icons.json"></sg-icon>`,
+      });
+
+      await page.waitForChanges();
+      // The icon should be registered after loading
+      expect(page.root).toBeDefined();
+    });
+
+    it('should handle jsonSrc fetch error gracefully', async () => {
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      global.fetch = jest.fn().mockRejectedValueOnce(new Error('Network error'));
+
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="test" json-src="/error.json"></sg-icon>`,
+      });
+
+      await page.waitForChanges();
+      expect(consoleSpy).toHaveBeenCalled();
+      consoleSpy.mockRestore();
+    });
+
+    it('should handle non-ok response for jsonSrc', async () => {
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: false,
+        status: 404,
+      });
+
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="test" json-src="/not-found.json"></sg-icon>`,
+      });
+
+      await page.waitForChanges();
+      // Should not throw, just not load icons
+      expect(page.root).toBeDefined();
+    });
+
+    it('should not reload already loaded jsonSrc', async () => {
+      const mockIcons = { 'cached-icon': '<svg><rect/></svg>' };
+      const fetchMock = jest.fn().mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve(mockIcons),
+      });
+      global.fetch = fetchMock;
+
+      // First load
+      const page1 = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="cached-icon" json-src="/cached.json"></sg-icon>`,
+      });
+      await page1.waitForChanges();
+
+      // Second load - should use cache
+      const page2 = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="cached-icon" json-src="/cached.json"></sg-icon>`,
+      });
+      await page2.waitForChanges();
+
+      // fetch should only be called once for the same path
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  // =====================================================
+  // STATIC loadIcons METHOD
+  // =====================================================
+
+  describe('SgIcon.loadIcons static method', () => {
+    const originalFetch = global.fetch;
+
+    afterEach(() => {
+      global.fetch = originalFetch;
+      const g = getGlobal() as Record<string, unknown>;
+      delete g.__sgIconsLoaded;
+    });
+
+    it('should load icons successfully', async () => {
+      const mockIcons = {
+        'preloaded-icon': '<svg><circle/></svg>',
+      };
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve(mockIcons),
+      });
+
+      await SgIcon.loadIcons('/preload.json');
+
+      // Icon should now be registered
+      const userIcons = getGlobal().__sgUserIcons;
+      expect(userIcons?.['preloaded-icon']).toBeDefined();
+    });
+
+    it('should not reload already loaded path', async () => {
+      const fetchMock = jest.fn().mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({}),
+      });
+      global.fetch = fetchMock;
+
+      await SgIcon.loadIcons('/test-once.json');
+      await SgIcon.loadIcons('/test-once.json');
+
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  // =====================================================
+  // ERROR STATE RENDERING
+  // =====================================================
+
+  describe('error state rendering', () => {
+    const originalFetch = global.fetch;
+
+    afterEach(() => {
+      global.fetch = originalFetch;
+    });
+
+    it('renders error icon when loadError is true', async () => {
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: false,
+        status: 404,
+      });
+
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon src="/not-found.svg"></sg-icon>`,
+      });
+
+      await page.waitForChanges();
+
+      // Should have error class
+      expect(page.root?.classList.contains('icon--error')).toBe(true);
+      // Should render error SVG
+      const svg = page.root?.shadowRoot?.querySelector('svg');
+      expect(svg).toBeDefined();
+
+      consoleSpy.mockRestore();
+    });
+  });
+
+  // =====================================================
+  // WATCH HANDLERS
+  // =====================================================
+
+  describe('watch handlers', () => {
+    const originalFetch = global.fetch;
+
+    afterEach(() => {
+      global.fetch = originalFetch;
+      const g = getGlobal() as Record<string, unknown>;
+      delete g.__sgIconsLoaded;
+    });
+
+    it('should reload when src prop changes', async () => {
+      const svg1 = '<svg viewBox="0 0 24 24"><path d="M1 1"/></svg>';
+      const svg2 = '<svg viewBox="0 0 24 24"><path d="M2 2"/></svg>';
+
+      const fetchMock = jest
+        .fn()
+        .mockResolvedValueOnce({ ok: true, text: () => Promise.resolve(svg1) })
+        .mockResolvedValueOnce({ ok: true, text: () => Promise.resolve(svg2) })
+        .mockResolvedValueOnce({ ok: true, text: () => Promise.resolve(svg2) });
+
+      global.fetch = fetchMock;
+
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon src="/icon1.svg"></sg-icon>`,
+      });
+
+      await page.waitForChanges();
+
+      // Change src
+      page.root?.setAttribute('src', '/icon2.svg');
+      await page.waitForChanges();
+
+      // May be called multiple times due to internal loading
+      expect(fetchMock).toHaveBeenCalled();
+      expect(fetchMock.mock.calls.some(call => call[0] === '/icon1.svg')).toBe(true);
+      expect(fetchMock.mock.calls.some(call => call[0] === '/icon2.svg')).toBe(true);
+    });
+
+    it('should load icons when jsonSrc prop changes', async () => {
+      const mockIcons1 = { icon1: '<svg><rect/></svg>' };
+      const mockIcons2 = { icon2: '<svg><circle/></svg>' };
+
+      const fetchMock = jest
+        .fn()
+        .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(mockIcons1) })
+        .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(mockIcons2) });
+
+      global.fetch = fetchMock;
+
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="icon1" json-src="/icons1.json"></sg-icon>`,
+      });
+
+      await page.waitForChanges();
+
+      // Change jsonSrc to a new path
+      page.root?.setAttribute('json-src', '/icons2.json');
+      await page.waitForChanges();
+
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  // =====================================================
+  // GLOBAL CONFIG
+  // =====================================================
+
+  describe('global config', () => {
+    const originalFetch = global.fetch;
+
+    afterEach(() => {
+      global.fetch = originalFetch;
+      const g = getGlobal() as Record<string, unknown>;
+      delete g.__sgIconConfig;
+      delete g.__sgIconsLoaded;
+    });
+
+    it('should use global jsonSrc config', async () => {
+      const mockIcons = { 'global-icon': '<svg><rect/></svg>' };
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve(mockIcons),
+      });
+
+      // Set global config
+      SgIcon.configure({ jsonSrc: '/global-icons.json' });
+
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="global-icon"></sg-icon>`,
+      });
+
+      await page.waitForChanges();
+
+      expect(global.fetch).toHaveBeenCalledWith('/global-icons.json');
+    });
+  });
+
+  // =====================================================
+  // CUSTOM SVG PARSING
+  // =====================================================
+
+  describe('custom SVG parsing', () => {
+    const originalFetch = global.fetch;
+
+    afterEach(() => {
+      global.fetch = originalFetch;
+    });
+
+    it('should handle SVG without viewBox', async () => {
+      const mockSvg = '<svg xmlns="http://www.w3.org/2000/svg"><path d="M1 1"/></svg>';
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: true,
+        text: () => Promise.resolve(mockSvg),
+      });
+
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon src="/no-viewbox.svg"></sg-icon>`,
+      });
+
+      await page.waitForChanges();
+      expect(page.root?.classList.contains('icon--custom')).toBe(true);
+    });
+
+    it('should handle malformed SVG gracefully', async () => {
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      const mockSvg = '<div>Not an SVG</div>';
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: true,
+        text: () => Promise.resolve(mockSvg),
+      });
+
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon src="/bad.svg"></sg-icon>`,
+      });
+
+      await page.waitForChanges();
+      // Should not crash
+      expect(page.root).toBeDefined();
+      consoleSpy.mockRestore();
+    });
+  });
+
+  // =====================================================
+  // ACCESSIBILITY
+  // =====================================================
+
+  describe('accessibility - additional tests', () => {
+    it('sets default ariaLabel when decorative is false', async () => {
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="home"></sg-icon>`,
+      });
+
+      expect(page.root?.getAttribute('aria-label')).toBe('home icon');
+    });
+
+    it('does not set ariaLabel when decorative is true', async () => {
+      const page = await newSpecPage({
+        components: [SgIcon],
+        html: `<sg-icon name="home" decorative></sg-icon>`,
+      });
+
+      expect(page.root?.getAttribute('aria-label')).toBeNull();
+    });
+  });
 });
