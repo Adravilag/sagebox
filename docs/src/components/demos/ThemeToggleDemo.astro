@@ -1,0 +1,30 @@
+---
+/**
+ * ThemeToggleDemo.astro
+ * Demo section para el componente Theme Toggle
+ */
+import ComponentCard from '../ComponentCard.astro';
+import DemoRow from '../DemoRow.astro';
+import { themeToggleProps, themeToggleEvents } from '@/config/componentData';
+---
+
+<ComponentCard
+  id="theme-toggle"
+  title="Theme Toggle"
+  titleKey="components.themeToggle.title"
+  tag="sg-theme-toggle"
+  description="Interruptor de tema claro/oscuro"
+  descriptionKey="components.themeToggle.description"
+  docsUrl="/components/theme-toggle"
+  props={themeToggleProps}
+  events={themeToggleEvents}
+>
+  <DemoRow label="Por defecto" labelKey="components.themeToggle.default" code={`<sg-theme-toggle></sg-theme-toggle>
+
+<!-- The component will:
+  - Toggle data-theme attribute
+  - Persist preference in localStorage
+  - Sync with system preference -->`}>
+    <sg-theme-toggle></sg-theme-toggle>
+  </DemoRow>
+</ComponentCard>

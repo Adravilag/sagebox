@@ -1,0 +1,203 @@
+---
+/**
+ * LanguageSelector.astro
+ * Selector de idioma compacto para el sidebar
+ */
+import { languages, type Language, defaultLang } from '../i18n/translations';
+
+interface Props {
+  currentLang?: Language;
+}
+
+const { currentLang = defaultLang } = Astro.props;
+---
+
+<div class="language-selector">
+  <button class="lang-btn" aria-label="Cambiar idioma" title="Cambiar idioma">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M2 12h20"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+  </button>
+  
+  <div class="lang-dropdown">
+    {Object.entries(languages).map(([code, name]) => (
+      <button 
+        class={`lang-option ${code === currentLang ? 'active' : ''}`}
+        data-lang={code}
+      >
+        <span class="lang-flag">{code === 'es' ? '🇪🇸' : '🇬🇧'}</span>
+        <span class="lang-name">{name}</span>
+        {code === currentLang && (
+          <svg class="check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+        )}
+      </button>
+    ))}
+  </div>
+</div>
+
+<style>
+  .language-selector {
+    position: relative;
+  }
+
+  .lang-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .lang-btn:hover {
+    background: var(--surface-hover);
+    border-color: var(--border-muted);
+    color: var(--text);
+  }
+
+  .language-selector.open .lang-btn {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .lang-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .lang-dropdown {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    min-width: 130px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-fast);
+    z-index: 200;
+    overflow: hidden;
+  }
+
+  .language-selector.open .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    font-size: 0.8125rem;
+    text-align: left;
+  }
+
+  .lang-option:hover {
+    background: var(--surface-hover);
+  }
+
+  .lang-option.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .lang-flag {
+    font-size: 0.875rem;
+  }
+
+  .lang-name {
+    flex: 1;
+    font-weight: 450;
+  }
+
+  .check {
+    color: var(--accent);
+  }
+</style>
+
+<script>
+  const LANG_KEY = 'saged-lang';
+
+  // Get initial language
+  function getLang(): string {
+    try {
+      return localStorage.getItem(LANG_KEY) || 'es';
+    } catch {
+      return 'es';
+    }
+  }
+
+  // Update UI to reflect current language
+  function updateLangUI() {
+    const lang = getLang();
+    document.querySelectorAll('.language-selector').forEach(selector => {
+      const codeSpan = selector.querySelector('.lang-code');
+      if (codeSpan) codeSpan.textContent = lang.toUpperCase();
+      
+      selector.querySelectorAll('.lang-option').forEach(opt => {
+        const optLang = opt.getAttribute('data-lang');
+        if (optLang === lang) {
+          opt.classList.add('active');
+        } else {
+          opt.classList.remove('active');
+        }
+      });
+    });
+  }
+
+  // Initialize language selector
+  document.querySelectorAll('.language-selector').forEach(selector => {
+    const btn = selector.querySelector('.lang-btn');
+    const options = selector.querySelectorAll('.lang-option');
+
+    // Toggle dropdown
+    btn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selector.classList.toggle('open');
+    });
+
+    // Handle language selection
+    options.forEach(option => {
+      option.addEventListener('click', () => {
+        const lang = option.getAttribute('data-lang');
+        if (lang) {
+          localStorage.setItem(LANG_KEY, lang);
+          document.documentElement.setAttribute('lang', lang);
+          selector.classList.remove('open');
+          // Reload page to apply new language (for SSG sites)
+          window.location.reload();
+        }
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', () => {
+      selector.classList.remove('open');
+    });
+  });
+
+  // Update UI on load
+  updateLangUI();
+  document.documentElement.setAttribute('lang', getLang());
+</script>

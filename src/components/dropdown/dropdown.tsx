@@ -288,8 +288,11 @@ export class SgDropdown {
             ref={el => (this.triggerEl = el)}
             onClick={this.handleTriggerClick}
             onKeyDown={this.handleTriggerKeydown}
-            aria-haspopup="true"
+            role="button"
+            tabindex={this.disabled ? -1 : 0}
+            aria-haspopup="menu"
             aria-expanded={this.open ? 'true' : 'false'}
+            aria-disabled={this.disabled ? 'true' : undefined}
           >
             <slot name="trigger"></slot>
           </div>

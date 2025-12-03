@@ -1,0 +1,100 @@
+---
+/**
+ * DropdownDemo.astro
+ * Demo section para el componente Dropdown
+ */
+import ComponentCard from '../ComponentCard.astro';
+import DemoRow from '../DemoRow.astro';
+import { dropdownProps, dropdownEvents, dropdownSlots, dropdownMethods } from '@/config/componentData';
+---
+
+<ComponentCard
+  id="dropdown"
+  title="Dropdown"
+  titleKey="components.dropdown.title"
+  tag="sg-dropdown"
+  description="Menú desplegable con opciones"
+  descriptionKey="components.dropdown.description"
+  docsUrl="/components/dropdown"
+  props={dropdownProps}
+  events={dropdownEvents}
+  slots={dropdownSlots}
+  methods={dropdownMethods}
+>
+  <DemoRow label="Básico" labelKey="components.dropdown.basic" code={`<sg-dropdown align="start">
+  <button slot="trigger">Select option ▼</button>
+  <button>Option 1</button>
+  <button>Option 2</button>
+  <button>Option 3</button>
+</sg-dropdown>`}>
+    <sg-dropdown align="start">
+      <button slot="trigger" class="demo-btn">Select option ▼</button>
+      <button class="demo-menu-item">Option 1</button>
+      <button class="demo-menu-item">Option 2</button>
+      <button class="demo-menu-item">Option 3</button>
+    </sg-dropdown>
+  </DemoRow>
+  <DemoRow label="With Header & Footer" code={`<sg-dropdown align="start">
+  <button slot="trigger">Menu ▼</button>
+  <div slot="header">Settings</div>
+  <button>Profile</button>
+  <button>Preferences</button>
+  <button>Logout</button>
+  <div slot="footer">v1.2.1</div>
+</sg-dropdown>`}>
+    <sg-dropdown align="start">
+      <button slot="trigger" class="demo-btn">Menu ▼</button>
+      <div slot="header" class="demo-menu-header">Settings</div>
+      <button class="demo-menu-item">Profile</button>
+      <button class="demo-menu-item">Preferences</button>
+      <button class="demo-menu-item">Logout</button>
+      <div slot="footer" class="demo-menu-footer">v1.2.1</div>
+    </sg-dropdown>
+  </DemoRow>
+</ComponentCard>
+
+<style>
+  .demo-btn {
+    padding: 0.5rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+  }
+
+  .demo-btn:hover {
+    background: var(--surface-hover);
+    border-color: var(--border-muted);
+  }
+
+  .demo-menu-item {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-size: 0.875rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+  }
+
+  .demo-menu-item:hover {
+    background: var(--surface-hover);
+  }
+
+  .demo-menu-header,
+  .demo-menu-footer {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>

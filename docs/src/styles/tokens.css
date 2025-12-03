@@ -2,12 +2,17 @@
    SagedUI Docs - Theme Tokens
    ═══════════════════════════════════════════════════════════════════════════ */
 
-:root {
-  /* Backgrounds */
-  --bg: #f1f5f9;
+:root,
+[data-theme="light"] {
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Fira Code', 'SF Mono', 'Cascadia Code', 'JetBrains Mono', Consolas, monospace;
+
+  /* Backgrounds - Light mode */
+  --bg: #f8fafc;
   --surface: #ffffff;
   --surface-elevated: #ffffff;
-  --surface-hover: #f8fafc;
+  --surface-hover: #f1f5f9;
 
   /* Code blocks - dark for high contrast */
   --code-bg: #1e293b;
@@ -20,27 +25,30 @@
   --border-muted: #cbd5e1;
   --border-subtle: #f1f5f9;
 
-  /* Text */
+  /* Text - WCAG AA compliant contrast */
   --text: #0f172a;
-  --text-muted: #64748b;
-  --text-subtle: #94a3b8;
+  --text-muted: #374151;
+  --text-subtle: #4b5563;
+
+  /* Background variations */
+  --bg-muted: #e2e8f0;
 
   /* Accent */
-  --accent: #6366f1;
-  --accent-hover: #4f46e5;
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
   --accent-soft: #eef2ff;
-  --accent-text: #4338ca;
+  --accent-text: #3730a3;
 
   /* Success/Warning/Danger */
-  --success: #10b981;
+  --success: #059669;
   --warning: #f59e0b;
   --danger: #ef4444;
 
   /* Shadows */
-  --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
 
   /* Radius */
   --radius-xs: 4px;
@@ -58,6 +66,7 @@
 [data-theme="dark"] {
   /* Backgrounds */
   --bg: #080d16;
+  --bg-muted: #0f1420;
   --surface: #111827;
   --surface-elevated: #1c2840;
   --surface-hover: #1e293b;
@@ -73,14 +82,14 @@
   --border-muted: #334155;
   --border-subtle: #1e293b;
 
-  /* Text */
+  /* Text - WCAG AA compliant contrast */
   --text: #f8fafc;
-  --text-muted: #94a3b8;
-  --text-subtle: #64748b;
+  --text-muted: #b8c5d6;
+  --text-subtle: #9ca9bc;
 
   /* Accent */
-  --accent: #818cf8;
-  --accent-hover: #a5b4fc;
+  --accent: #6366f1;
+  --accent-hover: #818cf8;
   --accent-soft: rgba(99, 102, 241, 0.12);
   --accent-text: #c7d2fe;
 

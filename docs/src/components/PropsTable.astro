@@ -275,8 +275,8 @@ const { props = [], events = [], slots = [], methods = [], compact = false } = A
   }
 
   code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 0.8125rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
     padding: 0.25rem 0.625rem;
     border-radius: 5px;
     white-space: nowrap;
@@ -289,19 +289,28 @@ const { props = [], events = [], slots = [], methods = [], compact = false } = A
   }
 
   .prop-type, .event-type, .method-returns {
-    background: var(--code-bg);
-    color: var(--code-text);
+    background: #e0e7ff;
+    color: #3730a3;
     word-break: break-word;
     white-space: pre-wrap;
     max-width: 240px;
     font-size: 0.75rem;
     display: inline-block;
+    font-weight: 500;
+  }
+
+  /* Dark mode for type badges */
+  :global([data-theme='dark']) .prop-type,
+  :global([data-theme='dark']) .event-type,
+  :global([data-theme='dark']) .method-returns {
+    background: var(--code-bg);
+    color: var(--code-text);
   }
 
   .prop-default {
-    background: rgba(16, 185, 129, 0.15);
-    color: var(--success);
-    font-weight: 500;
+    background: rgba(5, 150, 105, 0.15);
+    color: #065f46;
+    font-weight: 600;
   }
 
   .prop-desc, .event-desc, .slot-desc, .method-desc {
@@ -309,6 +318,12 @@ const { props = [], events = [], slots = [], methods = [], compact = false } = A
     line-height: 1.7;
     font-size: 0.875rem;
     text-align: left;
+  }
+
+  /* Dark mode adjustments for prop-default */
+  :global([data-theme='dark']) .prop-default {
+    background: rgba(52, 211, 153, 0.15);
+    color: #6ee7b7;
   }
 
   @media (max-width: 768px) {

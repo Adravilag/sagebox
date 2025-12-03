@@ -1,6 +1,7 @@
 ---
 import ComponentLayout from '../../layouts/ComponentLayout.astro';
 import DemoBox from '../../components/DemoBox.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 
 const props = [
   { name: 'theme', type: "'light' | 'dark' | 'system'", default: "'system'", description: 'Modo de tema actual' },
@@ -68,18 +69,23 @@ const events = [
 
     <div class="usage-block">
       <h3>Escuchar cambios</h3>
-      <pre><code set:html={`const toggle = document.querySelector('sg-theme-toggle');
+      <CodeBlock 
+        filename="theme-events.js"
+        code={`const toggle = document.querySelector('sg-theme-toggle');
 
 toggle.addEventListener('sgThemeChange', (event) => {
   console.log('Nuevo tema:', event.detail);
   // 'light' | 'dark' | 'system'
-});`}></code></pre>
+});`}
+      />
     </div>
 
     <div class="usage-block">
       <h3>CSS Variables</h3>
       <p>Asegúrate de definir estilos para ambos temas:</p>
-      <pre><code set:html={`:root, [data-theme="light"] {
+      <CodeBlock 
+        filename="theme.css"
+        code={`:root, [data-theme="light"] {
   --bg: #ffffff;
   --text: #1a1a1a;
 }
@@ -87,7 +93,8 @@ toggle.addEventListener('sgThemeChange', (event) => {
 [data-theme="dark"] {
   --bg: #0a0a0a;
   --text: #ffffff;
-}`}></code></pre>
+}`}
+      />
     </div>
   </Fragment>
 </ComponentLayout>
@@ -112,20 +119,6 @@ toggle.addEventListener('sgThemeChange', (event) => {
     margin: 0 0 1rem 0;
     line-height: 1.6;
   }
-  .usage-block pre {
-    background: var(--code-bg);
-    border: 1px solid var(--code-border);
-    border-radius: var(--radius-md);
-    padding: 1rem 1.25rem;
-    margin: 0;
-    overflow-x: auto;
-  }
-  .usage-block pre code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 0.8125rem;
-    color: var(--code-text);
-    line-height: 1.7;
-  }
   .usage-block ul, .usage-block ol {
     margin: 0;
     padding-left: 1.25rem;
@@ -138,6 +131,6 @@ toggle.addEventListener('sgThemeChange', (event) => {
     color: var(--accent);
     padding: 0.1875rem 0.5rem;
     border-radius: 4px;
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
   }
 </style>

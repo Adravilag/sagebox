@@ -32,12 +32,26 @@ export class SgThemeToggle {
 
   connectedCallback() {
     this.setupSystemThemeListener();
+    // Read current theme from document instead of applying our default
+    this.syncThemeFromDocument();
     this.updateResolvedTheme();
-    this.applyThemeToDocument();
   }
 
   disconnectedCallback() {
     this.removeSystemThemeListener();
+  }
+
+  /**
+   * Sync component state with the current document theme
+   */
+  private syncThemeFromDocument() {
+    if (typeof document !== 'undefined') {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'light' || currentTheme === 'dark') {
+        // If document already has a theme set, use it (don't override)
+        this.theme = currentTheme;
+      }
+    }
   }
 
   @Watch('theme')

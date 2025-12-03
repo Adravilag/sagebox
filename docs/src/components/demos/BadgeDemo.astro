@@ -1,0 +1,42 @@
+---
+/**
+ * BadgeDemo.astro
+ * Demo section para el componente Badge
+ */
+import ComponentCard from '../ComponentCard.astro';
+import DemoRow from '../DemoRow.astro';
+import { badgeProps, badgeSlots } from '@/config/componentData';
+---
+
+<ComponentCard
+  id="badge"
+  title="Badge"
+  titleKey="components.badge.title"
+  tag="sg-badge"
+  description="Etiqueta visual para estados o contadores"
+  descriptionKey="components.badge.description"
+  docsUrl="/components/badge"
+  props={badgeProps}
+  slots={badgeSlots}
+>
+  <DemoRow label="Variantes" labelKey="components.badge.colors" code={`<sg-badge variant="primary">Primary</sg-badge>
+<sg-badge variant="secondary">Secondary</sg-badge>
+<sg-badge variant="success">Success</sg-badge>
+<sg-badge variant="warning">Warning</sg-badge>
+<sg-badge variant="danger">Danger</sg-badge>
+<sg-badge variant="info">Info</sg-badge>`}>
+    <sg-badge variant="primary">Primary</sg-badge>
+    <sg-badge variant="secondary">Secondary</sg-badge>
+    <sg-badge variant="success">Success</sg-badge>
+    <sg-badge variant="warning">Warning</sg-badge>
+    <sg-badge variant="danger">Danger</sg-badge>
+    <sg-badge variant="info">Info</sg-badge>
+  </DemoRow>
+  <DemoRow label="Tamaños" labelKey="components.badge.sizes" code={`<sg-badge size="sm">Small</sg-badge>
+<sg-badge size="md">Medium</sg-badge>
+<sg-badge size="lg">Large</sg-badge>`}>
+    <sg-badge size="sm">Small</sg-badge>
+    <sg-badge size="md">Medium</sg-badge>
+    <sg-badge size="lg">Large</sg-badge>
+  </DemoRow>
+</ComponentCard>

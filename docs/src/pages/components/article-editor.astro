@@ -1,6 +1,7 @@
 ---
 import ComponentLayout from '../../layouts/ComponentLayout.astro';
 import DemoBox from '../../components/DemoBox.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 
 const props = [
   { name: 'value', type: 'string', default: "''", description: 'Contenido del editor' },
@@ -96,7 +97,9 @@ const methods = [
 
     <div class="usage-block">
       <h3>Obtener contenido</h3>
-      <pre><code set:html={`const editor = document.querySelector('sg-article-editor');
+      <CodeBlock 
+        filename="editor-api.js"
+        code={`const editor = document.querySelector('sg-article-editor');
 
 // Obtener contenido actual
 const content = await editor.getContent();
@@ -108,15 +111,19 @@ const html = await editor.getHtml();
 editor.addEventListener('editorChange', (e) => {
   console.log('Nuevo contenido:', e.detail.value);
   console.log('Palabras:', e.detail.wordCount);
-});`}></code></pre>
+});`}
+      />
     </div>
 
     <div class="usage-block">
       <h3>Internacionalización</h3>
       <p>El editor soporta múltiples idiomas:</p>
-      <pre><code>&lt;sg-article-editor locale="es"&gt;&lt;/sg-article-editor&gt;
+      <CodeBlock 
+        filename="i18n.html"
+        code={`<sg-article-editor locale="es"></sg-article-editor>
 
-// Idiomas soportados: en, es, fr, de, pt, it, zh, ja, ko, ar</code></pre>
+// Idiomas soportados: en, es, fr, de, pt, it, zh, ja, ko, ar`}
+      />
     </div>
   </Fragment>
 </ComponentLayout>
@@ -141,33 +148,11 @@ editor.addEventListener('editorChange', (e) => {
     margin: 0 0 1rem 0;
     line-height: 1.6;
   }
-  .usage-block pre {
-    background: var(--code-bg);
-    border: 1px solid var(--code-border);
-    border-radius: var(--radius-md);
-    padding: 1rem 1.25rem;
-    margin: 0;
-    overflow-x: auto;
-  }
-  .usage-block pre code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 0.8125rem;
-    color: var(--code-text);
-    line-height: 1.7;
-  }
   .usage-block ul {
     margin: 0;
     padding-left: 1.25rem;
     font-size: 0.875rem;
     color: var(--text-muted);
     line-height: 1.9;
-  }
-  .usage-block ul code,
-  .usage-block p code {
-    background: var(--accent-soft);
-    color: var(--accent);
-    padding: 0.1875rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
   }
 </style>

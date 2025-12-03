@@ -15,12 +15,12 @@
   --editor-bg-secondary: var(--ui-bg-secondary, #f8fafc);
   --editor-bg-tertiary: var(--ui-bg-tertiary, #f1f5f9);
   --editor-text: var(--ui-text, #0f172a);
-  --editor-text-secondary: var(--ui-text-secondary, #64748b);
-  --editor-text-muted: var(--ui-text-muted, #94a3b8);
+  --editor-text-secondary: var(--ui-text-secondary, #475569);
+  --editor-text-muted: var(--ui-text-muted, #475569);
   --editor-border: var(--ui-border, #e2e8f0);
   --editor-border-focus: var(--ui-border-focus, #6366f1);
-  --editor-accent: var(--ui-accent, #6366f1);
-  --editor-accent-hover: var(--ui-accent-hover, #4f46e5);
+  --editor-accent: var(--ui-accent, #4f46e5);
+  --editor-accent-hover: var(--ui-accent-hover, #4338ca);
   --editor-accent-light: var(--ui-accent-light, #e0e7ff);
   --editor-success: var(--ui-success, #22c55e);
   --editor-warning: var(--ui-warning, #f59e0b);
@@ -112,7 +112,7 @@
   padding: 6px 12px;
   border: 1px solid var(--editor-border);
   background-color: var(--editor-bg);
-  color: var(--editor-text-secondary);
+  color: var(--editor-text);
   cursor: pointer;
   font-size: 12px;
   font-weight: 600;
@@ -1075,8 +1075,8 @@
   --editor-bg-secondary: var(--ui-bg-secondary, #1e293b);
   --editor-bg-tertiary: var(--ui-bg-tertiary, #334155);
   --editor-text: var(--ui-text, #f1f5f9);
-  --editor-text-secondary: var(--ui-text-secondary, #94a3b8);
-  --editor-text-muted: var(--ui-text-muted, #64748b);
+  --editor-text-secondary: var(--ui-text-secondary, #b8c4d4);
+  --editor-text-muted: var(--ui-text-muted, #8899b0);
   --editor-border: var(--ui-border, #334155);
   --editor-border-focus: var(--ui-border-focus, #818cf8);
   --editor-accent: var(--ui-accent, #818cf8);

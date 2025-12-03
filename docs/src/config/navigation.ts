@@ -2,6 +2,9 @@
  * Navigation configuration for SagedUI docs
  */
 
+// Import version from package.json
+import pkg from '../../../package.json';
+
 export interface NavItem {
   id: string;
   name: string;
@@ -57,5 +60,5 @@ export const navigation: NavSection[] = [
 
 export const siteConfig = {
   name: 'SagedUI',
-  version: '1.2.1',
+  version: pkg.version,
 };

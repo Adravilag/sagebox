@@ -1,0 +1,56 @@
+---
+/**
+ * IconDemo.astro
+ * Demo section para el componente Icon
+ */
+import ComponentCard from '../ComponentCard.astro';
+import DemoRow from '../DemoRow.astro';
+import { iconProps } from '@/config/componentData';
+---
+
+<ComponentCard
+  id="icon"
+  title="Icono"
+  titleKey="components.icon.title"
+  tag="sg-icon"
+  description="Sistema de iconos SVG optimizado"
+  descriptionKey="components.icon.description"
+  docsUrl="/components/icon"
+  props={iconProps}
+>
+  <DemoRow label="Básicos" labelKey="components.icon.basic" code={`<sg-icon name="home" size="24"></sg-icon>
+<sg-icon name="search" size="24"></sg-icon>
+<sg-icon name="settings" size="24"></sg-icon>
+<sg-icon name="user" size="24"></sg-icon>
+<sg-icon name="menu" size="24"></sg-icon>`}>
+    <sg-icon name="home" size="24"></sg-icon>
+    <sg-icon name="search" size="24"></sg-icon>
+    <sg-icon name="settings" size="24"></sg-icon>
+    <sg-icon name="user" size="24"></sg-icon>
+    <sg-icon name="menu" size="24"></sg-icon>
+    <sg-icon name="close" size="24"></sg-icon>
+    <sg-icon name="add" size="24"></sg-icon>
+    <sg-icon name="edit" size="24"></sg-icon>
+    <sg-icon name="delete" size="24"></sg-icon>
+    <sg-icon name="save" size="24"></sg-icon>
+  </DemoRow>
+  <DemoRow label="Colores" labelKey="components.icon.colors" code={`<sg-icon name="heart" size="24" color="#ef4444"></sg-icon>
+<sg-icon name="star" size="24" color="#f59e0b"></sg-icon>
+<sg-icon name="check" size="24" color="#22c55e"></sg-icon>
+<sg-icon name="refresh" size="24" color="#8b5cf6" spin></sg-icon>`}>
+    <sg-icon name="heart" size="24" color="#ef4444"></sg-icon>
+    <sg-icon name="star" size="24" color="#f59e0b"></sg-icon>
+    <sg-icon name="check" size="24" color="#22c55e"></sg-icon>
+    <sg-icon name="info" size="24" color="#3b82f6"></sg-icon>
+    <sg-icon name="refresh" size="24" color="#8b5cf6" spin></sg-icon>
+  </DemoRow>
+  <DemoRow label="Tamaños" labelKey="components.icon.sizes" code={`<sg-icon name="star" size="16"></sg-icon>
+<sg-icon name="star" size="24"></sg-icon>
+<sg-icon name="star" size="32"></sg-icon>
+<sg-icon name="star" size="48"></sg-icon>`}>
+    <sg-icon name="star" size="16"></sg-icon>
+    <sg-icon name="star" size="24"></sg-icon>
+    <sg-icon name="star" size="32"></sg-icon>
+    <sg-icon name="star" size="48"></sg-icon>
+  </DemoRow>
+</ComponentCard>

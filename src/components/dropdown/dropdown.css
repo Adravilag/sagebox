@@ -168,7 +168,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--sg-text-muted, #6b7280);
+  color: var(--sg-text-muted, #4b5563);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -217,7 +217,7 @@
   padding: 0.625rem 1rem;
   border-top: 1px solid var(--sg-dropdown-border-color, rgba(0, 0, 0, 0.08));
   font-size: 0.75rem;
-  color: var(--sg-text-muted, #6b7280);
+  color: var(--sg-text-muted, #4b5563);
   background: var(--sg-dropdown-footer-bg, rgba(0, 0, 0, 0.02));
 }
 
@@ -277,7 +277,7 @@
 :host-context(.dark) .header ::slotted(*),
 :host-context([data-theme='dark']) .footer ::slotted(*),
 :host-context(.dark) .footer ::slotted(*) {
-  --sg-text-muted: #9ca3af;
+  --sg-text-muted: #d1d5db;
   border-color: rgba(255, 255, 255, 0.1);
 }
 

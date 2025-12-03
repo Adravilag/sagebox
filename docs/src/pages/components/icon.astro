@@ -1,6 +1,7 @@
 ---
 import ComponentLayout from '../../layouts/ComponentLayout.astro';
 import DemoBox from '../../components/DemoBox.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 
 const props = [
   { name: 'name', type: 'string', default: 'undefined', description: 'Nombre del icono de la librería integrada' },
@@ -108,7 +109,10 @@ const props = [
 
     <div class="usage-block">
       <h3>SVG personalizado</h3>
-      <pre><code>&lt;sg-icon src="/icons/custom.svg" size="24"&gt;&lt;/sg-icon&gt;</code></pre>
+      <CodeBlock 
+        filename="custom-icon.html"
+        code={`<sg-icon src="/icons/custom.svg" size="24"></sg-icon>`}
+      />
     </div>
   </Fragment>
 </ComponentLayout>
@@ -121,8 +125,6 @@ const props = [
     padding: 1.25rem;
   }
   .usage-block h3 { font-size: 0.875rem; font-weight: 600; margin: 0 0 0.75rem 0; }
-  .usage-block p { font-size: 0.8125rem; color: var(--text-muted); margin: 0 0 0.75rem 0; }
-  .usage-block pre { background: var(--bg); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.75rem; margin: 0; overflow-x: auto; }
-  .usage-block code { font-family: monospace; font-size: 0.75rem; }
-  .usage-block ul { margin: 0; padding-left: 1.25rem; font-size: 0.8125rem; color: var(--text-muted); line-height: 1.8; }
+  .usage-block p { font-size: 0.875rem; color: var(--text-muted); margin: 0 0 0.75rem 0; }
+  .usage-block ul { margin: 0; padding-left: 1.25rem; font-size: 0.875rem; color: var(--text-muted); line-height: 1.8; }
 </style>

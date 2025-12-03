@@ -2,6 +2,7 @@
 import ComponentLayout from '../../layouts/ComponentLayout.astro';
 import DemoRow from '../../components/DemoRow.astro';
 import DemoBox from '../../components/DemoBox.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 
 const props = [
   { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'error' | 'success' | 'warning' | 'info'", default: "'primary'", description: 'Variante de color del botón' },
@@ -34,7 +35,7 @@ const slots = [
   slots={slots}
 >
   <Fragment slot="examples">
-    <DemoBox label="Variantes de Color (Primary, Secondary, Outline, Ghost, Error, Success, Warning, Info)" code={`<sg-button variant="primary">Primary</sg-button>
+    <DemoBox label="Variantes" code={`<sg-button variant="primary">Primary</sg-button>
 <sg-button variant="secondary">Secondary</sg-button>
 <sg-button variant="outline">Outline</sg-button>
 <sg-button variant="ghost">Ghost</sg-button>
@@ -42,7 +43,7 @@ const slots = [
 <sg-button variant="success">Success</sg-button>
 <sg-button variant="warning">Warning</sg-button>
 <sg-button variant="info">Info</sg-button>`}>
-      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+      <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;">
         <sg-button variant="primary">Primary</sg-button>
         <sg-button variant="secondary">Secondary</sg-button>
         <sg-button variant="outline">Outline</sg-button>
@@ -54,11 +55,11 @@ const slots = [
       </div>
     </DemoBox>
 
-    <DemoBox label="Tamaños (Extra Small, Small, Medium, Large)" code={`<sg-button size="xs">Extra Small</sg-button>
+    <DemoBox label="Tamaños" code={`<sg-button size="xs">Extra Small</sg-button>
 <sg-button size="sm">Small</sg-button>
 <sg-button size="md">Medium</sg-button>
 <sg-button size="lg">Large</sg-button>`}>
-      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; justify-content: center;">
+      <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: center;">
         <sg-button size="xs">Extra Small</sg-button>
         <sg-button size="sm">Small</sg-button>
         <sg-button size="md">Medium</sg-button>
@@ -66,39 +67,61 @@ const slots = [
       </div>
     </DemoBox>
 
-    <DemoBox label="Formas (Default, Pill, Square, Circle, Block)" code={`<sg-button shape="default">Default</sg-button>
-<sg-button shape="pill">Pill Shape</sg-button>
+    <DemoBox label="Formas" code={`<sg-button shape="default">Default</sg-button>
+<sg-button shape="pill">Pill</sg-button>
 <sg-button shape="square">■</sg-button>
-<sg-button shape="circle">●</sg-button>
-<sg-button shape="block">Block (Full Width)</sg-button>`}>
-      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; justify-content: center;">
+<sg-button shape="circle">●</sg-button>`}>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: center;">
         <sg-button shape="default">Default</sg-button>
-        <sg-button shape="pill">Pill Shape</sg-button>
+        <sg-button shape="pill">Pill</sg-button>
         <sg-button shape="square">■</sg-button>
         <sg-button shape="circle">●</sg-button>
       </div>
-      <sg-button shape="block">Block (Full Width)</sg-button>
     </DemoBox>
 
-    <DemoBox label="Con Iconos (Leading, Trailing, Ambos)" code={`<sg-button leading-icon="add">Añadir</sg-button>
-<sg-button trailing-icon="arrow-right">Siguiente</sg-button>
-<sg-button leading-icon="save" trailing-icon="check">Guardar</sg-button>
-<sg-button shape="circle" leading-icon="heart"></sg-button>`}>
-      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; justify-content: center;">
-        <sg-button leading-icon="add">Añadir</sg-button>
-        <sg-button trailing-icon="arrow-right">Siguiente</sg-button>
-        <sg-button leading-icon="save" trailing-icon="check">Guardar</sg-button>
-        <sg-button shape="circle" leading-icon="heart"></sg-button>
+    <DemoBox label="Ancho completo" code={`<sg-button shape="block">Block Button</sg-button>
+<sg-button shape="block" variant="outline">Block Outline</sg-button>`}>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; width: 100%;">
+        <sg-button shape="block">Block Button</sg-button>
+        <sg-button shape="block" variant="outline">Block Outline</sg-button>
       </div>
     </DemoBox>
 
-    <DemoBox label="Estados (Disabled, Loading)" code={`<sg-button disabled>Deshabilitado</sg-button>
-<sg-button loading>Cargando</sg-button>
+    <DemoBox label="Con iconos" code={`<sg-button leading-icon="add">Añadir</sg-button>
+<sg-button trailing-icon="arrow-right">Siguiente</sg-button>
+<sg-button leading-icon="save" trailing-icon="check">Guardar</sg-button>
+<sg-button shape="circle" leading-icon="heart" aria-label="Favorito"></sg-button>
+<sg-button shape="circle" variant="outline" leading-icon="settings" aria-label="Configuración"></sg-button>`}>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: center;">
+        <sg-button leading-icon="add">Añadir</sg-button>
+        <sg-button trailing-icon="arrow-right">Siguiente</sg-button>
+        <sg-button leading-icon="save" trailing-icon="check">Guardar</sg-button>
+        <sg-button shape="circle" leading-icon="heart" aria-label="Favorito"></sg-button>
+        <sg-button shape="circle" variant="outline" leading-icon="settings" aria-label="Configuración"></sg-button>
+      </div>
+    </DemoBox>
+
+    <DemoBox label="Estados" code={`<sg-button disabled>Deshabilitado</sg-button>
+<sg-button variant="secondary" disabled>Secondary Disabled</sg-button>
+<sg-button loading>Cargando...</sg-button>
 <sg-button loading loading-text="Guardando...">Guardar</sg-button>`}>
-      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; justify-content: center;">
+      <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: center;">
         <sg-button disabled>Deshabilitado</sg-button>
-        <sg-button loading>Cargando</sg-button>
+        <sg-button variant="secondary" disabled>Secondary Disabled</sg-button>
+        <sg-button loading>Cargando...</sg-button>
         <sg-button loading loading-text="Guardando...">Guardar</sg-button>
+      </div>
+    </DemoBox>
+
+    <DemoBox label="Combinaciones" code={`<sg-button variant="success" leading-icon="check" shape="pill">Completado</sg-button>
+<sg-button variant="error" leading-icon="trash" size="sm">Eliminar</sg-button>
+<sg-button variant="warning" trailing-icon="alert" size="lg">Advertencia</sg-button>
+<sg-button variant="info" leading-icon="info" shape="pill" size="sm">Info</sg-button>`}>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: center;">
+        <sg-button variant="success" leading-icon="check" shape="pill">Completado</sg-button>
+        <sg-button variant="error" leading-icon="trash" size="sm">Eliminar</sg-button>
+        <sg-button variant="warning" trailing-icon="alert" size="lg">Advertencia</sg-button>
+        <sg-button variant="info" leading-icon="info" shape="pill" size="sm">Info</sg-button>
       </div>
     </DemoBox>
   </Fragment>
@@ -107,33 +130,39 @@ const slots = [
     <div class="usage-block">
       <h3>Instalación</h3>
       <p>El componente está disponible como parte de la librería SagedUI.</p>
-      <pre><code>npm install saged-ui</code></pre>
+      <CodeBlock code="npm install saged-ui" filename="terminal" />
     </div>
 
     <div class="usage-block">
       <h3>Uso básico</h3>
-      <pre><code>&lt;sg-button&gt;Click me&lt;/sg-button&gt;
+      <CodeBlock 
+        filename="example.html"
+        code={`<sg-button>Click me</sg-button>
 
-&lt;!-- Con variante --&gt;
-&lt;sg-button variant="secondary"&gt;Secondary&lt;/sg-button&gt;
+<!-- Con variante -->
+<sg-button variant="secondary">Secondary</sg-button>
 
-&lt;!-- Con icono --&gt;
-&lt;sg-button leading-icon="save"&gt;Guardar&lt;/sg-button&gt;</code></pre>
+<!-- Con icono -->
+<sg-button leading-icon="save">Guardar</sg-button>`} 
+      />
     </div>
 
     <div class="usage-block">
       <h3>Manejo de eventos</h3>
-      <pre><code set:html={`// JavaScript
+      <CodeBlock 
+        filename="events.js"
+        code={`// JavaScript
 const button = document.querySelector('sg-button');
 button.addEventListener('sgClick', (event) => {
   console.log('Button clicked!', event.detail);
 });
 
 // Angular
-&lt;sg-button (sgClick)="onButtonClick($event)"&gt;Click&lt;/sg-button&gt;
+<sg-button (sgClick)="onButtonClick($event)">Click</sg-button>
 
 // React
-&lt;SgButton onSgClick={(e) => handleClick(e)}&gt;Click&lt;/SgButton&gt;`}></code></pre>
+<SgButton onSgClick={(e) => handleClick(e)}>Click</SgButton>`} 
+      />
     </div>
 
     <div class="usage-block">
@@ -147,11 +176,14 @@ button.addEventListener('sgClick', (event) => {
           <li>El estado <code>disabled</code> añade automáticamente <code>aria-disabled="true"</code></li>
           <li>El estado <code>loading</code> añade <code>aria-busy="true"</code> para indicar una operación en progreso</li>
         </ul>
-        <pre><code set:html={`<!-- Botón con solo icono - requiere aria-label -->
-&lt;sg-button shape="circle" leading-icon="heart" aria-label="Añadir a favoritos"&gt;&lt;/sg-button&gt;
+        <CodeBlock 
+          filename="a11y.html"
+          code={`<!-- Botón con solo icono - requiere aria-label -->
+<sg-button shape="circle" leading-icon="heart" aria-label="Añadir a favoritos"></sg-button>
 
 <!-- El componente añade aria-describedby si hay texto de ayuda -->
-&lt;sg-button aria-describedby="help-text"&gt;Enviar&lt;/sg-button&gt;`}></code></pre>
+<sg-button aria-describedby="help-text">Enviar</sg-button>`}
+        />
       </div>
 
       <div class="a11y-section">
@@ -204,27 +236,11 @@ button.addEventListener('sgClick', (event) => {
     line-height: 1.6;
   }
 
-  .usage-block pre {
-    background: var(--code-bg);
-    border: 1px solid var(--code-border);
-    border-radius: var(--radius-md);
-    padding: 1rem 1.25rem;
-    margin: 0.75rem 0 0 0;
-    overflow-x: auto;
-  }
-
-  .usage-block pre code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 0.8125rem;
-    color: var(--code-text);
-    line-height: 1.7;
-  }
-
   .usage-block > code,
   .usage-block ul code,
   .usage-block p code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
     background: var(--accent-soft);
     color: var(--accent);
     padding: 0.1875rem 0.5rem;
@@ -262,8 +278,8 @@ button.addEventListener('sgClick', (event) => {
   kbd {
     display: inline-block;
     padding: 0.125rem 0.5rem;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
     background: var(--surface-hover);
     border: 1px solid var(--border);
     border-radius: 4px;

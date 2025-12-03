@@ -6,6 +6,7 @@ export default defineConfig({
   site: 'https://adravilag.github.io',
   base: '/saged-ui',
   outDir: '../dist-docs',
+  trailingSlash: 'always',
   build: {
     assets: 'assets'
   },

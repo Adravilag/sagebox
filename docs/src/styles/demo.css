@@ -36,7 +36,7 @@
   background: var(--surface);
   color: var(--text);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -46,6 +46,12 @@
   background: var(--surface-hover);
   border-color: var(--accent);
   color: var(--accent-text);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.demo-btn:active {
+  transform: translateY(0);
 }
 
 /* Dropdown menu items */
@@ -60,12 +66,13 @@
   color: var(--text);
   cursor: pointer;
   border-radius: var(--radius-sm);
-  transition: background var(--transition-fast);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .demo-menu-item:hover {
   background: var(--accent-soft);
   color: var(--accent-text);
+  padding-left: 1.25rem;
 }
 
 /* Dropdown header/footer */

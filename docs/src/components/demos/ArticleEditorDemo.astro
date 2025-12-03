@@ -1,0 +1,39 @@
+---
+/**
+ * ArticleEditorDemo.astro
+ * Demo section para el componente Article Editor
+ */
+import ComponentCard from '../ComponentCard.astro';
+import DemoRow from '../DemoRow.astro';
+import { editorProps, editorEvents, editorMethods } from '@/config/componentData';
+---
+
+<ComponentCard
+  id="article-editor"
+  title="Editor de Artículos"
+  titleKey="components.editor.title"
+  tag="sg-article-editor"
+  description="Editor WYSIWYG con soporte Markdown"
+  descriptionKey="components.editor.description"
+  docsUrl="/components/article-editor"
+  props={editorProps}
+  events={editorEvents}
+  methods={editorMethods}
+>
+  <DemoRow code={`<sg-article-editor
+  value="<p>Start editing...</p>"
+  mode="split"
+  min-height="280"
+  placeholder="Write something...">
+</sg-article-editor>
+
+<!-- Modes: html, markdown, split -->
+<!-- Events: @change, @save -->`}>
+    <sg-article-editor
+      value="<p>Start editing...</p>"
+      mode="split"
+      min-height="280"
+      placeholder="Write something...">
+    </sg-article-editor>
+  </DemoRow>
+</ComponentCard>

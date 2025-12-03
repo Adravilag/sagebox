@@ -1,0 +1,43 @@
+---
+/**
+ * SkeletonDemo.astro
+ * Demo section para el componente Skeleton
+ */
+import ComponentCard from '../ComponentCard.astro';
+import DemoRow from '../DemoRow.astro';
+import { skeletonProps } from '@/config/componentData';
+---
+
+<ComponentCard
+  id="skeleton"
+  title="Skeleton"
+  titleKey="components.skeleton.title"
+  tag="sg-skeleton"
+  description="Placeholder de carga"
+  descriptionKey="components.skeleton.description"
+  docsUrl="/components/skeleton"
+  props={skeletonProps}
+>
+  <DemoRow label="Texto" labelKey="components.skeleton.text" code={`<sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
+<sg-skeleton variant="text" width="150px" height="1rem"></sg-skeleton>
+<sg-skeleton variant="text" width="100px" height="1rem"></sg-skeleton>`}>
+    <sg-skeleton variant="text" width="200px" height="1rem"></sg-skeleton>
+    <sg-skeleton variant="text" width="150px" height="1rem"></sg-skeleton>
+    <sg-skeleton variant="text" width="100px" height="1rem"></sg-skeleton>
+  </DemoRow>
+  <DemoRow label="Rectángulo" labelKey="components.skeleton.rectangle" code={`<sg-skeleton variant="rect" width="120px" height="80px"></sg-skeleton>
+<sg-skeleton variant="rect" width="160px" height="100px"></sg-skeleton>`}>
+    <sg-skeleton variant="rect" width="120px" height="80px"></sg-skeleton>
+    <sg-skeleton variant="rect" width="160px" height="100px"></sg-skeleton>
+  </DemoRow>
+  <DemoRow label="Círculo" labelKey="components.skeleton.circle" code={`<sg-skeleton variant="circle" width="40px" height="40px"></sg-skeleton>
+<sg-skeleton variant="circle" width="56px" height="56px"></sg-skeleton>
+<sg-skeleton variant="circle" width="72px" height="72px"></sg-skeleton>`}>
+    <sg-skeleton variant="circle" width="40px" height="40px"></sg-skeleton>
+    <sg-skeleton variant="circle" width="56px" height="56px"></sg-skeleton>
+    <sg-skeleton variant="circle" width="72px" height="72px"></sg-skeleton>
+  </DemoRow>
+  <DemoRow label="Animación Pulse" labelKey="components.skeleton.pulse" code={`<sg-skeleton variant="rect" width="150px" height="60px" animation="pulse"></sg-skeleton>`}>
+    <sg-skeleton variant="rect" width="150px" height="60px" animation="pulse"></sg-skeleton>
+  </DemoRow>
+</ComponentCard>

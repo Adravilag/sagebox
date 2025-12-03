@@ -1,28 +1,13 @@
 /**
  * Theme management for SagedUI docs
+ * Note: Theme is initialized in Layout.astro head script to prevent flash
+ * This file only provides the toggle function as a backup
  */
 
-export function initTheme(): void {
-  const saved = localStorage.getItem('theme');
-  if (saved) {
-    document.documentElement.dataset.theme = saved;
-  }
-}
-
-export function toggleTheme(): void {
-  const html = document.documentElement;
-  const isDark = html.dataset.theme === 'dark';
-  html.dataset.theme = isDark ? 'light' : 'dark';
-  localStorage.setItem('theme', html.dataset.theme);
-}
-
-// Auto-init on load
-initTheme();
-
-// Expose globally for onclick handlers
+// toggleTheme is already defined in Layout.astro inline script
+// This is just a type declaration for TypeScript
 declare global {
   interface Window {
-    toggleTheme: typeof toggleTheme;
+    toggleTheme: () => void;
   }
 }
-window.toggleTheme = toggleTheme;

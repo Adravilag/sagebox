@@ -1,6 +1,7 @@
 ---
 import ComponentLayout from '../../layouts/ComponentLayout.astro';
 import DemoBox from '../../components/DemoBox.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 
 const props = [
   { name: 'open', type: 'boolean', default: 'false', description: 'Si el dropdown está abierto' },
@@ -102,7 +103,9 @@ const methods = [
   <Fragment slot="usage">
     <div class="usage-block">
       <h3>Control programático</h3>
-      <pre><code set:html={`const dropdown = document.querySelector('sg-dropdown');
+      <CodeBlock 
+        filename="dropdown.js"
+        code={`const dropdown = document.querySelector('sg-dropdown');
 
 // Abrir
 await dropdown.openDropdown();
@@ -111,18 +114,22 @@ await dropdown.openDropdown();
 await dropdown.closeDropdown();
 
 // Toggle
-await dropdown.toggle();`}></code></pre>
+await dropdown.toggle();`}
+      />
     </div>
 
     <div class="usage-block">
       <h3>Escuchar eventos</h3>
-      <pre><code set:html={`dropdown.addEventListener('sgOpen', () => {
+      <CodeBlock 
+        filename="events.js"
+        code={`dropdown.addEventListener('sgOpen', () => {
   console.log('Dropdown abierto');
 });
 
 dropdown.addEventListener('sgClose', () => {
   console.log('Dropdown cerrado');
-});`}></code></pre>
+});`}
+      />
     </div>
   </Fragment>
 </ComponentLayout>
@@ -140,19 +147,5 @@ dropdown.addEventListener('sgClose', () => {
     font-weight: 600;
     margin: 0 0 1rem 0;
     color: var(--text);
-  }
-  .usage-block pre {
-    background: var(--code-bg);
-    border: 1px solid var(--code-border);
-    border-radius: var(--radius-md);
-    padding: 1rem 1.25rem;
-    margin: 0;
-    overflow-x: auto;
-  }
-  .usage-block pre code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 0.8125rem;
-    color: var(--code-text);
-    line-height: 1.7;
   }
 </style>

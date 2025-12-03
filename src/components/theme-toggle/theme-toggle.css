@@ -126,12 +126,12 @@
   position: absolute;
   bottom: -0.25rem;
   right: -0.25rem;
-  font-size: 0.5rem;
-  font-weight: 600;
+  font-size: 0.5625rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.025em;
-  padding: 0.125rem 0.25rem;
-  background-color: var(--sg-accent, #3b82f6);
+  padding: 0.125rem 0.3rem;
+  background-color: var(--sg-accent, #2563eb);
   color: white;
   border-radius: var(--sg-radius-sm, 0.25rem);
   line-height: 1;

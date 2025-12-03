@@ -13,7 +13,7 @@
   --dev-surface: #ffffff;
   --dev-border: #e2e8f0;
   --dev-text: #0f172a;
-  --dev-text-muted: #64748b;
+  --dev-text-muted: #475569;
   --dev-accent: #6366f1;
   --dev-accent-soft: #eef2ff;
   --dev-radius: 8px;
@@ -25,7 +25,7 @@
   --dev-surface: #1e293b;
   --dev-border: #334155;
   --dev-text: #f1f5f9;
-  --dev-text-muted: #94a3b8;
+  --dev-text-muted: #b8c4d4;
   --dev-accent: #818cf8;
   --dev-accent-soft: #1e1b4b;
   color-scheme: dark;
@@ -315,14 +315,14 @@ sg-dropdown {
   padding: 0.5rem 0.875rem;
   font-size: 0.6875rem;
   font-weight: 600;
-  color: #64748b;
+  color: #475569;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 [data-theme='dark'] .demo-menu-header,
 [data-theme='dark'] .demo-menu-footer {
-  color: #94a3b8;
+  color: #b8c4d4;
 }
 
 .demo-menu-header {

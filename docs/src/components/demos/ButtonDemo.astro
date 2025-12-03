@@ -1,0 +1,46 @@
+---
+/**
+ * ButtonDemo.astro
+ * Demo section para el componente Button
+ */
+import ComponentCard from '../ComponentCard.astro';
+import DemoRow from '../DemoRow.astro';
+import { buttonProps, buttonEvents, buttonSlots } from '@/config/componentData';
+---
+
+<ComponentCard
+  id="button"
+  title="Botón"
+  titleKey="components.button.title"
+  tag="sg-button"
+  description="Botón interactivo con múltiples variantes"
+  descriptionKey="components.button.description"
+  docsUrl="/components/button"
+  props={buttonProps}
+  events={buttonEvents}
+  slots={buttonSlots}
+>
+  <DemoRow label="Variantes" labelKey="components.button.variants" code={`<sg-button variant="primary">Primary</sg-button>
+<sg-button variant="secondary">Secondary</sg-button>
+<sg-button variant="outline">Outline</sg-button>
+<sg-button variant="ghost">Ghost</sg-button>
+<sg-button variant="danger">Danger</sg-button>`}>
+    <sg-button variant="primary">Primary</sg-button>
+    <sg-button variant="secondary">Secondary</sg-button>
+    <sg-button variant="outline">Outline</sg-button>
+    <sg-button variant="ghost">Ghost</sg-button>
+    <sg-button variant="danger">Danger</sg-button>
+  </DemoRow>
+  <DemoRow label="Tamaños" labelKey="components.button.sizes" code={`<sg-button size="sm">Small</sg-button>
+<sg-button size="md">Medium</sg-button>
+<sg-button size="lg">Large</sg-button>`}>
+    <sg-button size="sm">Small</sg-button>
+    <sg-button size="md">Medium</sg-button>
+    <sg-button size="lg">Large</sg-button>
+  </DemoRow>
+  <DemoRow label="Estados" labelKey="components.button.states" code={`<sg-button disabled>Disabled</sg-button>
+<sg-button loading>Loading</sg-button>`}>
+    <sg-button disabled>Disabled</sg-button>
+    <sg-button loading>Loading</sg-button>
+  </DemoRow>
+</ComponentCard>

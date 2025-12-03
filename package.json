@@ -90,7 +90,7 @@
         "build:all": "stencil build && npm link && npm run build:angular && npm run build:react",
         "build:angular": "ng-packagr -p angular/ng-package.json",
         "build:react": "cd react && npx tsc -p tsconfig.json",
-        "start": "stencil build --dev --watch --config stencil.dev.config.ts",
+        "start": "cd docs && npm run dev",
         "dev": "npm run start & npm run docs:dev",
         "test": "stencil test --spec --e2e",
         "test:spec": "stencil test --spec",
