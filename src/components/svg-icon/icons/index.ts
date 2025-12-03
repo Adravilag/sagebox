@@ -33,13 +33,25 @@ export const icons: Record<string, string> = {
 const ICONS_KEY = '__sgUserIcons';
 const ICONS_LOADED_KEY = '__sgIconsLoaded';
 
+/** Type-safe global storage interface */
+interface SgIconGlobal {
+  [ICONS_KEY]?: Record<string, string>;
+  [ICONS_LOADED_KEY]?: Record<string, boolean>;
+}
+
+/** Get typed globalThis */
+function getGlobal(): SgIconGlobal {
+  return globalThis as SgIconGlobal;
+}
+
 /**
  * Register icons globally for <sg-icon> components
  */
 function registerIcons(iconsToRegister: Record<string, string>): void {
   if (typeof globalThis !== 'undefined') {
-    const existing = (globalThis as any)[ICONS_KEY] || {};
-    (globalThis as any)[ICONS_KEY] = { ...existing, ...iconsToRegister };
+    const g = getGlobal();
+    const existing = g[ICONS_KEY] || {};
+    g[ICONS_KEY] = { ...existing, ...iconsToRegister };
   }
 }
 
@@ -48,7 +60,7 @@ function registerIcons(iconsToRegister: Record<string, string>): void {
  * @param jsonPath - Path to the JSON file containing icons
  */
 export async function loadIconsFromJson(jsonPath: string): Promise<void> {
-  if (typeof globalThis !== 'undefined' && (globalThis as any)[ICONS_LOADED_KEY]?.[jsonPath]) {
+  if (typeof globalThis !== 'undefined' && getGlobal()[ICONS_LOADED_KEY]?.[jsonPath]) {
     return; // Already loaded
   }
 
@@ -56,13 +68,14 @@ export async function loadIconsFromJson(jsonPath: string): Promise<void> {
     const response = await fetch(jsonPath);
     if (response.ok) {
       const iconsData = await response.json();
-      registerIcons(iconsData);
+      registerIcons(iconsData as Record<string, string>);
 
       // Mark as loaded
-      if (!(globalThis as any)[ICONS_LOADED_KEY]) {
-        (globalThis as any)[ICONS_LOADED_KEY] = {};
+      const g = getGlobal();
+      if (!g[ICONS_LOADED_KEY]) {
+        g[ICONS_LOADED_KEY] = {};
       }
-      (globalThis as any)[ICONS_LOADED_KEY][jsonPath] = true;
+      g[ICONS_LOADED_KEY]![jsonPath] = true;
     }
   } catch (error) {
     console.error('[SagedUI] Failed to load icons from:', jsonPath, error);

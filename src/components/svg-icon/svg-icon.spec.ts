@@ -1,9 +1,19 @@
 import { newSpecPage } from '@stencil/core/testing';
 import { SgIcon } from './svg-icon';
 
+/** Type-safe global storage interface for tests */
+interface SgIconGlobal {
+  __sgUserIcons?: Record<string, string>;
+}
+
+/** Get typed globalThis */
+function getGlobal(): SgIconGlobal {
+  return globalThis as SgIconGlobal;
+}
+
 // Helper to register icons globally before tests
 const registerTestIcons = () => {
-  (globalThis as any).__sgUserIcons = {
+  getGlobal().__sgUserIcons = {
     home: '<svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>',
     settings: '<svg viewBox="0 0 24 24"><path d="M12 8c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z"/></svg>',
     heart:
@@ -16,7 +26,7 @@ const registerTestIcons = () => {
 
 // Helper to clear icons after tests
 const clearTestIcons = () => {
-  delete (globalThis as any).__sgUserIcons;
+  delete getGlobal().__sgUserIcons;
 };
 
 describe('sg-icon', () => {
@@ -165,7 +175,7 @@ describe('sg-icon', () => {
 
   it('normalizes icon name with prefix', async () => {
     // Register icon with normalized name
-    (globalThis as any).__sgUserIcons['lucide-home'] = '<svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>';
+    getGlobal().__sgUserIcons!['lucide-home'] = '<svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>';
 
     const page = await newSpecPage({
       components: [SgIcon],

@@ -11,6 +11,7 @@ import {
   DEFAULT_TOOLBAR_BUTTONS,
   countWords,
   countChars,
+  ToolbarAction,
 } from './utils';
 import { convertContent, getPreviewHtml, sanitizeHtml } from './utils/editor-modes';
 import { getTextSelection, setTextSelection, applyToolbarAction, getActionFromKeyboard, DEFAULT_SHORTCUTS } from './utils/toolbar-actions';
@@ -452,7 +453,7 @@ export class ArticleEditor {
       content: this.internalValue,
       selection,
       mode: this.contentType,
-      action: action as any,
+      action: action as ToolbarAction,
     });
 
     this.internalValue = result.newContent;
