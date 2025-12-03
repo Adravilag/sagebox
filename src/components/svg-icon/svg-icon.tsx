@@ -451,15 +451,7 @@ export class SgIcon {
     const viewBox = svg.getAttribute('viewBox') || '0 0 24 24';
     const svgContent = svg.innerHTML;
 
-    return (
-      <svg
-        viewBox={viewBox}
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ fill: this.getEffectiveColor() }}
-        // eslint-disable-next-line react/no-danger
-        {...({ innerHTML: svgContent } as any)}
-      />
-    );
+    return <svg viewBox={viewBox} xmlns="http://www.w3.org/2000/svg" style={{ fill: this.getEffectiveColor() }} {...({ innerHTML: svgContent } as any)} />;
   }
 
   render() {

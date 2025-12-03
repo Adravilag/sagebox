@@ -234,7 +234,7 @@ export function applyToolbarAction(options: ApplyActionOptions): FormatResult {
     case 'quote':
       return isMarkdown ? applyMarkdownBlockFormat(content, selection, '> ') : applyHtmlBlockFormat(content, selection, 'blockquote');
 
-    case 'hr':
+    case 'hr': {
       const before = content.substring(0, selection.start);
       const after = content.substring(selection.end);
       const hrText = isMarkdown ? '\n\n---\n\n' : '\n<hr />\n';
@@ -243,6 +243,7 @@ export function applyToolbarAction(options: ApplyActionOptions): FormatResult {
         newSelectionStart: selection.start + hrText.length,
         newSelectionEnd: selection.start + hrText.length,
       };
+    }
 
     // Links and images
     case 'link':

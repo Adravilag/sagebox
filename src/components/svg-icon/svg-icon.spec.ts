@@ -1,4 +1,4 @@
-import { newSpecPage, SpecPage } from '@stencil/core/testing';
+import { newSpecPage } from '@stencil/core/testing';
 import { SgIcon } from './svg-icon';
 
 // Helper to register icons globally before tests
