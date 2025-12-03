@@ -8,73 +8,73 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 
 const colors = {
   accent: [
-    { name: '--accent', light: '#4f46e5', dark: '#6366f1', desc: 'Color principal de acento' },
-    { name: '--accent-hover', light: '#4338ca', dark: '#818cf8', desc: 'Acento en hover' },
-    { name: '--accent-soft', light: '#eef2ff', dark: 'rgba(99, 102, 241, 0.12)', desc: 'Fondo suave de acento' },
-    { name: '--accent-text', light: '#3730a3', dark: '#c7d2fe', desc: 'Texto sobre fondo de acento' },
+    { name: '--accent', light: '#4f46e5', dark: '#6366f1', desc: 'Primary accent color' },
+    { name: '--accent-hover', light: '#4338ca', dark: '#818cf8', desc: 'Accent on hover' },
+    { name: '--accent-soft', light: '#eef2ff', dark: 'rgba(99, 102, 241, 0.12)', desc: 'Soft accent background' },
+    { name: '--accent-text', light: '#3730a3', dark: '#c7d2fe', desc: 'Text on accent background' },
   ],
   background: [
-    { name: '--bg', light: '#f8fafc', dark: '#080d16', desc: 'Fondo principal' },
-    { name: '--bg-muted', light: '#e2e8f0', dark: '#0f1420', desc: 'Fondo atenuado' },
-    { name: '--surface', light: '#ffffff', dark: '#111827', desc: 'Superficie de tarjetas' },
-    { name: '--surface-elevated', light: '#ffffff', dark: '#1c2840', desc: 'Superficie elevada' },
-    { name: '--surface-hover', light: '#f1f5f9', dark: '#1e293b', desc: 'Superficie en hover' },
+    { name: '--bg', light: '#f8fafc', dark: '#080d16', desc: 'Main background' },
+    { name: '--bg-muted', light: '#e2e8f0', dark: '#0f1420', desc: 'Muted background' },
+    { name: '--surface', light: '#ffffff', dark: '#111827', desc: 'Card surface' },
+    { name: '--surface-elevated', light: '#ffffff', dark: '#1c2840', desc: 'Elevated surface' },
+    { name: '--surface-hover', light: '#f1f5f9', dark: '#1e293b', desc: 'Surface on hover' },
   ],
   text: [
-    { name: '--text', light: '#0f172a', dark: '#f8fafc', desc: 'Texto principal' },
-    { name: '--text-muted', light: '#374151', dark: '#b8c5d6', desc: 'Texto secundario' },
-    { name: '--text-subtle', light: '#4b5563', dark: '#9ca9bc', desc: 'Texto sutil' },
+    { name: '--text', light: '#0f172a', dark: '#f8fafc', desc: 'Primary text' },
+    { name: '--text-muted', light: '#374151', dark: '#b8c5d6', desc: 'Secondary text' },
+    { name: '--text-subtle', light: '#4b5563', dark: '#9ca9bc', desc: 'Subtle text' },
   ],
   border: [
-    { name: '--border', light: '#e2e8f0', dark: '#293548', desc: 'Borde principal' },
-    { name: '--border-muted', light: '#cbd5e1', dark: '#334155', desc: 'Borde atenuado' },
-    { name: '--border-subtle', light: '#f1f5f9', dark: '#1e293b', desc: 'Borde sutil' },
+    { name: '--border', light: '#e2e8f0', dark: '#293548', desc: 'Primary border' },
+    { name: '--border-muted', light: '#cbd5e1', dark: '#334155', desc: 'Muted border' },
+    { name: '--border-subtle', light: '#f1f5f9', dark: '#1e293b', desc: 'Subtle border' },
   ],
   semantic: [
-    { name: '--success', light: '#059669', dark: '#34d399', desc: 'Éxito / Positivo' },
-    { name: '--warning', light: '#f59e0b', dark: '#fbbf24', desc: 'Advertencia' },
-    { name: '--danger', light: '#ef4444', dark: '#f87171', desc: 'Error / Peligro' },
+    { name: '--success', light: '#059669', dark: '#34d399', desc: 'Success / Positive' },
+    { name: '--warning', light: '#f59e0b', dark: '#fbbf24', desc: 'Warning' },
+    { name: '--danger', light: '#ef4444', dark: '#f87171', desc: 'Error / Danger' },
   ],
 };
 
 const spacing = [
-  { name: '0.125rem', px: '2px', use: 'Micro espaciado' },
-  { name: '0.25rem', px: '4px', use: 'Espaciado XS' },
-  { name: '0.5rem', px: '8px', use: 'Espaciado SM' },
-  { name: '0.75rem', px: '12px', use: 'Espaciado MD' },
-  { name: '1rem', px: '16px', use: 'Espaciado base' },
-  { name: '1.5rem', px: '24px', use: 'Espaciado LG' },
-  { name: '2rem', px: '32px', use: 'Espaciado XL' },
-  { name: '3rem', px: '48px', use: 'Espaciado 2XL' },
+  { name: '0.125rem', px: '2px', use: 'Micro spacing' },
+  { name: '0.25rem', px: '4px', use: 'XS spacing' },
+  { name: '0.5rem', px: '8px', use: 'SM spacing' },
+  { name: '0.75rem', px: '12px', use: 'MD spacing' },
+  { name: '1rem', px: '16px', use: 'Base spacing' },
+  { name: '1.5rem', px: '24px', use: 'LG spacing' },
+  { name: '2rem', px: '32px', use: 'XL spacing' },
+  { name: '3rem', px: '48px', use: '2XL spacing' },
 ];
 
 const radii = [
-  { name: '--radius-xs', value: '4px', desc: 'Badges, tags pequeños' },
-  { name: '--radius-sm', value: '6px', desc: 'Botones pequeños, inputs' },
-  { name: '--radius-md', value: '8px', desc: 'Botones, cards pequeñas' },
-  { name: '--radius-lg', value: '12px', desc: 'Cards, modales' },
-  { name: '--radius-xl', value: '16px', desc: 'Containers grandes' },
+  { name: '--radius-xs', value: '4px', desc: 'Small badges, tags' },
+  { name: '--radius-sm', value: '6px', desc: 'Small buttons, inputs' },
+  { name: '--radius-md', value: '8px', desc: 'Buttons, small cards' },
+  { name: '--radius-lg', value: '12px', desc: 'Cards, modals' },
+  { name: '--radius-xl', value: '16px', desc: 'Large containers' },
 ];
 
 const shadows = [
-  { name: '--shadow-xs', value: '0 1px 2px rgba(0,0,0,0.05)', desc: 'Elevación mínima' },
-  { name: '--shadow-sm', value: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06)', desc: 'Elevación baja' },
-  { name: '--shadow-md', value: '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)', desc: 'Elevación media' },
-  { name: '--shadow-lg', value: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)', desc: 'Elevación alta' },
+  { name: '--shadow-xs', value: '0 1px 2px rgba(0,0,0,0.05)', desc: 'Minimal elevation' },
+  { name: '--shadow-sm', value: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06)', desc: 'Low elevation' },
+  { name: '--shadow-md', value: '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)', desc: 'Medium elevation' },
+  { name: '--shadow-lg', value: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)', desc: 'High elevation' },
 ];
 
 const typography = {
   families: [
-    { name: '--font-sans', value: "'Inter', system-ui, -apple-system, sans-serif", desc: 'Tipografía principal' },
-    { name: '--font-mono', value: "'Fira Code', 'SF Mono', Consolas, monospace", desc: 'Código y datos' },
+    { name: '--font-sans', value: "'Inter', system-ui, -apple-system, sans-serif", desc: 'Primary typography' },
+    { name: '--font-mono', value: "'Fira Code', 'SF Mono', Consolas, monospace", desc: 'Code and data' },
   ],
   sizes: [
-    { name: '0.625rem', px: '10px', use: 'Micro texto' },
-    { name: '0.75rem', px: '12px', use: 'Texto pequeño, labels' },
-    { name: '0.8125rem', px: '13px', use: 'Texto secundario' },
-    { name: '0.875rem', px: '14px', use: 'Texto base UI' },
-    { name: '1rem', px: '16px', use: 'Texto cuerpo' },
-    { name: '1.125rem', px: '18px', use: 'Texto grande' },
+    { name: '0.625rem', px: '10px', use: 'Micro text' },
+    { name: '0.75rem', px: '12px', use: 'Small text, labels' },
+    { name: '0.8125rem', px: '13px', use: 'Secondary text' },
+    { name: '0.875rem', px: '14px', use: 'UI base text' },
+    { name: '1rem', px: '16px', use: 'Body text' },
+    { name: '1.125rem', px: '18px', use: 'Large text' },
     { name: '1.5rem', px: '24px', use: 'Heading H3' },
     { name: '2rem', px: '32px', use: 'Heading H2' },
     { name: '3rem', px: '48px', use: 'Heading H1' },
@@ -82,9 +82,9 @@ const typography = {
 };
 
 const transitions = [
-  { name: '--transition-fast', value: '0.15s ease', desc: 'Micro-interacciones' },
-  { name: '--transition-normal', value: '0.2s ease', desc: 'Transiciones estándar' },
-  { name: '--transition-slow', value: '0.3s ease', desc: 'Animaciones suaves' },
+  { name: '--transition-fast', value: '0.15s ease', desc: 'Micro-interactions' },
+  { name: '--transition-normal', value: '0.2s ease', desc: 'Standard transitions' },
+  { name: '--transition-slow', value: '0.3s ease', desc: 'Smooth animations' },
 ];
 ---
 
@@ -146,10 +146,10 @@ const transitions = [
           <h4 data-i18n="tokens.jsImport">JavaScript / Bundler</h4>
           <CodeBlock 
             filename="main.js"
-            code={`// Importar solo los tokens CSS
+            code={`// Import only CSS tokens
 import 'saged-ui/dist/saged-ui/styles/tokens.css';
 
-// O importar todo el CSS de SagedUI (incluye tokens)
+// Or import all SagedUI CSS (includes tokens)
 import 'saged-ui/dist/saged-ui/saged-ui.css';`}
           />
         </div>
@@ -158,10 +158,10 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
           <h4 data-i18n="tokens.htmlCdn">HTML (CDN)</h4>
           <CodeBlock 
             filename="index.html"
-            code={`<!-- Desde unpkg -->
+            code={`<!-- From unpkg -->
 <link rel="stylesheet" href="https://unpkg.com/saged-ui/dist/saged-ui/styles/tokens.css">
 
-<!-- O desde jsDelivr -->
+<!-- Or from jsDelivr -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/saged-ui/dist/saged-ui/styles/tokens.css">`}
           />
         </div>
@@ -170,7 +170,7 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
           <h4 data-i18n="tokens.cssImport">CSS @import</h4>
           <CodeBlock 
             filename="styles.css"
-            code={`/* Si usas un bundler como Vite, Webpack, etc. */
+            code={`/* If using a bundler like Vite, Webpack, etc. */
 @import 'saged-ui/dist/saged-ui/styles/tokens.css';`}
           />
         </div>
@@ -320,7 +320,7 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
               <code>{size.name}</code>
               <span class="size-px">{size.px}</span>
               <span class="size-use">{size.use}</span>
-              <span class="size-preview" style={`font-size: ${size.name}`}>Ejemplo</span>
+              <span class="size-preview" style={`font-size: ${size.name}`}>Sample</span>
             </div>
           ))}
         </div>
@@ -425,16 +425,16 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
       <CodeBlock 
         filename="component.css"
         code={`.my-component {
-  /* Colores */
+  /* Colors */
   background: var(--surface);
   color: var(--text);
   border: 1px solid var(--border);
   
-  /* Espaciado */
+  /* Spacing */
   padding: 1rem 1.5rem;
   gap: 0.75rem;
   
-  /* Efectos */
+  /* Effects */
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-fast);
@@ -625,6 +625,30 @@ import 'saged-ui/dist/saged-ui/saged-ui.css';`}
     margin: 0 0 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+  }
+
+  .coming-soon-notice {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    background: var(--warning-soft, rgba(245, 158, 11, 0.1));
+    border: 1px solid var(--warning, #f59e0b);
+    border-radius: var(--radius-md);
+    color: var(--warning, #f59e0b);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .coming-soon-notice svg {
+    flex-shrink: 0;
+  }
+
+  .code-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(0.3);
   }
 
   .section-title {

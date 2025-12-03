@@ -29,11 +29,6 @@ const { currentLang = defaultLang } = Astro.props;
       >
         <span class="lang-flag">{code === 'es' ? '🇪🇸' : '🇬🇧'}</span>
         <span class="lang-name">{name}</span>
-        {code === currentLang && (
-          <svg class="check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M20 6L9 17l-5-5"/>
-          </svg>
-        )}
       </button>
     ))}
   </div>
@@ -129,10 +124,6 @@ const { currentLang = defaultLang } = Astro.props;
   .lang-name {
     flex: 1;
     font-weight: 450;
-  }
-
-  .check {
-    color: var(--accent);
   }
 </style>
 
