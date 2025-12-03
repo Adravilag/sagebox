@@ -47,5 +47,12 @@ export const config: Config = {
       '<rootDir>/react/',
       '<rootDir>/docs/',
     ],
+    collectCoverageFrom: [
+      'src/components/**/*.{ts,tsx}',
+      '!src/components/**/*.stories.ts',
+      '!src/components/**/*.d.ts',
+    ],
+    coverageReporters: ['text', 'lcov', 'html'],
+    coverageDirectory: 'coverage',
   },
 };
