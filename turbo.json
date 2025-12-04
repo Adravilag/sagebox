@@ -6,6 +6,20 @@
       "inputs": ["src/**", "stencil.config.ts", "tsconfig.json", "package.json"],
       "outputs": ["dist/**", "loader/**"]
     },
+    "build:icons": {
+      "dependsOn": [],
+      "inputs": ["packages/icons/src/**", "packages/icons/stencil.config.ts", "packages/icons/package.json"],
+      "outputs": ["packages/icons/dist/**", "packages/icons/loader/**"]
+    },
+    "build:components": {
+      "dependsOn": ["build:icons"],
+      "inputs": ["packages/components/src/**", "packages/components/stencil.config.ts", "packages/components/package.json"],
+      "outputs": ["packages/components/dist/**", "packages/components/loader/**"]
+    },
+    "build:packages": {
+      "dependsOn": ["build:icons", "build:components"],
+      "outputs": ["packages/*/dist/**", "packages/*/loader/**"]
+    },
     "build:angular": {
       "dependsOn": ["build"],
       "outputs": ["dist/angular/**"]
