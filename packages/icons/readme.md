@@ -76,13 +76,13 @@ The package includes a CLI for managing icons:
 
 ```bash
 # Initialize icon configuration
-npx saged-icons init
+npx sage-icons init
 
 # Add icons from Iconify
-npx saged-icons add mdi:home mdi:settings
+npx sage-icons add mdi:home mdi:settings
 
 # Browse and search icons
-npx saged-icons browse
+npx sage-icons browse
 ```
 
 ## Props

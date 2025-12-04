@@ -2,13 +2,13 @@
 
 /**
  * @sagebox/icons CLI
- * 
+ *
  * Command line interface for managing SVG icons
- * 
+ *
  * Usage:
- *   npx saged-icons <command> [options]
- *   saged-icons <command> [options]
- * 
+ *   npx sage-icons <command> [options]
+ *   sage-icons <command> [options]
+ *
  * Commands:
  *   icons       Manage SVG icons
  *   icon-sets   Import popular icon sets (Lucide, Material, etc.)
@@ -24,10 +24,7 @@ const iconsCommand = require('../cli/commands/icons');
 const iconSetsCommand = require('../cli/commands/icon-sets');
 const initCommand = require('../cli/commands/init');
 
-program
-  .name('saged-icons')
-  .description('@sagebox/icons CLI - Manage your SVG icons')
-  .version(pkg.version);
+program.name('sage-icons').description('@sagebox/icons CLI - Manage your SVG icons').version(pkg.version);
 
 // Register commands
 iconsCommand(program);

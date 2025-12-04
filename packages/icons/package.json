@@ -45,7 +45,8 @@
     "cli/"
   ],
   "sideEffects": [
-    "dist/sagebox-icons/sagebox-icons.esm.js",
+    "dist/sagebox-icons/*.js",
+    "dist/esm/*.js",
     "loader/index.js"
   ],
   "scripts": {
