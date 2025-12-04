@@ -751,39 +751,47 @@ module.exports = function(program) {
       ensureIconsDir(config);
 
       if (options.legacy) {
-        // Use legacy inline HTML server
-        const server = require('../utils/icon-server');
-        server.start(iconsJsonPath, parseInt(options.port));
-      } else {
-        // Use Astro-based Icon Manager (standalone project)
-        const { spawn } = require('child_process');
-        const iconManagerPath = path.resolve(__dirname, '..', '..', 'tools', 'icon-manager');
-
-        // Set environment variable for icons path
-        const env = {
-          ...process.env,
-          ICONS_PATH: iconsJsonPath,
-          PORT: options.port
-        };
-
-        log.info(`Starting Icon Manager (Astro)...`);
-        log.info(`Icons path: ${iconsJsonPath}`);
-        log.info(`Open: http://localhost:${options.port}/`);
-
-        const astro = spawn('npx', ['astro', 'dev', '--port', options.port], {
-          cwd: iconManagerPath,
-          env,
-          stdio: 'inherit',
-          shell: true
-        });
-
-        astro.on('error', (err) => {
-          log.error(`Failed to start: ${err.message}`);
-          log.info('Falling back to legacy server...');
-          const server = require('../utils/icon-server');
-          server.start(iconsJsonPath, parseInt(options.port));
-        });
+        // Legacy server removed - redirect to new Icon Manager
+        log.warn('Legacy server has been removed.');
+        log.info('Starting new Icon Manager instead...');
+        options.legacy = false;
       }
+      
+      // Use Astro-based Icon Manager (standalone project)
+      const { spawn } = require('child_process');
+      // Navigate from packages/icons/cli/commands to root/tools/icon-manager
+      const iconManagerPath = path.resolve(__dirname, '..', '..', '..', '..', 'tools', 'icon-manager');
+
+      // Check if Icon Manager exists
+      if (!fs.existsSync(iconManagerPath)) {
+        log.error(`Icon Manager not found at: ${iconManagerPath}`);
+        log.info('Please ensure the tools/icon-manager directory exists.');
+        process.exit(1);
+      }
+
+      // Set environment variable for icons path
+      const env = {
+        ...process.env,
+        ICONS_PATH: iconsJsonPath,
+        PORT: options.port
+      };
+
+      log.info(`Starting Icon Manager (Astro)...`);
+      log.info(`Icons path: ${iconsJsonPath}`);
+      console.log();
+      
+      const astro = spawn('npm', ['run', 'dev', '--', '--port', options.port], {
+        cwd: iconManagerPath,
+        env,
+        stdio: 'inherit',
+        shell: true
+      });
+
+      astro.on('error', (err) => {
+        log.error(`Failed to start Icon Manager: ${err.message}`);
+        log.info('Try running manually: cd tools/icon-manager && npm run dev');
+        process.exit(1);
+      });
     });
 
   // icons optimize
