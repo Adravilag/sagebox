@@ -33,8 +33,8 @@
                     "test":  "stencil test --spec"
                 },
     "peerDependencies":  {
-                             "@sagebox/core":  "^1.0.0",
-                             "@sagebox/icons":  "^1.0.0"
+                             "@sagebox/core":  "^0.1.0",
+                             "@sagebox/icons":  "^0.1.0"
                          },
     "peerDependenciesMeta":  {
                                  "@sagebox/icons":  {

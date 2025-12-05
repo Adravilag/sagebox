@@ -37,7 +37,7 @@
                     "build-storybook":  "stencil build \u0026\u0026 storybook build"
                 },
     "peerDependencies":  {
-                             "@sagebox/core":  "^1.0.0"
+                             "@sagebox/core": "^0.1.0"
                          },
     "devDependencies":  {
                             "@stencil/core":  "^4.27.1",
@@ -55,3 +55,4 @@
                           "access":  "public"
                       }
 }
+
