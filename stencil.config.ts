@@ -56,12 +56,16 @@ export const config: Config = {
       '/wrappers/react/',
       '/docs/',
       '/tests/', // Playwright E2E tests
+      '/packages/.*/dist/', // Ignore compiled dist in packages
+      '/dist/collection/', // Ignore collection output
     ],
     modulePathIgnorePatterns: [
       '<rootDir>/wrappers/angular/',
       '<rootDir>/wrappers/react/',
       '<rootDir>/docs/',
       '<rootDir>/tests/', // Playwright E2E tests
+      '<rootDir>/packages/.*/dist/', // Ignore compiled dist in packages
+      '<rootDir>/dist/collection/', // Ignore collection output
     ],
     collectCoverageFrom: ['packages/**/src/**/*.{ts,tsx}', '!packages/**/src/**/*.stories.ts', '!packages/**/src/**/*.d.ts'],
     coverageReporters: ['text', 'lcov', 'html'],
