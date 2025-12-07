@@ -1,6 +1,6 @@
 {
-  "name": "sagebox-react",
-  "version": "1.2.1",
+  "name": "@sage-box/react",
+  "version": "0.1.0",
   "description": "React wrappers for SageBox web components",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

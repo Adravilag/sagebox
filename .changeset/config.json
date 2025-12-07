@@ -17,7 +17,9 @@
       "@sage-box/icons",
       "@sage-box/theme-toggle",
       "@sage-box/article-editor",
-      "@sage-box/modal"
+      "@sage-box/modal",
+      "@sage-box/angular",
+      "@sage-box/react"
     ]
   ],
   "linked": [],

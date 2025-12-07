@@ -1,6 +1,6 @@
 {
-  "name": "sagebox-angular",
-  "version": "1.1.0",
+  "name": "@sage-box/angular",
+  "version": "0.1.0",
   "description": "Angular wrappers for SageBox web components",
   "type": "module",
   "main": "./fesm2022/sagebox-angular.mjs",
