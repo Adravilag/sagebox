@@ -33,18 +33,18 @@ jobs:
       - name: Build Stencil components only
         run: npx stencil build
 
-      - name: Copy build to docs/public
+      - name: Copy build to website/public
         run: |
-          rm -rf docs/public/sagebox
-          mkdir -p docs/public/sagebox
-          cp -r dist/sagebox/* docs/public/sagebox/
+          rm -rf website/public/sagebox
+          mkdir -p website/public/sagebox
+          cp -r dist/sagebox/* website/public/sagebox/
 
-      - name: Install docs dependencies
-        working-directory: ./docs
+      - name: Install website dependencies
+        working-directory: ./website
         run: npm install
 
       - name: Build Astro documentation
-        working-directory: ./docs
+        working-directory: ./website
         run: npm run build
 
       - name: Upload artifact
