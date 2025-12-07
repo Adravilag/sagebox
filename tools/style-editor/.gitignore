@@ -1,0 +1,12 @@
+# Astro auto-generated files
+.astro/
+
+# Test artifacts
+playwright-report/
+test-results/
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
