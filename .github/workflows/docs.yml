@@ -33,11 +33,11 @@ jobs:
       - name: Build Stencil components only
         run: npx stencil build
 
-      - name: Copy build to website/public
+      - name: Copy build to website/public/dist
         run: |
-          rm -rf website/public/sagebox
-          mkdir -p website/public/sagebox
-          cp -r dist/sagebox/* website/public/sagebox/
+          rm -rf website/public/dist
+          mkdir -p website/public/dist
+          cp -r dist/sagebox/* website/public/dist/
 
       - name: Install website dependencies
         working-directory: ./website
