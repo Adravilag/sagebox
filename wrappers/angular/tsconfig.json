@@ -16,8 +16,11 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "paths": {
+      "sagebox": ["../../dist/types/index.d.ts"],
+      "sagebox/components": ["../../dist/types/components.d.ts"],
+      "sagebox/components/*": ["../../dist/components/*"]
     },
-    "typeRoots": ["../../node_modules/@types"],
+    "typeRoots": ["../../node_modules/@types", "../../dist/types"],
     "baseUrl": "."
   },
   "include": ["src/**/*.ts", "../../dist/types/**/*.d.ts"],
