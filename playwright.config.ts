@@ -50,6 +50,6 @@ export default defineConfig({
     command: 'npx http-server ./www -p 3333 -c-1 --cors',
     url: 'http://localhost:3333',
     reuseExistingServer: !process.env.CI,
-    timeout: 30 * 1000,
+    timeout: 120 * 1000, // 2 minutes for CI where http-server needs to be installed
   },
 });
