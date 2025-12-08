@@ -28,6 +28,9 @@
     "search-box",
     "sagebox"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }
 

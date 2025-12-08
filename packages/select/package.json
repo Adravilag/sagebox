@@ -34,6 +34,9 @@
     "multi-select",
     "autocomplete"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }
 

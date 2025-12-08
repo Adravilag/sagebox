@@ -47,6 +47,9 @@
     "stencil"
   ],
   "author": "adravilag",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }
 
