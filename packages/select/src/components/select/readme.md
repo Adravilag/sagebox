@@ -37,13 +37,13 @@
 
 ## Events
 
-| Event      | Description | Type                                                                 |
-| ---------- | ----------- | -------------------------------------------------------------------- |
-| `sgChange` |             | `CustomEvent<{ value: string \| string[]; option?: SelectOption; }>` |
-| `sgClose`  |             | `CustomEvent<void>`                                                  |
-| `sgCreate` |             | `CustomEvent<{ value: string; }>`                                    |
-| `sgOpen`   |             | `CustomEvent<void>`                                                  |
-| `sgSearch` |             | `CustomEvent<{ query: string; }>`                                    |
+| Event      | Description                                                                            | Type                                                                                                                                                                               |
+| ---------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sgChange` | Emitted when selection changes. The option property contains the selected option data. | `CustomEvent<{ value: string \| string[]; option?: { value: string; label: string; disabled?: boolean; group?: string; icon?: string; description?: string; data?: unknown; }; }>` |
+| `sgClose`  |                                                                                        | `CustomEvent<void>`                                                                                                                                                                |
+| `sgCreate` |                                                                                        | `CustomEvent<{ value: string; }>`                                                                                                                                                  |
+| `sgOpen`   |                                                                                        | `CustomEvent<void>`                                                                                                                                                                |
+| `sgSearch` |                                                                                        | `CustomEvent<{ query: string; }>`                                                                                                                                                  |
 
 
 ## Methods

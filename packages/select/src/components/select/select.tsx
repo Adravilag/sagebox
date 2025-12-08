@@ -150,7 +150,11 @@ export class SgSelect {
   // EVENTS
   // ═══════════════════════════════════════════════════════════════════════════
 
-  @Event() sgChange!: EventEmitter<{ value: string | string[]; option?: SelectOption }>;
+  /** Emitted when selection changes. The option property contains the selected option data. */
+  @Event() sgChange!: EventEmitter<{
+    value: string | string[];
+    option?: { value: string; label: string; disabled?: boolean; group?: string; icon?: string; description?: string; data?: unknown };
+  }>;
   @Event() sgSearch!: EventEmitter<{ query: string }>;
   @Event() sgOpen!: EventEmitter<void>;
   @Event() sgClose!: EventEmitter<void>;

@@ -26,6 +26,8 @@ export default tseslint.config(eslint.configs.recommended, ...tseslint.configs.r
     'packages/**/cli/**',
     'packages/**/bin/**',
     'packages/**/src/components.d.ts',
+    // Auto-generated wrappers
+    'wrappers/**',
   ],
 }, {
   files: ['src/**/*.ts', 'src/**/*.tsx'],

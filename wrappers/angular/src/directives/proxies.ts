@@ -881,7 +881,12 @@ export declare interface SgSearchBox extends Components.SgSearchBox {
 })
 export class SgSelect {
   protected el: HTMLSgSelectElement;
-  @Output() sgChange = new EventEmitter<CustomEvent<{ value: string | string[]; option?: any }>>();
+  @Output() sgChange = new EventEmitter<
+    CustomEvent<{
+      value: string | string[];
+      option?: { value: string; label: string; disabled?: boolean; group?: string; icon?: string; description?: string; data?: unknown };
+    }>
+  >();
   @Output() sgSearch = new EventEmitter<CustomEvent<{ query: string }>>();
   @Output() sgOpen = new EventEmitter<CustomEvent<void>>();
   @Output() sgClose = new EventEmitter<CustomEvent<void>>();
@@ -896,10 +901,16 @@ export class SgSelect {
   }
 }
 
-import type { SelectOption as ISgSelectSelectOption } from 'sagebox/components';
-
 export declare interface SgSelect extends Components.SgSelect {
-  sgChange: EventEmitter<CustomEvent<{ value: string | string[]; option?: any }>>;
+  /**
+   * Emitted when selection changes. The option property contains the selected option data.
+   */
+  sgChange: EventEmitter<
+    CustomEvent<{
+      value: string | string[];
+      option?: { value: string; label: string; disabled?: boolean; group?: string; icon?: string; description?: string; data?: unknown };
+    }>
+  >;
 
   sgSearch: EventEmitter<CustomEvent<{ query: string }>>;
 
