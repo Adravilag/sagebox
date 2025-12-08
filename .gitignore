@@ -16,6 +16,7 @@ loader/
 www/
 .stencil/
 .astro/
+**/.astro/
 
 # Packages build outputs
 packages/*/dist/
