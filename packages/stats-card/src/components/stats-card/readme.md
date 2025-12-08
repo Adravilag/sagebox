@@ -42,19 +42,6 @@
 | `"value"`       | The main value display        |
 
 
-## Dependencies
-
-### Depends on
-
-- [sg-icon](../../../../icons/src/components/svg-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sg-stats-card --> sg-icon
-  style sg-stats-card fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

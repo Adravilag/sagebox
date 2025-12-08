@@ -30,19 +30,6 @@
 | `sgSearch` | Emitted when search is triggered (button click or Enter) | `CustomEvent<string>` |
 
 
-## Dependencies
-
-### Depends on
-
-- [sg-icon](../../../../icons/src/components/svg-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sg-search-box --> sg-icon
-  style sg-search-box fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

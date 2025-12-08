@@ -1,10 +1,10 @@
 # SageBox
 
-[![npm version](https://img.shields.io/npm/v/sagebox.svg)](https://www.npmjs.com/package/sagebox)
+[![npm version](https://img.shields.io/npm/v/sage-box.svg)](https://www.npmjs.com/package/sage-box)
 [![CI](https://github.com/adravilag/sagebox/actions/workflows/ci.yml/badge.svg)](https://github.com/adravilag/sagebox/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/adravilag/sagebox/branch/main/graph/badge.svg)](https://codecov.io/gh/adravilag/sagebox)
+[![Coverage](https://img.shields.io/badge/coverage-88%25-brightgreen)](./coverage/lcov-report/index.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Bundle Size](https://img.shields.io/bundlephobia/minzip/sagebox)](https://bundlephobia.com/package/sagebox)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/sage-box)](https://bundlephobia.com/package/sage-box)
 
 Modern Web Components Library - Reusable UI components built with Stencil.js
 

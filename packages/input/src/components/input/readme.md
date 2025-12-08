@@ -9,28 +9,28 @@
 
 | Property            | Attribute            | Description                                                      | Type                                                                                                                            | Default     |
 | ------------------- | -------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `autocomplete`      | `autocomplete`       | Autocomplete attribute                                           | `string`                                                                                                                        | `undefined` |
+| `autocomplete`      | `autocomplete`       | Autocomplete attribute                                           | `string \| undefined`                                                                                                           | `undefined` |
 | `autofocus`         | `autofocus`          | Autofocus attribute                                              | `boolean`                                                                                                                       | `false`     |
 | `clearable`         | `clearable`          | Show clear button when input has value                           | `boolean`                                                                                                                       | `false`     |
 | `disabled`          | `disabled`           | Whether the input is disabled                                    | `boolean`                                                                                                                       | `false`     |
-| `errorMessage`      | `error-message`      | Error message (displayed when validation-state is 'error')       | `string`                                                                                                                        | `undefined` |
-| `helperText`        | `helper-text`        | Helper text displayed below the input                            | `string`                                                                                                                        | `undefined` |
-| `label`             | `label`              | Label text displayed above the input                             | `string`                                                                                                                        | `undefined` |
-| `leadingIcon`       | `leading-icon`       | Leading icon name (from sg-icon)                                 | `string`                                                                                                                        | `undefined` |
-| `max`               | `max`                | Maximum value for number/date inputs                             | `number \| string`                                                                                                              | `undefined` |
-| `maxlength`         | `maxlength`          | Maximum length for text inputs                                   | `number`                                                                                                                        | `undefined` |
-| `min`               | `min`                | Minimum value for number/date inputs                             | `number \| string`                                                                                                              | `undefined` |
-| `minlength`         | `minlength`          | Minimum length for text inputs                                   | `number`                                                                                                                        | `undefined` |
-| `name`              | `name`               | Input name attribute                                             | `string`                                                                                                                        | `undefined` |
-| `options`           | `options`            | Options for select type (array of {value, label} or JSON string) | `SelectOption[] \| string`                                                                                                      | `undefined` |
-| `pattern`           | `pattern`            | Pattern for validation (regex)                                   | `string`                                                                                                                        | `undefined` |
-| `placeholder`       | `placeholder`        | Placeholder text                                                 | `string`                                                                                                                        | `undefined` |
+| `errorMessage`      | `error-message`      | Error message (displayed when validation-state is 'error')       | `string \| undefined`                                                                                                           | `undefined` |
+| `helperText`        | `helper-text`        | Helper text displayed below the input                            | `string \| undefined`                                                                                                           | `undefined` |
+| `label`             | `label`              | Label text displayed above the input                             | `string \| undefined`                                                                                                           | `undefined` |
+| `leadingIcon`       | `leading-icon`       | Leading icon name (from sg-icon)                                 | `string \| undefined`                                                                                                           | `undefined` |
+| `max`               | `max`                | Maximum value for number/date inputs                             | `number \| string \| undefined`                                                                                                 | `undefined` |
+| `maxlength`         | `maxlength`          | Maximum length for text inputs                                   | `number \| undefined`                                                                                                           | `undefined` |
+| `min`               | `min`                | Minimum value for number/date inputs                             | `number \| string \| undefined`                                                                                                 | `undefined` |
+| `minlength`         | `minlength`          | Minimum length for text inputs                                   | `number \| undefined`                                                                                                           | `undefined` |
+| `name`              | `name`               | Input name attribute                                             | `string \| undefined`                                                                                                           | `undefined` |
+| `options`           | `options`            | Options for select type (array of {value, label} or JSON string) | `SelectOption[] \| string \| undefined`                                                                                         | `undefined` |
+| `pattern`           | `pattern`            | Pattern for validation (regex)                                   | `string \| undefined`                                                                                                           | `undefined` |
+| `placeholder`       | `placeholder`        | Placeholder text                                                 | `string \| undefined`                                                                                                           | `undefined` |
 | `readonly`          | `readonly`           | Whether the input is readonly                                    | `boolean`                                                                                                                       | `false`     |
 | `required`          | `required`           | Whether the input is required                                    | `boolean`                                                                                                                       | `false`     |
-| `selectPlaceholder` | `select-placeholder` | Placeholder option for select (shown when no value selected)     | `string`                                                                                                                        | `undefined` |
+| `selectPlaceholder` | `select-placeholder` | Placeholder option for select (shown when no value selected)     | `string \| undefined`                                                                                                           | `undefined` |
 | `size`              | `size`               | Input size variant                                               | `"lg" \| "md" \| "sm"`                                                                                                          | `'md'`      |
-| `step`              | `step`               | Step value for number inputs                                     | `number \| string`                                                                                                              | `undefined` |
-| `trailingIcon`      | `trailing-icon`      | Trailing icon name (from sg-icon)                                | `string`                                                                                                                        | `undefined` |
+| `step`              | `step`               | Step value for number inputs                                     | `number \| string \| undefined`                                                                                                 | `undefined` |
+| `trailingIcon`      | `trailing-icon`      | Trailing icon name (from sg-icon)                                | `string \| undefined`                                                                                                           | `undefined` |
 | `type`              | `type`               | Input type                                                       | `"date" \| "datetime-local" \| "email" \| "number" \| "password" \| "search" \| "select" \| "tel" \| "text" \| "time" \| "url"` | `'text'`    |
 | `validationState`   | `validation-state`   | Validation state                                                 | `"default" \| "error" \| "success" \| "warning"`                                                                                | `'default'` |
 | `value`             | `value`              | Input value                                                      | `string`                                                                                                                        | `''`        |
@@ -66,7 +66,7 @@ Returns the native input element
 
 #### Returns
 
-Type: `Promise<HTMLInputElement>`
+Type: `Promise<HTMLInputElement | undefined>`
 
 
 
@@ -108,19 +108,6 @@ Type: `Promise<void>`
 | `"prefix"` | Content to show before the input (inside the field) |
 | `"suffix"` | Content to show after the input (inside the field)  |
 
-
-## Dependencies
-
-### Depends on
-
-- [sg-icon](../../../../icons/src/components/svg-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sg-input --> sg-icon
-  style sg-input fill:#f9f,stroke:#333,stroke-width:4px
-```
 
 ----------------------------------------------
 

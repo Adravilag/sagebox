@@ -10,7 +10,7 @@ describe('sg-input', () => {
     expect(page.root).toHaveClass('sg-input');
     expect(page.root).toHaveClass('sg-input--md');
     // variant="default" is applied via reflect, check attribute instead
-    expect(page.root.getAttribute('variant')).toBe('default');
+    expect(page.root!.getAttribute('variant')).toBe('default');
   });
 
   it('renders with label', async () => {
@@ -132,7 +132,7 @@ describe('sg-input', () => {
       html: '<sg-input variant="filled"></sg-input>',
     });
     // variant is reflected as attribute
-    expect(page.root.getAttribute('variant')).toBe('filled');
+    expect(page.root!.getAttribute('variant')).toBe('filled');
   });
 
   it('applies disabled state', async () => {

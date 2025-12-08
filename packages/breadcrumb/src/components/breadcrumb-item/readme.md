@@ -35,19 +35,6 @@
 | `"text"`      | The text span element (when no href)       |
 
 
-## Dependencies
-
-### Depends on
-
-- [sg-icon](../../../../icons/src/components/svg-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sg-breadcrumb-item --> sg-icon
-  style sg-breadcrumb-item fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
