@@ -1,11 +1,11 @@
-import { dirname, join } from "node:path";
+import { dirname, join } from 'node:path';
 import type { StorybookConfig } from '@storybook/html-vite';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)', '../packages/**/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  addons: [getAbsolutePath("@storybook/addon-docs")],
+  addons: [getAbsolutePath('@storybook/addon-docs')],
   framework: {
-    name: getAbsolutePath("@storybook/html-vite"),
+    name: getAbsolutePath('@storybook/html-vite'),
     options: {},
   },
   staticDirs: ['../dist'],
@@ -33,5 +33,5 @@ const config: StorybookConfig = {
 export default config;
 
 function getAbsolutePath(value: string): string {
-  return dirname(require.resolve(join(value, "package.json")));
+  return dirname(require.resolve(join(value, 'package.json')));
 }
