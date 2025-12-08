@@ -2,6 +2,12 @@
 node_modules/
 .pnpm-store/
 
+# Lock files in workspaces (use root package-lock.json only)
+packages/*/package-lock.json
+wrappers/*/package-lock.json
+website/package-lock.json
+tools/*/package-lock.json
+
 # Build outputs
 dist/
 dist-docs/
@@ -29,6 +35,7 @@ coverage/
 *.swp
 *.swo
 .DS_Store
+.console-ninjarc
 
 # Logs
 *.log
