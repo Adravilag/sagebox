@@ -1,0 +1,125 @@
+/**
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                      SAGEBOX DESIGN SYSTEM v2.0                          ║
+ * ╠══════════════════════════════════════════════════════════════════════════╣
+ * ║                                                                          ║
+ * ║  Sistema de tokens de diseño de 4 capas para máxima abstracción:        ║
+ * ║                                                                          ║
+ * ║  ┌─────────────────────────────────────────────────────────────────┐    ║
+ * ║  │  LAYER 4: COMPONENT     --sg-btn-*, --sg-input-*, --sg-card-*   │    ║
+ * ║  │  (components.css)       Tokens específicos por componente       │    ║
+ * ║  ├─────────────────────────────────────────────────────────────────┤    ║
+ * ║  │  LAYER 3: SEMANTIC      --ui-canvas, --ui-surface, --ui-accent  │    ║
+ * ║  │  (semantic.css)         Tokens con significado (light/dark)     │    ║
+ * ║  ├─────────────────────────────────────────────────────────────────┤    ║
+ * ║  │  LAYER 2: SCALES        --scale-neutral-*, --scale-accent-*     │    ║
+ * ║  │  (scales.css)           Escalas de color configurables          │    ║
+ * ║  ├─────────────────────────────────────────────────────────────────┤    ║
+ * ║  │  LAYER 1: PRIMITIVES    --primitive-blue-500, --primitive-...   │    ║
+ * ║  │  (primitives.css)       Valores raw inmutables                  │    ║
+ * ║  └─────────────────────────────────────────────────────────────────┘    ║
+ * ║                                                                          ║
+ * ║  CONFIGURACIÓN:                                                         ║
+ * ║  ───────────────                                                        ║
+ * ║  <html                                                                  ║
+ * ║    data-theme="light|dark|auto"     Modo de color                      ║
+ * ║    data-accent="blue|purple|..."    Color de acento (18 colores)       ║
+ * ║    data-neutral="gray|slate|zinc"   Escala de grises                   ║
+ * ║    data-radius="none|sm|md|lg|full" Estilo de bordes                   ║
+ * ║    data-density="compact|normal|comfortable" Densidad                  ║
+ * ║  >                                                                      ║
+ * ║                                                                          ║
+ * ║  EJEMPLO:                                                               ║
+ * ║  <html data-theme="dark" data-accent="purple" data-radius="lg">        ║
+ * ║                                                                          ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ */
+
+/* Import all layers in order */
+@import './components.css';
+
+/* 
+ * components.css imports:
+ *   └── semantic.css
+ *        └── scales.css
+ *             └── primitives.css
+ *
+ * All tokens are now available!
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BACKWARD COMPATIBILITY - Old token names
+   
+   Si usabas los tokens antiguos --ui-bg, --ui-text, etc., siguen funcionando.
+   Los nuevos tokens ofrecen más granularidad:
+   
+   OLD                    → NEW (more specific)
+   --ui-bg                → --ui-canvas (page background)
+   --ui-bg-secondary      → --ui-canvas-subtle
+   --ui-bg-elevated       → --ui-surface-raised
+   --ui-text              → --ui-text (unchanged)
+   --ui-accent            → --ui-accent (unchanged)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Legacy aliases for backward compatibility */
+  --ui-bg: var(--ui-canvas);
+  --ui-bg-secondary: var(--ui-canvas-subtle);
+  --ui-bg-tertiary: var(--ui-canvas-muted);
+  --ui-bg-elevated: var(--ui-surface-raised);
+  --ui-bg-overlay: var(--ui-canvas-overlay);
+
+  --ui-text-inverse: var(--ui-text-inverse);
+
+  --ui-success-bg: var(--ui-success-subtle);
+  --ui-warning-bg: var(--ui-warning-subtle);
+  --ui-error-bg: var(--ui-error-subtle);
+  --ui-info-bg: var(--ui-info-subtle);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITY: Base styles
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Apply font and color scheme */
+:root {
+  font-family: var(--ui-font-sans);
+  line-height: var(--ui-leading-normal);
+}
+
+/* Smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ui-scrollbar-thumb) var(--ui-scrollbar-track);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--ui-scrollbar-track);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--ui-scrollbar-thumb);
+  border-radius: var(--ui-radius-full);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ui-scrollbar-thumb-hover);
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--ui-accent-muted);
+  color: var(--ui-text);
+}

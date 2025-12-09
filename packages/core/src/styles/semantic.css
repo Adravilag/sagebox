@@ -1,0 +1,549 @@
+/**
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                    LAYER 3: SEMANTIC TOKENS                              ║
+ * ║                                                                          ║
+ * ║  Tokens con significado semántico que se adaptan al tema.               ║
+ * ║  Estos son los tokens que los componentes deben usar.                   ║
+ * ║                                                                          ║
+ * ║  Atributos soportados:                                                  ║
+ * ║  - data-theme="light|dark"       → Modo de color                        ║
+ * ║  - data-radius="none|sm|md|lg|xl|full" → Estilo de bordes              ║
+ * ║  - data-density="compact|normal|comfortable" → Densidad                 ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ */
+
+@import './scales.css';
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LIGHT THEME (default)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     CANVAS - Fondos de página y contenedores principales
+     ───────────────────────────────────────────────────────────────────────── */
+  --ui-canvas: #ffffff;
+  --ui-canvas-subtle: var(--scale-neutral-50);
+  --ui-canvas-muted: var(--scale-neutral-100);
+  --ui-canvas-inset: var(--scale-neutral-100);
+  --ui-canvas-overlay: rgba(0, 0, 0, 0.5);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     SURFACE - Superficies elevadas (cards, modals, dropdowns)
+     ───────────────────────────────────────────────────────────────────────── */
+  --ui-surface: #ffffff;
+  --ui-surface-raised: #ffffff;
+  --ui-surface-overlay: #ffffff;
+  --ui-surface-sunken: var(--scale-neutral-50);
+  --ui-surface-disabled: var(--scale-neutral-100);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     COMPONENT - Estados de componentes interactivos
+     ───────────────────────────────────────────────────────────────────────── */
+  --ui-component: transparent;
+  --ui-component-hover: var(--scale-neutral-100);
+  --ui-component-active: var(--scale-neutral-200);
+  --ui-component-selected: var(--scale-accent-50);
+  --ui-component-disabled: var(--scale-neutral-100);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     TEXT - Colores de texto por jerarquía
+     ───────────────────────────────────────────────────────────────────────── */
+  --ui-text: var(--scale-neutral-900);
+  --ui-text-secondary: var(--scale-neutral-600);
+  --ui-text-tertiary: var(--scale-neutral-500);
+  --ui-text-muted: var(--scale-neutral-400);
+  --ui-text-disabled: var(--scale-neutral-300);
+  --ui-text-inverse: #ffffff;
+  --ui-text-link: var(--scale-accent-600);
+  --ui-text-link-hover: var(--scale-accent-700);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     BORDER - Bordes y separadores
+     ───────────────────────────────────────────────────────────────────────── */
+  --ui-border: var(--scale-neutral-200);
+  --ui-border-muted: var(--scale-neutral-100);
+  --ui-border-strong: var(--scale-neutral-300);
+  --ui-border-focus: var(--scale-accent-500);
+  --ui-border-error: var(--scale-error-500);
+  --ui-border-success: var(--scale-success-500);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     ACCENT - Color principal de la marca/aplicación
+     ───────────────────────────────────────────────────────────────────────── */
+  --ui-accent: var(--scale-accent-500);
+  --ui-accent-subtle: var(--scale-accent-50);
+  --ui-accent-muted: var(--scale-accent-100);
+  --ui-accent-emphasis: var(--scale-accent-600);
+  --ui-accent-hover: var(--scale-accent-600);
+  --ui-accent-active: var(--scale-accent-700);
+  --ui-accent-text: #ffffff;
+  --ui-accent-text-contrast: var(--scale-accent-700);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     STATUS - Colores semánticos para estados
+     ───────────────────────────────────────────────────────────────────────── */
+  /* Success */
+  --ui-success: var(--scale-success-500);
+  --ui-success-subtle: var(--scale-success-50);
+  --ui-success-muted: var(--scale-success-100);
+  --ui-success-emphasis: var(--scale-success-600);
+  --ui-success-text: var(--scale-success-700);
+
+  /* Warning */
+  --ui-warning: var(--scale-warning-500);
+  --ui-warning-subtle: var(--scale-warning-50);
+  --ui-warning-muted: var(--scale-warning-100);
+  --ui-warning-emphasis: var(--scale-warning-600);
+  --ui-warning-text: var(--scale-warning-700);
+
+  /* Error/Danger */
+  --ui-error: var(--scale-error-500);
+  --ui-error-subtle: var(--scale-error-50);
+  --ui-error-muted: var(--scale-error-100);
+  --ui-error-emphasis: var(--scale-error-600);
+  --ui-error-text: var(--scale-error-700);
+  --ui-danger: var(--ui-error);
+  --ui-danger-subtle: var(--ui-error-subtle);
+  --ui-danger-emphasis: var(--ui-error-emphasis);
+
+  /* Info */
+  --ui-info: var(--scale-info-500);
+  --ui-info-subtle: var(--scale-info-50);
+  --ui-info-muted: var(--scale-info-100);
+  --ui-info-emphasis: var(--scale-info-600);
+  --ui-info-text: var(--scale-info-700);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     SHADOW - Sombras de elevación
+     ───────────────────────────────────────────────────────────────────────── */
+  --ui-shadow-color: 0 0% 0%;
+  --ui-shadow-xs: var(--primitive-shadow-sm);
+  --ui-shadow-sm: var(--primitive-shadow-default);
+  --ui-shadow-md: var(--primitive-shadow-md);
+  --ui-shadow-lg: var(--primitive-shadow-lg);
+  --ui-shadow-xl: var(--primitive-shadow-xl);
+  --ui-shadow-2xl: var(--primitive-shadow-2xl);
+  --ui-shadow-inner: var(--primitive-shadow-inner);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     FOCUS - Estados de foco para accesibilidad
+     ───────────────────────────────────────────────────────────────────────── */
+  --ui-focus-ring: var(--scale-accent-500);
+  --ui-focus-ring-offset: 2px;
+  --ui-focus-ring-width: 2px;
+  --ui-focus-ring-style: 0 0 0 var(--ui-focus-ring-offset) var(--ui-canvas), 0 0 0 calc(var(--ui-focus-ring-offset) + var(--ui-focus-ring-width)) var(--ui-focus-ring);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     SCROLLBAR - Estilos de scrollbar
+     ───────────────────────────────────────────────────────────────────────── */
+  --ui-scrollbar-track: var(--scale-neutral-100);
+  --ui-scrollbar-thumb: var(--scale-neutral-300);
+  --ui-scrollbar-thumb-hover: var(--scale-neutral-400);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     SKELETON - Estados de carga
+     ───────────────────────────────────────────────────────────────────────── */
+  --ui-skeleton-base: var(--scale-neutral-200);
+  --ui-skeleton-shine: var(--scale-neutral-100);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DARK THEME
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* Canvas */
+  --ui-canvas: var(--scale-neutral-950);
+  --ui-canvas-subtle: var(--scale-neutral-900);
+  --ui-canvas-muted: var(--scale-neutral-800);
+  --ui-canvas-inset: #000000;
+  --ui-canvas-overlay: rgba(0, 0, 0, 0.7);
+
+  /* Surface */
+  --ui-surface: var(--scale-neutral-900);
+  --ui-surface-raised: var(--scale-neutral-800);
+  --ui-surface-overlay: var(--scale-neutral-800);
+  --ui-surface-sunken: var(--scale-neutral-950);
+  --ui-surface-disabled: var(--scale-neutral-800);
+
+  /* Component */
+  --ui-component: transparent;
+  --ui-component-hover: var(--scale-neutral-800);
+  --ui-component-active: var(--scale-neutral-700);
+  --ui-component-selected: color-mix(in srgb, var(--scale-accent-500) 20%, transparent);
+  --ui-component-disabled: var(--scale-neutral-800);
+
+  /* Text */
+  --ui-text: var(--scale-neutral-50);
+  --ui-text-secondary: var(--scale-neutral-400);
+  --ui-text-tertiary: var(--scale-neutral-500);
+  --ui-text-muted: var(--scale-neutral-600);
+  --ui-text-disabled: var(--scale-neutral-700);
+  --ui-text-inverse: var(--scale-neutral-900);
+  --ui-text-link: var(--scale-accent-400);
+  --ui-text-link-hover: var(--scale-accent-300);
+
+  /* Border */
+  --ui-border: var(--scale-neutral-800);
+  --ui-border-muted: var(--scale-neutral-900);
+  --ui-border-strong: var(--scale-neutral-700);
+  --ui-border-focus: var(--scale-accent-400);
+  --ui-border-error: var(--scale-error-500);
+  --ui-border-success: var(--scale-success-500);
+
+  /* Accent */
+  --ui-accent: var(--scale-accent-500);
+  --ui-accent-subtle: color-mix(in srgb, var(--scale-accent-500) 15%, transparent);
+  --ui-accent-muted: color-mix(in srgb, var(--scale-accent-500) 25%, transparent);
+  --ui-accent-emphasis: var(--scale-accent-400);
+  --ui-accent-hover: var(--scale-accent-400);
+  --ui-accent-active: var(--scale-accent-300);
+  --ui-accent-text: #ffffff;
+  --ui-accent-text-contrast: var(--scale-accent-300);
+
+  /* Status - Success */
+  --ui-success: var(--scale-success-500);
+  --ui-success-subtle: color-mix(in srgb, var(--scale-success-500) 15%, transparent);
+  --ui-success-muted: color-mix(in srgb, var(--scale-success-500) 25%, transparent);
+  --ui-success-emphasis: var(--scale-success-400);
+  --ui-success-text: var(--scale-success-400);
+
+  /* Status - Warning */
+  --ui-warning: var(--scale-warning-500);
+  --ui-warning-subtle: color-mix(in srgb, var(--scale-warning-500) 15%, transparent);
+  --ui-warning-muted: color-mix(in srgb, var(--scale-warning-500) 25%, transparent);
+  --ui-warning-emphasis: var(--scale-warning-400);
+  --ui-warning-text: var(--scale-warning-400);
+
+  /* Status - Error */
+  --ui-error: var(--scale-error-500);
+  --ui-error-subtle: color-mix(in srgb, var(--scale-error-500) 15%, transparent);
+  --ui-error-muted: color-mix(in srgb, var(--scale-error-500) 25%, transparent);
+  --ui-error-emphasis: var(--scale-error-400);
+  --ui-error-text: var(--scale-error-400);
+  --ui-danger: var(--ui-error);
+  --ui-danger-subtle: var(--ui-error-subtle);
+  --ui-danger-emphasis: var(--ui-error-emphasis);
+
+  /* Status - Info */
+  --ui-info: var(--scale-info-500);
+  --ui-info-subtle: color-mix(in srgb, var(--scale-info-500) 15%, transparent);
+  --ui-info-muted: color-mix(in srgb, var(--scale-info-500) 25%, transparent);
+  --ui-info-emphasis: var(--scale-info-400);
+  --ui-info-text: var(--scale-info-400);
+
+  /* Shadow - más oscuras en dark mode */
+  --ui-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --ui-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
+  --ui-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+  --ui-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+  --ui-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.4);
+  --ui-shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.6);
+
+  /* Focus */
+  --ui-focus-ring: var(--scale-accent-400);
+
+  /* Scrollbar */
+  --ui-scrollbar-track: var(--scale-neutral-900);
+  --ui-scrollbar-thumb: var(--scale-neutral-700);
+  --ui-scrollbar-thumb-hover: var(--scale-neutral-600);
+
+  /* Skeleton */
+  --ui-skeleton-base: var(--scale-neutral-800);
+  --ui-skeleton-shine: var(--scale-neutral-700);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   AUTO THEME - Sigue preferencias del sistema
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+  [data-theme='auto'] {
+    color-scheme: dark;
+
+    /* Canvas */
+    --ui-canvas: var(--scale-neutral-950);
+    --ui-canvas-subtle: var(--scale-neutral-900);
+    --ui-canvas-muted: var(--scale-neutral-800);
+    --ui-canvas-inset: #000000;
+    --ui-canvas-overlay: rgba(0, 0, 0, 0.7);
+
+    /* Surface */
+    --ui-surface: var(--scale-neutral-900);
+    --ui-surface-raised: var(--scale-neutral-800);
+    --ui-surface-overlay: var(--scale-neutral-800);
+    --ui-surface-sunken: var(--scale-neutral-950);
+    --ui-surface-disabled: var(--scale-neutral-800);
+
+    /* Component */
+    --ui-component: transparent;
+    --ui-component-hover: var(--scale-neutral-800);
+    --ui-component-active: var(--scale-neutral-700);
+    --ui-component-selected: color-mix(in srgb, var(--scale-accent-500) 20%, transparent);
+    --ui-component-disabled: var(--scale-neutral-800);
+
+    /* Text */
+    --ui-text: var(--scale-neutral-50);
+    --ui-text-secondary: var(--scale-neutral-400);
+    --ui-text-tertiary: var(--scale-neutral-500);
+    --ui-text-muted: var(--scale-neutral-600);
+    --ui-text-disabled: var(--scale-neutral-700);
+    --ui-text-inverse: var(--scale-neutral-900);
+    --ui-text-link: var(--scale-accent-400);
+    --ui-text-link-hover: var(--scale-accent-300);
+
+    /* Border */
+    --ui-border: var(--scale-neutral-800);
+    --ui-border-muted: var(--scale-neutral-900);
+    --ui-border-strong: var(--scale-neutral-700);
+    --ui-border-focus: var(--scale-accent-400);
+
+    /* Accent */
+    --ui-accent: var(--scale-accent-500);
+    --ui-accent-subtle: color-mix(in srgb, var(--scale-accent-500) 15%, transparent);
+    --ui-accent-muted: color-mix(in srgb, var(--scale-accent-500) 25%, transparent);
+    --ui-accent-emphasis: var(--scale-accent-400);
+    --ui-accent-hover: var(--scale-accent-400);
+    --ui-accent-active: var(--scale-accent-300);
+    --ui-accent-text: #ffffff;
+    --ui-accent-text-contrast: var(--scale-accent-300);
+
+    /* Status */
+    --ui-success-subtle: color-mix(in srgb, var(--scale-success-500) 15%, transparent);
+    --ui-success-text: var(--scale-success-400);
+    --ui-warning-subtle: color-mix(in srgb, var(--scale-warning-500) 15%, transparent);
+    --ui-warning-text: var(--scale-warning-400);
+    --ui-error-subtle: color-mix(in srgb, var(--scale-error-500) 15%, transparent);
+    --ui-error-text: var(--scale-error-400);
+    --ui-info-subtle: color-mix(in srgb, var(--scale-info-500) 15%, transparent);
+    --ui-info-text: var(--scale-info-400);
+
+    /* Shadow */
+    --ui-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --ui-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
+    --ui-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+    --ui-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+    --ui-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.4);
+    --ui-shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.6);
+
+    /* Focus */
+    --ui-focus-ring: var(--scale-accent-400);
+
+    /* Scrollbar */
+    --ui-scrollbar-track: var(--scale-neutral-900);
+    --ui-scrollbar-thumb: var(--scale-neutral-700);
+    --ui-scrollbar-thumb-hover: var(--scale-neutral-600);
+
+    /* Skeleton */
+    --ui-skeleton-base: var(--scale-neutral-800);
+    --ui-skeleton-shine: var(--scale-neutral-700);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RADIUS VARIANTS - data-radius="none|sm|md|lg|xl|full"
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --ui-radius-xs: var(--primitive-radius-sm);
+  --ui-radius-sm: var(--primitive-radius-default);
+  --ui-radius-md: var(--primitive-radius-md);
+  --ui-radius-lg: var(--primitive-radius-lg);
+  --ui-radius-xl: var(--primitive-radius-xl);
+  --ui-radius-2xl: var(--primitive-radius-2xl);
+  --ui-radius-3xl: var(--primitive-radius-3xl);
+  --ui-radius-full: var(--primitive-radius-full);
+}
+
+[data-radius='none'] {
+  --ui-radius-xs: 0;
+  --ui-radius-sm: 0;
+  --ui-radius-md: 0;
+  --ui-radius-lg: 0;
+  --ui-radius-xl: 0;
+  --ui-radius-2xl: 0;
+  --ui-radius-3xl: 0;
+}
+
+[data-radius='sm'] {
+  --ui-radius-xs: var(--primitive-radius-sm);
+  --ui-radius-sm: var(--primitive-radius-sm);
+  --ui-radius-md: var(--primitive-radius-default);
+  --ui-radius-lg: var(--primitive-radius-md);
+  --ui-radius-xl: var(--primitive-radius-lg);
+  --ui-radius-2xl: var(--primitive-radius-xl);
+  --ui-radius-3xl: var(--primitive-radius-2xl);
+}
+
+[data-radius='lg'] {
+  --ui-radius-xs: var(--primitive-radius-default);
+  --ui-radius-sm: var(--primitive-radius-md);
+  --ui-radius-md: var(--primitive-radius-lg);
+  --ui-radius-lg: var(--primitive-radius-xl);
+  --ui-radius-xl: var(--primitive-radius-2xl);
+  --ui-radius-2xl: var(--primitive-radius-3xl);
+  --ui-radius-3xl: var(--primitive-radius-3xl);
+}
+
+[data-radius='full'] {
+  --ui-radius-xs: var(--primitive-radius-full);
+  --ui-radius-sm: var(--primitive-radius-full);
+  --ui-radius-md: var(--primitive-radius-full);
+  --ui-radius-lg: var(--primitive-radius-full);
+  --ui-radius-xl: var(--primitive-radius-full);
+  --ui-radius-2xl: var(--primitive-radius-full);
+  --ui-radius-3xl: var(--primitive-radius-full);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DENSITY VARIANTS - data-density="compact|normal|comfortable"
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Espaciado interno de componentes */
+  --ui-space-component-xs: var(--primitive-space-1);
+  --ui-space-component-sm: var(--primitive-space-2);
+  --ui-space-component-md: var(--primitive-space-3);
+  --ui-space-component-lg: var(--primitive-space-4);
+  --ui-space-component-xl: var(--primitive-space-6);
+
+  /* Espaciado entre elementos */
+  --ui-space-gap-xs: var(--primitive-space-1);
+  --ui-space-gap-sm: var(--primitive-space-2);
+  --ui-space-gap-md: var(--primitive-space-4);
+  --ui-space-gap-lg: var(--primitive-space-6);
+  --ui-space-gap-xl: var(--primitive-space-8);
+}
+
+[data-density='compact'] {
+  --ui-space-component-xs: var(--primitive-space-0_5);
+  --ui-space-component-sm: var(--primitive-space-1);
+  --ui-space-component-md: var(--primitive-space-2);
+  --ui-space-component-lg: var(--primitive-space-3);
+  --ui-space-component-xl: var(--primitive-space-4);
+
+  --ui-space-gap-xs: var(--primitive-space-0_5);
+  --ui-space-gap-sm: var(--primitive-space-1);
+  --ui-space-gap-md: var(--primitive-space-2);
+  --ui-space-gap-lg: var(--primitive-space-4);
+  --ui-space-gap-xl: var(--primitive-space-6);
+}
+
+[data-density='comfortable'] {
+  --ui-space-component-xs: var(--primitive-space-2);
+  --ui-space-component-sm: var(--primitive-space-3);
+  --ui-space-component-md: var(--primitive-space-4);
+  --ui-space-component-lg: var(--primitive-space-6);
+  --ui-space-component-xl: var(--primitive-space-8);
+
+  --ui-space-gap-xs: var(--primitive-space-2);
+  --ui-space-gap-sm: var(--primitive-space-3);
+  --ui-space-gap-md: var(--primitive-space-6);
+  --ui-space-gap-lg: var(--primitive-space-8);
+  --ui-space-gap-xl: var(--primitive-space-12);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TYPOGRAPHY SEMANTIC
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --ui-font-sans: var(--primitive-font-sans);
+  --ui-font-serif: var(--primitive-font-serif);
+  --ui-font-mono: var(--primitive-font-mono);
+
+  --ui-text-xs: var(--primitive-text-xs);
+  --ui-text-sm: var(--primitive-text-sm);
+  --ui-text-base: var(--primitive-text-base);
+  --ui-text-lg: var(--primitive-text-lg);
+  --ui-text-xl: var(--primitive-text-xl);
+  --ui-text-2xl: var(--primitive-text-2xl);
+  --ui-text-3xl: var(--primitive-text-3xl);
+  --ui-text-4xl: var(--primitive-text-4xl);
+
+  --ui-font-normal: var(--primitive-font-normal);
+  --ui-font-medium: var(--primitive-font-medium);
+  --ui-font-semibold: var(--primitive-font-semibold);
+  --ui-font-bold: var(--primitive-font-bold);
+
+  --ui-leading-tight: var(--primitive-leading-tight);
+  --ui-leading-normal: var(--primitive-leading-normal);
+  --ui-leading-relaxed: var(--primitive-leading-relaxed);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ANIMATION SEMANTIC
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --ui-duration-instant: var(--primitive-duration-75);
+  --ui-duration-fast: var(--primitive-duration-150);
+  --ui-duration-normal: var(--primitive-duration-200);
+  --ui-duration-slow: var(--primitive-duration-300);
+  --ui-duration-slower: var(--primitive-duration-500);
+
+  --ui-ease-default: var(--primitive-ease-in-out);
+  --ui-ease-in: var(--primitive-ease-in);
+  --ui-ease-out: var(--primitive-ease-out);
+  --ui-ease-bounce: var(--primitive-ease-bounce);
+
+  --ui-transition-colors: color, background-color, border-color, text-decoration-color, fill, stroke;
+  --ui-transition-opacity: opacity;
+  --ui-transition-shadow: box-shadow;
+  --ui-transition-transform: transform;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ui-duration-instant: 0ms;
+    --ui-duration-fast: 0ms;
+    --ui-duration-normal: 0ms;
+    --ui-duration-slow: 0ms;
+    --ui-duration-slower: 0ms;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Z-INDEX SEMANTIC
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --ui-z-base: 0;
+  --ui-z-dropdown: 1000;
+  --ui-z-sticky: 1020;
+  --ui-z-fixed: 1030;
+  --ui-z-modal-backdrop: 1040;
+  --ui-z-modal: 1050;
+  --ui-z-popover: 1060;
+  --ui-z-tooltip: 1070;
+  --ui-z-toast: 1080;
+  --ui-z-max: 9999;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ACCESSIBILITY - High Contrast Mode
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-contrast: high) {
+  :root,
+  [data-theme='light'] {
+    --ui-border: var(--scale-neutral-900);
+    --ui-border-strong: var(--scale-neutral-950);
+    --ui-text-secondary: var(--scale-neutral-700);
+    --ui-text-muted: var(--scale-neutral-600);
+  }
+
+  [data-theme='dark'] {
+    --ui-border: var(--scale-neutral-200);
+    --ui-border-strong: var(--scale-neutral-100);
+    --ui-text-secondary: var(--scale-neutral-300);
+    --ui-text-muted: var(--scale-neutral-400);
+  }
+}

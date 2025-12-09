@@ -10,8 +10,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const ICONS_JSON = path.join(__dirname, '../src/components/svg-icon/icons/icons.json');
-const ICONS_TS = path.join(__dirname, '../src/components/svg-icon/icons/index.ts');
+const ICONS_JSON = path.join(__dirname, '../packages/icons/src/components/svg-icon/icons/icons.json');
+const ICONS_TS = path.join(__dirname, '../packages/icons/src/components/svg-icon/icons/index.ts');
 
 function generateIconsTS() {
   // Leer JSON

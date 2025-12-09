@@ -146,6 +146,19 @@ A flexible card component for displaying content in a contained, styled box.
 | `"title"`    | The title element        |
 
 
+## Dependencies
+
+### Depends on
+
+- [sg-icon](../../../../icons/src/components/svg-icon)
+
+### Graph
+```mermaid
+graph TD;
+  sg-card --> sg-icon
+  style sg-card fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

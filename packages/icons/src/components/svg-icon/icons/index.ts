@@ -6,8 +6,8 @@
  * To add/modify icons, edit: icons.json
  * Then run: npx sagebox icons build
  *
- * Generated: 2025-12-03T18:27:09.048Z
- * Icons: 5 (filtered from 210 total)
+ * Generated: 2025-12-09T12:38:47.606Z
+ * Icons: 20 (filtered from 210 total)
  */
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -15,15 +15,45 @@
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const icons: Record<string, string> = {
-  actions:
+  'actions':
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M864-40,741-162q-18,11-38.5,16.5T660-140q-66,0-113-47t-47-113q0-66,47-113t113-47q66,0,113,47t47,113q0,23-6,43.5T797-218L920-96l-56,56ZM220-140q-66,0-113-47T60-300q0-66,47-113t113-47q66,0,113,47t47,113q0,66-47,113t-113,47Zm0-80q33,0,56.5-23.5T300-300q0-33-23.5-56.5T220-380q-33,0-56.5,23.5T140-300q0,33,23.5,56.5T220-220Zm440,0q33,0,56.5-23.5T740-300q0-33-23.5-56.5T660-380q-33,0-56.5,23.5T580-300q0,33,23.5,56.5T660-220ZM220-580q-66,0-113-47T60-740q0-66,47-113t113-47q66,0,113,47t47,113q0,66-47,113t-113,47Zm440,0q-66,0-113-47t-47-113q0-66,47-113t113-47q66,0,113,47t47,113q0,66-47,113t-113,47Zm-440-80q33,0,56.5-23.5T300-740q0-33-23.5-56.5T220-820q-33,0-56.5,23.5T140-740q0,33,23.5,56.5T220-660Zm440,0q33,0,56.5-23.5T740-740q0-33-23.5-56.5T660-820q-33,0-56.5,23.5T580-740q0,33,23.5,56.5T660-660ZM220-300Zm0-440Zm440,0Z"/></svg>',
-  add: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>',
-  attachment:
+  'add': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>',
+  'address':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-480q33,0,56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33,0-56.5,23.5T400-560q0,33,23.5,56.5T480-480Zm0,294q122-112,181-203.5T720-552q0-109-69.5-178.5T480-800q-101,0-170.5,69.5T240-552q0,71,59,162.5T480-186Zm0,106Q319-217,239.5-334.5T160-552q0-150,96.5-239T480-880q127,0,223.5,89T800-552q0,100-79.5,217.5T480-80Zm0-480Z"/></svg>',
+  'attachment':
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5,6v11.5c0,2.21-1.79,4-4,4s-4-1.79-4-4V5c0-1.38,1.12-2.5,2.5-2.5s2.5,1.12,2.5,2.5v10.5c0,.55-.45,1-1,1s-1-.45-1-1V6H10v9.5c0,1.38,1.12,2.5,2.5,2.5s2.5-1.12,2.5-2.5V5c0-2.21-1.79-4-4-4S7,2.79,7,5v12.5c0,3.04,2.46,5.5,5.5,5.5s5.5-2.46,5.5-5.5V6h-1.5z"/></svg>',
+  'bell':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M160-200v-80h80v-280q0-83,50-147.5T420-792v-28q0-25,17.5-42.5T480-880q25,0,42.5,17.5T540-820v28q80,20,130,84.5T720-560v280h80v80H160Zm320-300Zm0,420q-33,0-56.5-23.5T400-160h160q0,33-23.5,56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66,0-113,47t-47,113v280Z"/></svg>',
+  'chart':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="m296-320,122-122,80,80,142-141v63h80v-200H520v80h63l-85,85-80-80-178,179,56,56Zm-96,200q-33,0-56.5-23.5T120-200v-560q0-33,23.5-56.5T200-840h560q33,0,56.5,23.5T840-760v560q0,33-23.5,56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>',
+  'chart-bar':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M640-160v-280h160v280H640Zm-240,0v-640h160v640H400Zm-240,0v-440h160v440H160Z"/></svg>',
+  'check-circle-google':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10,10-4.48,10-10S17.52,2,12,2zm-2,15l-5-5,1.41-1.41L10,14.17l7.59-7.59L19,8l-9,9z"/></svg>',
+  'consents':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M200-800v241-1,400-640,200-200Zm80,400h140q9-23,22-43t30-37H280v80Zm0,160h127q-5-20-6.5-40t.5-40H280v80ZM200-80q-33,0-56.5-23.5T120-160v-640q0-33,23.5-56.5T200-880h320l240,240v100q-19-8-39-12.5t-41-6.5v-41H480v-200H200v640h241q16,24,36,44.5T521-80H200Zm460-120q42,0,71-29t29-71q0-42-29-71t-71-29q-42,0-71,29t-29,71q0,42,29,71t71,29ZM864-40,756-148q-21,14-45.5,21t-50.5,7q-75,0-127.5-52.5T480-300q0-75,52.5-127.5T660-480q75,0,127.5,52.5T840-300q0,26-7,50.5T812-204L920-96l-56,56Z"/></svg>',
+  'patients':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M0-240v-63q0-43,44-70t116-27q13,0,25,.5t23,2.5q-14,21-21,44t-7,48v65H0Zm240,0v-65q0-32,17.5-58.5T307-410q32-20,76.5-30t96.5-10q53,0,97.5,10t76.5,30q32,20,49,46.5t17,58.5v65H240Zm540,0v-65q0-26-6.5-49T754-397q11-2,22.5-2.5t23.5-.5q72,0,116,26.5t44,70.5v63H780Zm-455-80h311q-10-20-55.5-35T480-370q-55,0-100.5,15T325-320ZM160-440q-33,0-56.5-23.5T80-520q0-34,23.5-57t56.5-23q34,0,57,23t23,57q0,33-23,56.5T160-440Zm640,0q-33,0-56.5-23.5T720-520q0-34,23.5-57t56.5-23q34,0,57,23t23,57q0,33-23,56.5T800-440Zm-320-40q-50,0-85-35t-35-85q0-51,35-85.5t85-34.5q51,0,85.5,34.5T600-600q0,50-34.5,85T480-480Zm0-80q17,0,28.5-11.5T520-600q0-17-11.5-28.5T480-640q-17,0-28.5,11.5T440-600q0,17,11.5,28.5T480-560Zm1,240Zm-1-280Z"/></svg>',
+  'physiotherapy':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="m323-488,210,23,16-34-61-33-93-8,6-79,111,8,221,123q17,10,35.5,12.5T802-484L606-680H357l-65-96-110,55,76,183q8,21,25.5,34t39.5,16Zm-9,79q-44-5-78.5-31T184-507L80-760l240-120,80,120h208q16,0,31,6.5t26,17.5l255,256-34,34q-38,38-91,45.5T695-419l-76-41-13,29q-11,23-33,35.5t-48,9.5l-211-23ZM130-121l-22-77,190-50q72-19,153-35.5T599-300q75,0,139.5,30T866-189l-54,59q-51-43-105.5-66.5T599-220q-64,0-141,16.5T319-171l-189,50Z"/></svg>',
+  'process':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-80q-82,0-155-31.5t-127.5-86Q143-252,111.5-325T80-480q0-83,31.5-155.5t86-127Q252-817,325-848.5T480-880q17,0,28.5,11.5T520-840q0,17-11.5,28.5T480-800q-133,0-226.5,93.5T160-480q0,133,93.5,226.5T480-160q133,0,226.5-93.5T800-480q0-17,11.5-28.5T840-520q17,0,28.5,11.5T880-480q0,82-31.5,155t-86,127.5q-54.5,54.5-127,86T480-80Z"/></svg>',
+  'savings':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M640-520q17,0,28.5-11.5T680-560q0-17-11.5-28.5T640-600q-17,0-28.5,11.5T600-560q0,17,11.5,28.5T640-520Zm-320-80h200v-80H320v80ZM180-120q-34-114-67-227.5T80-580q0-92,64-156t156-64h200q29-38,70.5-59t89.5-21q25,0,42.5,17.5T720-820q0,6-1.5,12t-3.5,11q-4,11-7.5,22.5T702-751l91,91h87v279l-113,37-67,224H480v-80h-80v80H180Zm60-80h80v-80h240v80h80l62-206,98-33v-141h-40L620-720q0-20,2.5-38.5T630-796q-29,8-51,27.5T547-720H300q-58,0-99,41t-41,99q0,98,27,191.5T240-200Zm240-298Z"/></svg>',
+  'sessions':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M481-276ZM120-160v-160q0-83,58.5-141.5T320-520h429q38,0,64.5,26t26.5,64q0,31-19,55.5T773-342l-93,27v155q0,21-9.5,38T645-94q-16,11-35,13.5T571-86l-189-74H120Zm480-120H375q-7,0-10.5,4t-4.5,9q-1,5,1.5,9.5t8.5,6.5l230,91v-120Zm-400,40h84q-2-6-3-12t-1-13q0-39,28-67t67-28h163l214-59q5-2,7-5t1-7q-1-4-3.5-6.5T749-440H320q-50,0-85,35t-35,85v80Zm200-320q-66,0-113-47t-47-113q0-66,47-113t113-47q66,0,113,47t47,113q0,66-47,113t-113,47Zm0-80q33,0,56.5-23.5T480-720q0-33-23.5-56.5T400-800q-33,0-56.5,23.5T320-720q0,33,23.5,56.5T400-640Zm81,364Zm-81-444Z"/></svg>',
   'svg-spinners-bars-scale':
     '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect width="2.8" height="12" x="1" y="6" fill="currentColor"><animate id="SVGLQdHQe4p" attributeName="y" begin="0;SVGg3vsIeGm.end-0.1s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6"/><animate attributeName="height" begin="0;SVGg3vsIeGm.end-0.1s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12"/></rect><rect width="2.8" height="12" x="5.8" y="6" fill="currentColor"><animate attributeName="y" begin="SVGLQdHQe4p.begin+0.1s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6"/><animate attributeName="height" begin="SVGLQdHQe4p.begin+0.1s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12"/></rect><rect width="2.8" height="12" x="10.6" y="6" fill="currentColor"><animate attributeName="y" begin="SVGLQdHQe4p.begin+0.2s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6"/><animate attributeName="height" begin="SVGLQdHQe4p.begin+0.2s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12"/></rect><rect width="2.8" height="12" x="15.4" y="6" fill="currentColor"><animate attributeName="y" begin="SVGLQdHQe4p.begin+0.3s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6"/><animate attributeName="height" begin="SVGLQdHQe4p.begin+0.3s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12"/></rect><rect width="2.8" height="12" x="20.2" y="6" fill="currentColor"><animate id="SVGg3vsIeGm" attributeName="y" begin="SVGLQdHQe4p.begin+0.4s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6"/><animate attributeName="height" begin="SVGLQdHQe4p.begin+0.4s" calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12"/></rect></svg>',
   'tabler-address-book-off':
     '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 4h10a2 2 0 0 1 2 2v10m-.57 3.399c-.363.37-.87.601-1.43.601H8a2 2 0 0 1-2-2V6m4 10h6"/><path d="M11 11a2 2 0 0 0 2 2m2-2a2 2 0 0 0-2-2M4 8h3m-3 4h3m-3 4h3M3 3l18 18"/></g></svg>',
+  'task-alt':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-80q-83,0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83,31.5-156T197-763q54-54,127-85.5T480-880q65,0,123,19t107,53l-58,59q-38-24-81-37.5T480-800q-133,0-226.5,93.5T160-480q0,133,93.5,226.5T480-160q133,0,226.5-93.5T800-480q0-18-2-36t-6-35l65-65q11,32,17,66t6,70q0,83-31.5,156T763-197q-54,54-127,85.5T480-80Zm-56-216L254-466l56-56,114,114,400-401,56,56-456,457Z"/></svg>',
+  'treatment':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-254,330-104q-23,23-56,23t-56-23L104-218q-23-23-23-56t23-56l150-150-150-150q-23-23-23-56t23-56l114-114q23-23,56-23t56,23l150,150,150-150q23-23,56-23t56,23l114,114q23,23,23,56t-23,56L706-480l150,150q23,23,23,56t-23,56L742-104q-23,23-56,23t-56-23L480-254Zm0-266q17,0,28.5-11.5T520-560q0-17-11.5-28.5T480-600q-17,0-28.5,11.5T440-560q0,17,11.5,28.5T480-520Zm-170-16,114-114-150-150-114,114,150,150Zm90,96q17,0,28.5-11.5T440-480q0-17-11.5-28.5T400-520q-17,0-28.5,11.5T360-480q0,17,11.5,28.5T400-440Zm80,80q17,0,28.5-11.5T520-400q0-17-11.5-28.5T480-440q-17,0-28.5,11.5T440-400q0,17,11.5,28.5T480-360Zm80-80q17,0,28.5-11.5T600-480q0-17-11.5-28.5T560-520q-17,0-28.5,11.5T520-480q0,17,11.5,28.5T560-440Zm-24,130,150,150,114-114-150-150-114,114ZM339-621Zm282,282Z"/></svg>',
+  'trending-down':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="m136-720,56-56,296,298,160-160,208,206v-104h80v240H696v-80h104L536-640,376-480,136-720Z"/></svg>',
+  'trending-up':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="m136-240-56-56,296-298,160,160,208-206H640v-80h240v240h-80v-104L536-320,376-480,136-240Z"/></svg>',
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -33,25 +63,13 @@ export const icons: Record<string, string> = {
 const ICONS_KEY = '__sgUserIcons';
 const ICONS_LOADED_KEY = '__sgIconsLoaded';
 
-/** Type-safe global storage interface */
-interface SgIconGlobal {
-  [ICONS_KEY]?: Record<string, string>;
-  [ICONS_LOADED_KEY]?: Record<string, boolean>;
-}
-
-/** Get typed globalThis */
-function getGlobal(): SgIconGlobal {
-  return globalThis as SgIconGlobal;
-}
-
 /**
  * Register icons globally for <sg-icon> components
  */
 function registerIcons(iconsToRegister: Record<string, string>): void {
   if (typeof globalThis !== 'undefined') {
-    const g = getGlobal();
-    const existing = g[ICONS_KEY] || {};
-    g[ICONS_KEY] = { ...existing, ...iconsToRegister };
+    const existing = (globalThis as any)[ICONS_KEY] || {};
+    (globalThis as any)[ICONS_KEY] = { ...existing, ...iconsToRegister };
   }
 }
 
@@ -60,7 +78,7 @@ function registerIcons(iconsToRegister: Record<string, string>): void {
  * @param jsonPath - Path to the JSON file containing icons
  */
 export async function loadIconsFromJson(jsonPath: string): Promise<void> {
-  if (typeof globalThis !== 'undefined' && getGlobal()[ICONS_LOADED_KEY]?.[jsonPath]) {
+  if (typeof globalThis !== 'undefined' && (globalThis as any)[ICONS_LOADED_KEY]?.[jsonPath]) {
     return; // Already loaded
   }
 
@@ -68,14 +86,13 @@ export async function loadIconsFromJson(jsonPath: string): Promise<void> {
     const response = await fetch(jsonPath);
     if (response.ok) {
       const iconsData = await response.json();
-      registerIcons(iconsData as Record<string, string>);
+      registerIcons(iconsData);
 
       // Mark as loaded
-      const g = getGlobal();
-      if (!g[ICONS_LOADED_KEY]) {
-        g[ICONS_LOADED_KEY] = {};
+      if (!(globalThis as any)[ICONS_LOADED_KEY]) {
+        (globalThis as any)[ICONS_LOADED_KEY] = {};
       }
-      g[ICONS_LOADED_KEY]![jsonPath] = true;
+      (globalThis as any)[ICONS_LOADED_KEY][jsonPath] = true;
     }
   } catch (error) {
     console.error('[SageBox] Failed to load icons from:', jsonPath, error);
@@ -90,12 +107,53 @@ export async function loadIconsFromJson(jsonPath: string): Promise<void> {
  * Available icon names in this project.
  * Use with SgIcon: <SgIcon name="lucide-home" /> or <SgIcon name="lucide:home" />
  */
-export type IconName = 'actions' | 'add' | 'attachment' | 'svg-spinners-bars-scale' | 'tabler-address-book-off';
+export type IconName =
+  | 'actions'
+  | 'add'
+  | 'address'
+  | 'attachment'
+  | 'bell'
+  | 'chart'
+  | 'chart-bar'
+  | 'check-circle-google'
+  | 'consents'
+  | 'patients'
+  | 'physiotherapy'
+  | 'process'
+  | 'savings'
+  | 'sessions'
+  | 'svg-spinners-bars-scale'
+  | 'tabler-address-book-off'
+  | 'task-alt'
+  | 'treatment'
+  | 'trending-down'
+  | 'trending-up';
 
 /**
  * Array of all available icon names
  */
-export const iconNames: IconName[] = ['actions', 'add', 'attachment', 'svg-spinners-bars-scale', 'tabler-address-book-off'];
+export const iconNames: IconName[] = [
+  'actions',
+  'add',
+  'address',
+  'attachment',
+  'bell',
+  'chart',
+  'chart-bar',
+  'check-circle-google',
+  'consents',
+  'patients',
+  'physiotherapy',
+  'process',
+  'savings',
+  'sessions',
+  'svg-spinners-bars-scale',
+  'tabler-address-book-off',
+  'task-alt',
+  'treatment',
+  'trending-down',
+  'trending-up',
+];
 
 /**
  * Check if a string is a valid icon name

@@ -5,14 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-import {
-  ContentType,
-  ContentTypeChangeEvent,
-  EditorChangeEvent,
-  MediaItem,
-  ViewMode,
-  ViewModeChangeEvent,
-} from './packages/article-editor/src/utils';
+import { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from './packages/article-editor/src/utils';
 import { EditorTranslations, SupportedLocale } from './packages/article-editor/src/utils/i18n';
 import { BadgeSize, BadgeVariant } from './packages/badge/src/components/badge/badge';
 import { BreadcrumbSeparator, BreadcrumbSize } from './packages/breadcrumb/src/components/breadcrumb/breadcrumb';
@@ -23,23 +16,11 @@ import { IconDefinition } from './packages/icons/src/components/svg-icon/icons/b
 import { InfoFieldType, StatusMapItem } from './packages/info-field/src/components/info-field/info-field';
 import { InputSize, InputType, InputVariant, SelectOption, ValidationState } from './packages/input/src/components/input/input';
 import { ModalSize } from './packages/modal/src/components/modal/modal';
-import {
-  SelectOption as SelectOption1,
-  SelectSize,
-  SelectVariant,
-  ValidationState as ValidationState1,
-} from './packages/select/src/components/select/select';
+import { SelectOption as SelectOption1, SelectSize, SelectVariant, ValidationState as ValidationState1 } from './packages/select/src/components/select/select';
 import { StatItem, StatsCardColor } from './packages/stats-card/src/components/stats-card/stats-card';
 import { ThemeMode } from './packages/theme-toggle/src/components/theme-toggle/theme-toggle';
 import { TooltipPosition, TooltipTrigger, TooltipVariant } from './packages/tooltip/src/components/tooltip/tooltip';
-export {
-  ContentType,
-  ContentTypeChangeEvent,
-  EditorChangeEvent,
-  MediaItem,
-  ViewMode,
-  ViewModeChangeEvent,
-} from './packages/article-editor/src/utils';
+export { ContentType, ContentTypeChangeEvent, EditorChangeEvent, MediaItem, ViewMode, ViewModeChangeEvent } from './packages/article-editor/src/utils';
 export { EditorTranslations, SupportedLocale } from './packages/article-editor/src/utils/i18n';
 export { BadgeSize, BadgeVariant } from './packages/badge/src/components/badge/badge';
 export { BreadcrumbSeparator, BreadcrumbSize } from './packages/breadcrumb/src/components/breadcrumb/breadcrumb';
@@ -50,12 +31,7 @@ export { IconDefinition } from './packages/icons/src/components/svg-icon/icons/b
 export { InfoFieldType, StatusMapItem } from './packages/info-field/src/components/info-field/info-field';
 export { InputSize, InputType, InputVariant, SelectOption, ValidationState } from './packages/input/src/components/input/input';
 export { ModalSize } from './packages/modal/src/components/modal/modal';
-export {
-  SelectOption as SelectOption1,
-  SelectSize,
-  SelectVariant,
-  ValidationState as ValidationState1,
-} from './packages/select/src/components/select/select';
+export { SelectOption as SelectOption1, SelectSize, SelectVariant, ValidationState as ValidationState1 } from './packages/select/src/components/select/select';
 export { StatItem, StatsCardColor } from './packages/stats-card/src/components/stats-card/stats-card';
 export { ThemeMode } from './packages/theme-toggle/src/components/theme-toggle/theme-toggle';
 export { TooltipPosition, TooltipTrigger, TooltipVariant } from './packages/tooltip/src/components/tooltip/tooltip';
@@ -1855,33 +1831,25 @@ declare global {
     addEventListener<K extends keyof HTMLSgArticleEditorElementEventMap>(
       type: K,
       listener: (this: HTMLSgArticleEditorElement, ev: SgArticleEditorCustomEvent<HTMLSgArticleEditorElementEventMap[K]>) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLSgArticleEditorElementEventMap>(
       type: K,
       listener: (this: HTMLSgArticleEditorElement, ev: SgArticleEditorCustomEvent<HTMLSgArticleEditorElementEventMap[K]>) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
@@ -2005,33 +1973,25 @@ declare global {
     addEventListener<K extends keyof HTMLSgButtonElementEventMap>(
       type: K,
       listener: (this: HTMLSgButtonElement, ev: SgButtonCustomEvent<HTMLSgButtonElementEventMap[K]>) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLSgButtonElementEventMap>(
       type: K,
       listener: (this: HTMLSgButtonElement, ev: SgButtonCustomEvent<HTMLSgButtonElementEventMap[K]>) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
@@ -2083,33 +2043,25 @@ declare global {
     addEventListener<K extends keyof HTMLSgCardElementEventMap>(
       type: K,
       listener: (this: HTMLSgCardElement, ev: SgCardCustomEvent<HTMLSgCardElementEventMap[K]>) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLSgCardElementEventMap>(
       type: K,
       listener: (this: HTMLSgCardElement, ev: SgCardCustomEvent<HTMLSgCardElementEventMap[K]>) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
@@ -2142,33 +2094,25 @@ declare global {
     addEventListener<K extends keyof HTMLSgContextMenuElementEventMap>(
       type: K,
       listener: (this: HTMLSgContextMenuElement, ev: SgContextMenuCustomEvent<HTMLSgContextMenuElementEventMap[K]>) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLSgContextMenuElementEventMap>(
       type: K,
       listener: (this: HTMLSgContextMenuElement, ev: SgContextMenuCustomEvent<HTMLSgContextMenuElementEventMap[K]>) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
@@ -2193,33 +2137,25 @@ declare global {
     addEventListener<K extends keyof HTMLSgDatePickerElementEventMap>(
       type: K,
       listener: (this: HTMLSgDatePickerElement, ev: SgDatePickerCustomEvent<HTMLSgDatePickerElementEventMap[K]>) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLSgDatePickerElementEventMap>(
       type: K,
       listener: (this: HTMLSgDatePickerElement, ev: SgDatePickerCustomEvent<HTMLSgDatePickerElementEventMap[K]>) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
@@ -2270,33 +2206,25 @@ declare global {
     addEventListener<K extends keyof HTMLSgDropdownElementEventMap>(
       type: K,
       listener: (this: HTMLSgDropdownElement, ev: SgDropdownCustomEvent<HTMLSgDropdownElementEventMap[K]>) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLSgDropdownElementEventMap>(
       type: K,
       listener: (this: HTMLSgDropdownElement, ev: SgDropdownCustomEvent<HTMLSgDropdownElementEventMap[K]>) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
@@ -2414,33 +2342,25 @@ declare global {
     addEventListener<K extends keyof HTMLSgInputElementEventMap>(
       type: K,
       listener: (this: HTMLSgInputElement, ev: SgInputCustomEvent<HTMLSgInputElementEventMap[K]>) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLSgInputElementEventMap>(
       type: K,
       listener: (this: HTMLSgInputElement, ev: SgInputCustomEvent<HTMLSgInputElementEventMap[K]>) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
@@ -2518,33 +2438,25 @@ declare global {
     addEventListener<K extends keyof HTMLSgModalElementEventMap>(
       type: K,
       listener: (this: HTMLSgModalElement, ev: SgModalCustomEvent<HTMLSgModalElementEventMap[K]>) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLSgModalElementEventMap>(
       type: K,
       listener: (this: HTMLSgModalElement, ev: SgModalCustomEvent<HTMLSgModalElementEventMap[K]>) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
@@ -2603,33 +2515,25 @@ declare global {
     addEventListener<K extends keyof HTMLSgSearchBoxElementEventMap>(
       type: K,
       listener: (this: HTMLSgSearchBoxElement, ev: SgSearchBoxCustomEvent<HTMLSgSearchBoxElementEventMap[K]>) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLSgSearchBoxElementEventMap>(
       type: K,
       listener: (this: HTMLSgSearchBoxElement, ev: SgSearchBoxCustomEvent<HTMLSgSearchBoxElementEventMap[K]>) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
@@ -2676,33 +2580,25 @@ declare global {
     addEventListener<K extends keyof HTMLSgSelectElementEventMap>(
       type: K,
       listener: (this: HTMLSgSelectElement, ev: SgSelectCustomEvent<HTMLSgSelectElementEventMap[K]>) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLSgSelectElementEventMap>(
       type: K,
       listener: (this: HTMLSgSelectElement, ev: SgSelectCustomEvent<HTMLSgSelectElementEventMap[K]>) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
@@ -2747,33 +2643,25 @@ declare global {
     addEventListener<K extends keyof HTMLSgThemeToggleElementEventMap>(
       type: K,
       listener: (this: HTMLSgThemeToggleElement, ev: SgThemeToggleCustomEvent<HTMLSgThemeToggleElementEventMap[K]>) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLSgThemeToggleElementEventMap>(
       type: K,
       listener: (this: HTMLSgThemeToggleElement, ev: SgThemeToggleCustomEvent<HTMLSgThemeToggleElementEventMap[K]>) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
@@ -2808,33 +2696,25 @@ declare global {
     addEventListener<K extends keyof HTMLSgTooltipElementEventMap>(
       type: K,
       listener: (this: HTMLSgTooltipElement, ev: SgTooltipCustomEvent<HTMLSgTooltipElementEventMap[K]>) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
+      options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLSgTooltipElementEventMap>(
       type: K,
       listener: (this: HTMLSgTooltipElement, ev: SgTooltipCustomEvent<HTMLSgTooltipElementEventMap[K]>) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
       listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
+      options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
@@ -4346,7 +4226,7 @@ declare namespace LocalJSX {
       event: SgSelectCustomEvent<{
         value: string | string[];
         option?: { value: string; label: string; disabled?: boolean; group?: string; icon?: string; description?: string; data?: unknown };
-      }>
+      }>,
     ) => void;
     onSgClose?: (event: SgSelectCustomEvent<void>) => void;
     onSgCreate?: (event: SgSelectCustomEvent<{ value: string }>) => void;

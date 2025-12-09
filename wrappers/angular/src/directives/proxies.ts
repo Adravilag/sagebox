@@ -1,4 +1,3 @@
-/* eslint-disable */
 /* tslint:disable */
 /* auto-generated angular directive proxies */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, NgZone } from '@angular/core';
@@ -109,7 +108,7 @@ export class SgArticleEditor {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -164,7 +163,7 @@ export class SgBadge {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -189,7 +188,7 @@ export class SgBreadcrumb {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -214,7 +213,7 @@ export class SgBreadcrumbItem {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -241,7 +240,7 @@ export class SgButton {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -310,7 +309,7 @@ export class SgCard {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -348,7 +347,7 @@ export class SgContextMenu {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -385,7 +384,7 @@ export class SgDatePicker {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -420,7 +419,7 @@ export class SgDropdown {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -458,7 +457,7 @@ export class SgFormSection {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -469,24 +468,7 @@ export declare interface SgFormSection extends Components.SgFormSection {}
 
 @ProxyCmp({
   defineCustomElementFn: defineSgIcon,
-  inputs: [
-    'color',
-    'decorative',
-    'fill',
-    'flipH',
-    'flipV',
-    'height',
-    'jsonSrc',
-    'label',
-    'name',
-    'rotate',
-    'showPlaceholder',
-    'size',
-    'spin',
-    'src',
-    'strokeWidth',
-    'width',
-  ],
+  inputs: ['color', 'decorative', 'fill', 'flipH', 'flipV', 'height', 'jsonSrc', 'label', 'name', 'rotate', 'showPlaceholder', 'size', 'spin', 'src', 'strokeWidth', 'width'],
   methods: ['registerIcons', 'registerIcon', 'getRegisteredIcons', 'hasIcon'],
 })
 @Component({
@@ -494,31 +476,14 @@ export declare interface SgFormSection extends Components.SgFormSection {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [
-    'color',
-    'decorative',
-    'fill',
-    'flipH',
-    'flipV',
-    'height',
-    'jsonSrc',
-    'label',
-    'name',
-    'rotate',
-    'showPlaceholder',
-    'size',
-    'spin',
-    'src',
-    'strokeWidth',
-    'width',
-  ],
+  inputs: ['color', 'decorative', 'fill', 'flipH', 'flipV', 'height', 'jsonSrc', 'label', 'name', 'rotate', 'showPlaceholder', 'size', 'spin', 'src', 'strokeWidth', 'width'],
 })
 export class SgIcon {
   protected el: HTMLSgIconElement;
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -543,7 +508,7 @@ export class SgInfoField {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -629,7 +594,7 @@ export class SgInput {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -680,7 +645,7 @@ export class SgModal {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -718,7 +683,7 @@ export class SgOption {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -743,7 +708,7 @@ export class SgOptionGroup {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -754,36 +719,14 @@ export declare interface SgOptionGroup extends Components.SgOptionGroup {}
 
 @ProxyCmp({
   defineCustomElementFn: defineSgSearchBox,
-  inputs: [
-    'clearButtonLabel',
-    'clearIcon',
-    'disabled',
-    'hideClearButton',
-    'hideSearchButton',
-    'placeholder',
-    'searchButtonLabel',
-    'searchIcon',
-    'size',
-    'value',
-  ],
+  inputs: ['clearButtonLabel', 'clearIcon', 'disabled', 'hideClearButton', 'hideSearchButton', 'placeholder', 'searchButtonLabel', 'searchIcon', 'size', 'value'],
 })
 @Component({
   selector: 'sg-search-box',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [
-    'clearButtonLabel',
-    'clearIcon',
-    'disabled',
-    'hideClearButton',
-    'hideSearchButton',
-    'placeholder',
-    'searchButtonLabel',
-    'searchIcon',
-    'size',
-    'value',
-  ],
+  inputs: ['clearButtonLabel', 'clearIcon', 'disabled', 'hideClearButton', 'hideSearchButton', 'placeholder', 'searchButtonLabel', 'searchIcon', 'size', 'value'],
   outputs: ['sgInput', 'sgSearch', 'sgClear'],
 })
 export class SgSearchBox {
@@ -794,7 +737,7 @@ export class SgSearchBox {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -882,10 +825,7 @@ export declare interface SgSearchBox extends Components.SgSearchBox {
 export class SgSelect {
   protected el: HTMLSgSelectElement;
   @Output() sgChange = new EventEmitter<
-    CustomEvent<{
-      value: string | string[];
-      option?: { value: string; label: string; disabled?: boolean; group?: string; icon?: string; description?: string; data?: unknown };
-    }>
+    CustomEvent<{ value: string | string[]; option?: { value: string; label: string; disabled?: boolean; group?: string; icon?: string; description?: string; data?: unknown } }>
   >();
   @Output() sgSearch = new EventEmitter<CustomEvent<{ query: string }>>();
   @Output() sgOpen = new EventEmitter<CustomEvent<void>>();
@@ -894,7 +834,7 @@ export class SgSelect {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -906,10 +846,7 @@ export declare interface SgSelect extends Components.SgSelect {
    * Emitted when selection changes. The option property contains the selected option data.
    */
   sgChange: EventEmitter<
-    CustomEvent<{
-      value: string | string[];
-      option?: { value: string; label: string; disabled?: boolean; group?: string; icon?: string; description?: string; data?: unknown };
-    }>
+    CustomEvent<{ value: string | string[]; option?: { value: string; label: string; disabled?: boolean; group?: string; icon?: string; description?: string; data?: unknown } }>
   >;
 
   sgSearch: EventEmitter<CustomEvent<{ query: string }>>;
@@ -937,7 +874,7 @@ export class SgSkeleton {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -962,7 +899,7 @@ export class SgStatsCard {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -989,7 +926,7 @@ export class SgThemeToggle {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;
@@ -1025,7 +962,7 @@ export class SgTooltip {
   constructor(
     c: ChangeDetectorRef,
     r: ElementRef,
-    protected z: NgZone
+    protected z: NgZone,
   ) {
     c.detach();
     this.el = r.nativeElement;

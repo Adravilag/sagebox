@@ -33,6 +33,9 @@ www/
 **/*.stories.ts
 coverage/
 
+# Collection (dev only, not needed for consumers)
+dist/collection/
+
 # Logs and temp files
 *.log
 *.tmp

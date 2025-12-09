@@ -1,0 +1,365 @@
+/**
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                    LAYER 4: COMPONENT TOKENS                             ║
+ * ║                                                                          ║
+ * ║  Tokens específicos de cada componente que referencian tokens semánticos.║
+ * ║  Esto permite personalizar componentes sin afectar el sistema global.   ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ */
+
+@import './semantic.css';
+
+:root {
+  /* ═══════════════════════════════════════════════════════════════════════════
+     BUTTON
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  /* Base */
+  --sg-btn-font-family: var(--ui-font-sans);
+  --sg-btn-font-weight: var(--ui-font-medium);
+  --sg-btn-font-size: var(--ui-text-sm);
+  --sg-btn-line-height: var(--ui-leading-normal);
+  --sg-btn-border-width: 1px;
+  --sg-btn-border-radius: var(--ui-radius-md);
+  --sg-btn-transition: var(--ui-duration-fast) var(--ui-ease-default);
+
+  /* Sizing */
+  --sg-btn-height-xs: 1.75rem;
+  --sg-btn-height-sm: 2rem;
+  --sg-btn-height-md: 2.5rem;
+  --sg-btn-height-lg: 3rem;
+  --sg-btn-height-xl: 3.5rem;
+
+  --sg-btn-padding-x-xs: var(--ui-space-component-sm);
+  --sg-btn-padding-x-sm: var(--ui-space-component-md);
+  --sg-btn-padding-x-md: var(--ui-space-component-lg);
+  --sg-btn-padding-x-lg: var(--ui-space-component-xl);
+
+  /* Primary variant */
+  --sg-btn-primary-bg: var(--ui-accent);
+  --sg-btn-primary-bg-hover: var(--ui-accent-hover);
+  --sg-btn-primary-bg-active: var(--ui-accent-active);
+  --sg-btn-primary-text: var(--ui-accent-text);
+  --sg-btn-primary-border: transparent;
+
+  /* Secondary variant */
+  --sg-btn-secondary-bg: var(--ui-component);
+  --sg-btn-secondary-bg-hover: var(--ui-component-hover);
+  --sg-btn-secondary-bg-active: var(--ui-component-active);
+  --sg-btn-secondary-text: var(--ui-text);
+  --sg-btn-secondary-border: var(--ui-border);
+
+  /* Ghost variant */
+  --sg-btn-ghost-bg: transparent;
+  --sg-btn-ghost-bg-hover: var(--ui-component-hover);
+  --sg-btn-ghost-bg-active: var(--ui-component-active);
+  --sg-btn-ghost-text: var(--ui-text);
+  --sg-btn-ghost-border: transparent;
+
+  /* Outline variant */
+  --sg-btn-outline-bg: transparent;
+  --sg-btn-outline-bg-hover: var(--ui-accent-subtle);
+  --sg-btn-outline-bg-active: var(--ui-accent-muted);
+  --sg-btn-outline-text: var(--ui-accent);
+  --sg-btn-outline-border: var(--ui-accent);
+
+  /* Danger variant */
+  --sg-btn-danger-bg: var(--ui-error);
+  --sg-btn-danger-bg-hover: var(--ui-error-emphasis);
+  --sg-btn-danger-bg-active: var(--scale-error-700);
+  --sg-btn-danger-text: #ffffff;
+  --sg-btn-danger-border: transparent;
+
+  /* Disabled state */
+  --sg-btn-disabled-bg: var(--ui-component-disabled);
+  --sg-btn-disabled-text: var(--ui-text-disabled);
+  --sg-btn-disabled-border: var(--ui-border-muted);
+  --sg-btn-disabled-opacity: 0.6;
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     INPUT
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-input-font-family: var(--ui-font-sans);
+  --sg-input-font-size: var(--ui-text-sm);
+  --sg-input-line-height: var(--ui-leading-normal);
+  --sg-input-border-width: 1px;
+  --sg-input-border-radius: var(--ui-radius-md);
+  --sg-input-transition: var(--ui-duration-fast) var(--ui-ease-default);
+
+  /* Sizing */
+  --sg-input-height-sm: 2rem;
+  --sg-input-height-md: 2.5rem;
+  --sg-input-height-lg: 3rem;
+  --sg-input-padding-x: var(--ui-space-component-md);
+
+  /* Colors */
+  --sg-input-bg: var(--ui-surface);
+  --sg-input-bg-hover: var(--ui-surface);
+  --sg-input-bg-focus: var(--ui-surface);
+  --sg-input-bg-disabled: var(--ui-surface-disabled);
+  --sg-input-text: var(--ui-text);
+  --sg-input-text-placeholder: var(--ui-text-muted);
+  --sg-input-text-disabled: var(--ui-text-disabled);
+  --sg-input-border: var(--ui-border);
+  --sg-input-border-hover: var(--ui-border-strong);
+  --sg-input-border-focus: var(--ui-border-focus);
+  --sg-input-border-error: var(--ui-border-error);
+  --sg-input-border-success: var(--ui-border-success);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     CARD
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-card-bg: var(--ui-surface);
+  --sg-card-bg-hover: var(--ui-surface);
+  --sg-card-border: var(--ui-border);
+  --sg-card-border-radius: var(--ui-radius-lg);
+  --sg-card-shadow: var(--ui-shadow-sm);
+  --sg-card-shadow-hover: var(--ui-shadow-md);
+  --sg-card-padding: var(--ui-space-component-lg);
+  --sg-card-transition: var(--ui-duration-normal) var(--ui-ease-default);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     MODAL
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-modal-bg: var(--ui-surface-overlay);
+  --sg-modal-backdrop: var(--ui-canvas-overlay);
+  --sg-modal-border: var(--ui-border);
+  --sg-modal-border-radius: var(--ui-radius-xl);
+  --sg-modal-shadow: var(--ui-shadow-2xl);
+  --sg-modal-padding: var(--ui-space-component-xl);
+  --sg-modal-width-sm: 24rem;
+  --sg-modal-width-md: 32rem;
+  --sg-modal-width-lg: 42rem;
+  --sg-modal-width-xl: 56rem;
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     DROPDOWN / SELECT
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-dropdown-bg: var(--ui-surface-overlay);
+  --sg-dropdown-border: var(--ui-border);
+  --sg-dropdown-border-radius: var(--ui-radius-md);
+  --sg-dropdown-shadow: var(--ui-shadow-lg);
+  --sg-dropdown-padding: var(--ui-space-component-xs);
+
+  --sg-dropdown-item-padding-x: var(--ui-space-component-md);
+  --sg-dropdown-item-padding-y: var(--ui-space-component-sm);
+  --sg-dropdown-item-border-radius: var(--ui-radius-sm);
+  --sg-dropdown-item-bg: transparent;
+  --sg-dropdown-item-bg-hover: var(--ui-component-hover);
+  --sg-dropdown-item-bg-active: var(--ui-component-active);
+  --sg-dropdown-item-bg-selected: var(--ui-component-selected);
+  --sg-dropdown-item-text: var(--ui-text);
+  --sg-dropdown-item-text-muted: var(--ui-text-secondary);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     TOOLTIP
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-tooltip-bg: var(--scale-neutral-900);
+  --sg-tooltip-text: var(--scale-neutral-50);
+  --sg-tooltip-border-radius: var(--ui-radius-md);
+  --sg-tooltip-padding-x: var(--ui-space-component-sm);
+  --sg-tooltip-padding-y: var(--ui-space-component-xs);
+  --sg-tooltip-font-size: var(--ui-text-xs);
+  --sg-tooltip-shadow: var(--ui-shadow-md);
+  --sg-tooltip-max-width: 20rem;
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     BADGE / TAG
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-badge-font-size: var(--ui-text-xs);
+  --sg-badge-font-weight: var(--ui-font-medium);
+  --sg-badge-padding-x: var(--ui-space-component-sm);
+  --sg-badge-padding-y: var(--ui-space-component-xs);
+  --sg-badge-border-radius: var(--ui-radius-full);
+  --sg-badge-border-width: 1px;
+
+  /* Default */
+  --sg-badge-bg: var(--ui-canvas-muted);
+  --sg-badge-text: var(--ui-text-secondary);
+  --sg-badge-border: transparent;
+
+  /* Primary */
+  --sg-badge-primary-bg: var(--ui-accent-subtle);
+  --sg-badge-primary-text: var(--ui-accent-text-contrast);
+  --sg-badge-primary-border: var(--ui-accent-muted);
+
+  /* Success */
+  --sg-badge-success-bg: var(--ui-success-subtle);
+  --sg-badge-success-text: var(--ui-success-text);
+  --sg-badge-success-border: var(--ui-success-muted);
+
+  /* Warning */
+  --sg-badge-warning-bg: var(--ui-warning-subtle);
+  --sg-badge-warning-text: var(--ui-warning-text);
+  --sg-badge-warning-border: var(--ui-warning-muted);
+
+  /* Error */
+  --sg-badge-error-bg: var(--ui-error-subtle);
+  --sg-badge-error-text: var(--ui-error-text);
+  --sg-badge-error-border: var(--ui-error-muted);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     AVATAR
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-avatar-bg: var(--ui-accent-subtle);
+  --sg-avatar-text: var(--ui-accent-text-contrast);
+  --sg-avatar-border: var(--ui-border);
+  --sg-avatar-border-radius: var(--ui-radius-full);
+
+  --sg-avatar-size-xs: 1.5rem;
+  --sg-avatar-size-sm: 2rem;
+  --sg-avatar-size-md: 2.5rem;
+  --sg-avatar-size-lg: 3rem;
+  --sg-avatar-size-xl: 4rem;
+  --sg-avatar-size-2xl: 5rem;
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     SWITCH / TOGGLE
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-switch-width: 2.75rem;
+  --sg-switch-height: 1.5rem;
+  --sg-switch-border-radius: var(--ui-radius-full);
+  --sg-switch-transition: var(--ui-duration-fast) var(--ui-ease-default);
+
+  --sg-switch-bg: var(--ui-component-active);
+  --sg-switch-bg-checked: var(--ui-accent);
+  --sg-switch-bg-disabled: var(--ui-component-disabled);
+
+  --sg-switch-thumb-size: 1.25rem;
+  --sg-switch-thumb-bg: #ffffff;
+  --sg-switch-thumb-shadow: var(--ui-shadow-sm);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     CHECKBOX / RADIO
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-checkbox-size: 1.25rem;
+  --sg-checkbox-border-radius: var(--ui-radius-sm);
+  --sg-checkbox-border-width: 2px;
+  --sg-checkbox-border: var(--ui-border-strong);
+  --sg-checkbox-border-checked: var(--ui-accent);
+  --sg-checkbox-bg: var(--ui-surface);
+  --sg-checkbox-bg-checked: var(--ui-accent);
+  --sg-checkbox-check-color: #ffffff;
+  --sg-checkbox-transition: var(--ui-duration-fast) var(--ui-ease-default);
+
+  --sg-radio-size: var(--sg-checkbox-size);
+  --sg-radio-border-radius: var(--ui-radius-full);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     PROGRESS / SLIDER
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-progress-height: 0.5rem;
+  --sg-progress-border-radius: var(--ui-radius-full);
+  --sg-progress-bg: var(--ui-canvas-muted);
+  --sg-progress-fill: var(--ui-accent);
+  --sg-progress-transition: var(--ui-duration-slow) var(--ui-ease-out);
+
+  --sg-slider-track-height: 0.375rem;
+  --sg-slider-thumb-size: 1.25rem;
+  --sg-slider-thumb-bg: var(--ui-accent);
+  --sg-slider-thumb-shadow: var(--ui-shadow-md);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     TABLE
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-table-border: var(--ui-border);
+  --sg-table-border-radius: var(--ui-radius-lg);
+
+  --sg-table-header-bg: var(--ui-canvas-subtle);
+  --sg-table-header-text: var(--ui-text-secondary);
+  --sg-table-header-font-weight: var(--ui-font-semibold);
+
+  --sg-table-row-bg: var(--ui-surface);
+  --sg-table-row-bg-hover: var(--ui-component-hover);
+  --sg-table-row-bg-selected: var(--ui-component-selected);
+  --sg-table-row-bg-striped: var(--ui-canvas-subtle);
+
+  --sg-table-cell-padding-x: var(--ui-space-component-lg);
+  --sg-table-cell-padding-y: var(--ui-space-component-md);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     TABS
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-tabs-border: var(--ui-border);
+  --sg-tabs-gap: var(--ui-space-gap-xs);
+
+  --sg-tab-padding-x: var(--ui-space-component-lg);
+  --sg-tab-padding-y: var(--ui-space-component-sm);
+  --sg-tab-border-radius: var(--ui-radius-md);
+  --sg-tab-font-weight: var(--ui-font-medium);
+
+  --sg-tab-bg: transparent;
+  --sg-tab-bg-hover: var(--ui-component-hover);
+  --sg-tab-bg-active: var(--ui-component-selected);
+  --sg-tab-text: var(--ui-text-secondary);
+  --sg-tab-text-hover: var(--ui-text);
+  --sg-tab-text-active: var(--ui-accent);
+  --sg-tab-indicator: var(--ui-accent);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     ALERT / CALLOUT
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-alert-padding: var(--ui-space-component-lg);
+  --sg-alert-border-radius: var(--ui-radius-lg);
+  --sg-alert-border-width: 1px;
+
+  --sg-alert-info-bg: var(--ui-info-subtle);
+  --sg-alert-info-border: var(--ui-info-muted);
+  --sg-alert-info-text: var(--ui-info-text);
+  --sg-alert-info-icon: var(--ui-info);
+
+  --sg-alert-success-bg: var(--ui-success-subtle);
+  --sg-alert-success-border: var(--ui-success-muted);
+  --sg-alert-success-text: var(--ui-success-text);
+  --sg-alert-success-icon: var(--ui-success);
+
+  --sg-alert-warning-bg: var(--ui-warning-subtle);
+  --sg-alert-warning-border: var(--ui-warning-muted);
+  --sg-alert-warning-text: var(--ui-warning-text);
+  --sg-alert-warning-icon: var(--ui-warning);
+
+  --sg-alert-error-bg: var(--ui-error-subtle);
+  --sg-alert-error-border: var(--ui-error-muted);
+  --sg-alert-error-text: var(--ui-error-text);
+  --sg-alert-error-icon: var(--ui-error);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     SKELETON
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-skeleton-bg: var(--ui-skeleton-base);
+  --sg-skeleton-shine: var(--ui-skeleton-shine);
+  --sg-skeleton-border-radius: var(--ui-radius-md);
+  --sg-skeleton-animation-duration: 1.5s;
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     BREADCRUMB
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-breadcrumb-gap: var(--ui-space-gap-xs);
+  --sg-breadcrumb-separator-color: var(--ui-text-muted);
+  --sg-breadcrumb-text: var(--ui-text-secondary);
+  --sg-breadcrumb-text-hover: var(--ui-text);
+  --sg-breadcrumb-text-current: var(--ui-text);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     DIVIDER
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --sg-divider-color: var(--ui-border);
+  --sg-divider-thickness: 1px;
+  --sg-divider-spacing: var(--ui-space-gap-md);
+}

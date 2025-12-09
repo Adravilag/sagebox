@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Demo - Event Editor</title>
+    <style>
+      /* Ocultar contenido de modales hasta que se hidraten */
+      sg-modal:not(:defined) {
+        display: none;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #f4f4f5;
+        --surface: #ffffff;
+        --text: #18181b;
+        --text-muted: #71717a;
+        --border: #e4e4e7;
+        --accent: #6366f1;
+        --success: #22c55e;
+        --error: #ef4444;
+      }
+
+      [data-theme='dark'] {
+        --bg: #09090b;
+        --surface: #18181b;
+        --text: #f4f4f5;
+        --text-muted: #a1a1aa;
+        --border: #27272a;
+      }
+
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .form-container {
+        width: 100%;
+        max-width: 480px;
+      }
+
+      .form-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .form-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-subtitle {
+        color: var(--text-muted);
+        font-size: 0.9375rem;
+      }
+
+      .form-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group:last-of-type {
+        margin-bottom: 2rem;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-label .required {
+        color: var(--error);
+      }
+
+      .form-hint {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-top: 0.375rem;
+      }
+
+      .form-error {
+        font-size: 0.75rem;
+        color: var(--error);
+        margin-top: 0.375rem;
+        display: none;
+      }
+
+      .form-error.visible {
+        display: block;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .checkbox-group input[type='checkbox'] {
+        margin-top: 0.25rem;
+        width: 18px;
+        height: 18px;
+        accent-color: var(--accent);
+      }
+
+      .checkbox-label {
+        font-size: 0.875rem;
+      }
+
+      .checkbox-label a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .checkbox-label a:hover {
+        text-decoration: underline;
+      }
+
+      .form-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .form-divider {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 1.5rem 0;
+      }
+
+      .form-divider::before,
+      .form-divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      .form-divider span {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+      }
+
+      .social-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+
+      .form-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 0.875rem;
+        color: var(--text-muted);
+      }
+
+      .form-footer a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .form-footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* Password strength indicator */
+      .password-strength {
+        display: flex;
+        gap: 4px;
+        margin-top: 0.5rem;
+      }
+
+      .strength-bar {
+        height: 4px;
+        flex: 1;
+        background: var(--border);
+        border-radius: 2px;
+        transition: background 0.2s;
+      }
+
+      .strength-bar.weak {
+        background: var(--error);
+      }
+      .strength-bar.medium {
+        background: #f59e0b;
+      }
+      .strength-bar.strong {
+        background: var(--success);
+      }
+
+      .strength-text {
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+      }
+
+      .strength-text.weak {
+        color: var(--error);
+      }
+      .strength-text.medium {
+        color: #f59e0b;
+      }
+      .strength-text.strong {
+        color: var(--success);
+      }
+
+      /* Theme toggle position */
+      .theme-toggle-wrapper {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+      }
+
+      /* Toast notification */
+      .toast {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        transform: translateY(150%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+      }
+
+      .toast.show {
+        transform: translateY(0);
+      }
+
+      .toast.success {
+        border-left: 4px solid var(--success);
+      }
+
+      .toast.error {
+        border-left: 4px solid var(--error);
+      }
+
+      .toast-icon {
+        font-size: 1.25rem;
+      }
+
+      .toast-message {
+        font-size: 0.875rem;
+      }
+    </style>
+
+    <!-- SageBox Components (versión local) -->
+    <script type="module" src="../../../../www/build/sagebox.esm.js"></script>
+    <link rel="stylesheet" href="../../../../www/build/sagebox.css" />
+  </head>
+  <body>
+    <div class="theme-toggle-wrapper">
+      <sg-theme-toggle id="theme-toggle"></sg-theme-toggle>
+    </div>
+
+    <div class="form-container">
+      <div class="form-header">
+        <h1 class="form-title">Crear cuenta</h1>
+        <p class="form-subtitle">Completa el formulario para comenzar</p>
+      </div>
+
+      <div class="form-card">
+        <form id="signup-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label"> Nombre <span class="required">*</span> </label>
+              <sg-input id="input-firstname" placeholder="John" required></sg-input>
+              <span class="form-error" id="error-firstname">El nombre es requerido</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label"> Apellido <span class="required">*</span> </label>
+              <sg-input id="input-lastname" placeholder="Doe" required></sg-input>
+              <span class="form-error" id="error-lastname">El apellido es requerido</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"> Email <span class="required">*</span> </label>
+            <sg-input id="input-email" type="email" placeholder="john@example.com" required></sg-input>
+            <span class="form-error" id="error-email">Ingresa un email válido</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"> Contraseña <span class="required">*</span> </label>
+            <sg-input id="input-password" type="password" placeholder="••••••••" required></sg-input>
+            <div class="password-strength" id="password-strength">
+              <div class="strength-bar" id="bar-1"></div>
+              <div class="strength-bar" id="bar-2"></div>
+              <div class="strength-bar" id="bar-3"></div>
+              <div class="strength-bar" id="bar-4"></div>
+            </div>
+            <span class="strength-text" id="strength-text"></span>
+            <span class="form-hint">Mínimo 8 caracteres con letras y números</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"> Confirmar contraseña <span class="required">*</span> </label>
+            <sg-input id="input-confirm" type="password" placeholder="••••••••" required></sg-input>
+            <span class="form-error" id="error-confirm">Las contraseñas no coinciden</span>
+          </div>
+
+          <div class="form-group">
+            <div class="checkbox-group">
+              <input type="checkbox" id="checkbox-terms" required />
+              <label class="checkbox-label" for="checkbox-terms"> Acepto los <a href="#">Términos de Servicio</a> y la <a href="#">Política de Privacidad</a> </label>
+            </div>
+            <span class="form-error" id="error-terms">Debes aceptar los términos</span>
+          </div>
+
+          <div class="form-actions">
+            <sg-button id="btn-submit" variant="primary" shape="block" type="submit"> Crear cuenta </sg-button>
+          </div>
+
+          <div class="form-divider">
+            <span>o continuar con</span>
+          </div>
+
+          <div class="social-buttons">
+            <sg-button id="btn-google" variant="outline"> <span style="margin-right: 8px">🔵</span> Google </sg-button>
+            <sg-button id="btn-github" variant="outline"> <span style="margin-right: 8px">⚫</span> GitHub </sg-button>
+          </div>
+        </form>
+
+        <p class="form-footer">¿Ya tienes cuenta? <a href="#" id="link-login">Inicia sesión</a></p>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+      <span class="toast-icon" id="toast-icon">✓</span>
+      <span class="toast-message" id="toast-message">Mensaje</span>
+    </div>
+
+    <!-- Success Modal -->
+    <sg-modal id="success-modal" header="¡Cuenta creada!" size="sm">
+      <div style="text-align: center; padding: 1rem 0">
+        <div style="font-size: 3rem; margin-bottom: 1rem">🎉</div>
+        <p style="color: var(--text-muted)">Tu cuenta ha sido creada exitosamente. Revisa tu email para confirmar tu cuenta.</p>
+      </div>
+      <div slot="footer" style="display: flex; justify-content: center">
+        <sg-button variant="primary" onclick="document.getElementById('success-modal').close()">Entendido</sg-button>
+      </div>
+    </sg-modal>
+
+    <script>
+      // Event Editor Communication
+      function notifyEventEditor(type, payload) {
+        if (window.parent !== window) {
+          window.parent.postMessage({ type, payload }, '*');
+        }
+      }
+
+      // Scan and report SageBox components
+      function reportComponents() {
+        const componentMap = new Map();
+        document.querySelectorAll('*').forEach(el => {
+          const tag = el.tagName.toLowerCase();
+          if (tag.startsWith('sg-')) {
+            const existing = componentMap.get(tag) || { count: 0, ids: [] };
+            existing.count++;
+            if (el.id) existing.ids.push(el.id);
+            componentMap.set(tag, existing);
+          }
+        });
+        window.parent?.postMessage(
+          {
+            type: 'event-editor:components-list',
+            components: Array.from(componentMap.entries()).map(([name, info]) => ({
+              name,
+              count: info.count,
+              ids: info.ids,
+            })),
+          },
+          '*',
+        );
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        customElements
+          .whenDefined('sg-button')
+          .then(reportComponents)
+          .catch(() => setTimeout(reportComponents, 1000));
+      });
+
+      window.addEventListener('message', e => {
+        if (e.data.type === 'ping') notifyEventEditor('pong', {});
+        if (e.data.type === 'request-components') reportComponents();
+        if (e.data.type === 'event-editor:inject-rules') {
+          injectRulesCode(e.data.code);
+        }
+        if (e.data.type === 'event-editor:clear-rules') {
+          clearInjectedRules();
+        }
+      });
+
+      // === Rule Injection System ===
+      let injectedScripts = [];
+
+      function injectRulesCode(code) {
+        // Remove previous injected scripts
+        clearInjectedRules();
+
+        // Wrap code to report back to Event Editor
+        const wrappedCode = `
+        (function() {
+          const originalCode = ${JSON.stringify(code)};
+
+          // Override console.log to capture rule activity
+          const notify = (type, data) => {
+            window.parent.postMessage({ type: type, data: data }, '*');
+          };
+
+          try {
+            // Execute the rules code
+            eval(originalCode);
+            notify('rules-injected', { success: true, rulesCount: (originalCode.match(/\\/\\/ Rule:/g) || []).length });
+          } catch (error) {
+            notify('rules-error', { error: error.message });
+          }
+        })();
+      `;
+
+        const script = document.createElement('script');
+        script.textContent = wrappedCode;
+        script.setAttribute('data-event-editor-rules', 'true');
+        document.body.appendChild(script);
+        injectedScripts.push(script);
+      }
+
+      function clearInjectedRules() {
+        // Remove all injected rule scripts
+        document.querySelectorAll('[data-event-editor-rules]').forEach(el => el.remove());
+        injectedScripts = [];
+
+        // Notify Event Editor
+        window.parent.postMessage({ type: 'rules-cleared' }, '*');
+      }
+
+      // Theme toggle
+      document.getElementById('theme-toggle')?.addEventListener('sgChange', e => {
+        document.documentElement.setAttribute('data-theme', e.detail?.theme || 'light');
+        notifyEventEditor('component-event', {
+          event: 'sgChange',
+          component: 'sg-theme-toggle',
+          detail: e.detail,
+        });
+      });
+
+      // Password strength checker
+      function checkPasswordStrength(password) {
+        let strength = 0;
+        if (password.length >= 8) strength++;
+        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+        if (/\d/.test(password)) strength++;
+        if (/[^a-zA-Z0-9]/.test(password)) strength++;
+        return strength;
+      }
+
+      function updatePasswordStrength(strength) {
+        const bars = ['bar-1', 'bar-2', 'bar-3', 'bar-4'];
+        const strengthText = document.getElementById('strength-text');
+
+        bars.forEach((barId, index) => {
+          const bar = document.getElementById(barId);
+          bar.className = 'strength-bar';
+
+          if (index < strength) {
+            if (strength <= 1) bar.classList.add('weak');
+            else if (strength <= 2) bar.classList.add('medium');
+            else bar.classList.add('strong');
+          }
+        });
+
+        if (strengthText) {
+          strengthText.className = 'strength-text';
+          if (strength === 0) {
+            strengthText.textContent = '';
+          } else if (strength <= 1) {
+            strengthText.textContent = 'Débil';
+            strengthText.classList.add('weak');
+          } else if (strength <= 2) {
+            strengthText.textContent = 'Media';
+            strengthText.classList.add('medium');
+          } else {
+            strengthText.textContent = 'Fuerte';
+            strengthText.classList.add('strong');
+          }
+        }
+      }
+
+      // Toast
+      function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        const icon = document.getElementById('toast-icon');
+        const msg = document.getElementById('toast-message');
+
+        toast.className = `toast ${type}`;
+        icon.textContent = type === 'success' ? '✓' : '✕';
+        msg.textContent = message;
+
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      }
+
+      // Form validation
+      let formData = {
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+        confirm: '',
+        terms: false,
+      };
+
+      // Input events
+      document.querySelectorAll('sg-input').forEach(input => {
+        input.addEventListener('sgInput', e => {
+          const id = input.id.replace('input-', '');
+          const value = e.detail?.value || '';
+          formData[id] = value;
+
+          // Hide error on input
+          const error = document.getElementById(`error-${id}`);
+          if (error) error.classList.remove('visible');
+
+          // Password strength
+          if (id === 'password') {
+            updatePasswordStrength(checkPasswordStrength(value));
+          }
+
+          // Check password match
+          if (id === 'confirm' || id === 'password') {
+            const confirmError = document.getElementById('error-confirm');
+            if (formData.confirm && formData.password !== formData.confirm) {
+              confirmError?.classList.add('visible');
+            } else {
+              confirmError?.classList.remove('visible');
+            }
+          }
+
+          notifyEventEditor('component-event', {
+            event: 'sgInput',
+            component: 'sg-input',
+            detail: { id: input.id, value },
+          });
+        });
+
+        input.addEventListener('sgFocus', () => {
+          notifyEventEditor('component-event', {
+            event: 'sgFocus',
+            component: 'sg-input',
+            detail: { id: input.id },
+          });
+        });
+
+        input.addEventListener('sgBlur', () => {
+          notifyEventEditor('component-event', {
+            event: 'sgBlur',
+            component: 'sg-input',
+            detail: { id: input.id },
+          });
+        });
+      });
+
+      // Checkbox
+      document.getElementById('checkbox-terms')?.addEventListener('change', e => {
+        formData.terms = e.target.checked;
+        document.getElementById('error-terms')?.classList.remove('visible');
+      });
+
+      // Form submit
+      document.getElementById('btn-submit')?.addEventListener('sgClick', e => {
+        e.preventDefault();
+
+        let isValid = true;
+
+        // Validate fields
+        if (!formData.firstname) {
+          document.getElementById('error-firstname')?.classList.add('visible');
+          isValid = false;
+        }
+        if (!formData.lastname) {
+          document.getElementById('error-lastname')?.classList.add('visible');
+          isValid = false;
+        }
+        if (!formData.email || !formData.email.includes('@')) {
+          document.getElementById('error-email')?.classList.add('visible');
+          isValid = false;
+        }
+        if (formData.password !== formData.confirm) {
+          document.getElementById('error-confirm')?.classList.add('visible');
+          isValid = false;
+        }
+        if (!formData.terms) {
+          document.getElementById('error-terms')?.classList.add('visible');
+          isValid = false;
+        }
+
+        notifyEventEditor('component-event', {
+          event: 'sgClick',
+          component: 'sg-button',
+          detail: { id: 'btn-submit', formValid: isValid, formData },
+        });
+
+        if (isValid) {
+          showToast('Procesando...', 'success');
+
+          // Simulate API call
+          setTimeout(() => {
+            document.getElementById('success-modal')?.showModal();
+          }, 1500);
+        } else {
+          showToast('Por favor corrige los errores', 'error');
+        }
+      });
+
+      // Social buttons
+      document.getElementById('btn-google')?.addEventListener('sgClick', () => {
+        showToast('Conectando con Google...', 'success');
+        notifyEventEditor('component-event', {
+          event: 'sgClick',
+          component: 'sg-button',
+          detail: { id: 'btn-google', action: 'oauth-google' },
+        });
+      });
+
+      document.getElementById('btn-github')?.addEventListener('sgClick', () => {
+        showToast('Conectando con GitHub...', 'success');
+        notifyEventEditor('component-event', {
+          event: 'sgClick',
+          component: 'sg-button',
+          detail: { id: 'btn-github', action: 'oauth-github' },
+        });
+      });
+
+      // Modal events
+      const modal = document.getElementById('success-modal');
+      modal?.addEventListener('sgOpen', () => {
+        notifyEventEditor('component-event', {
+          event: 'sgOpen',
+          component: 'sg-modal',
+          detail: { id: 'success-modal' },
+        });
+      });
+      modal?.addEventListener('sgClose', () => {
+        notifyEventEditor('component-event', {
+          event: 'sgClose',
+          component: 'sg-modal',
+          detail: { id: 'success-modal' },
+        });
+      });
+
+      notifyEventEditor('demo-ready', { framework: 'vanilla', page: 'form' });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,445 @@
+/**
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                    SAGEBOX DESIGN TOKEN SYSTEM v2.0                      ║
+ * ║                                                                          ║
+ * ║  Un sistema de tokens de diseño de 4 capas para máxima abstracción:     ║
+ * ║                                                                          ║
+ * ║  Layer 1: PRIMITIVES  → Valores raw (colores hex, px, etc.)             ║
+ * ║  Layer 2: SCALES      → Escalas numéricas (neutral-50...950)            ║
+ * ║  Layer 3: SEMANTIC    → Tokens con significado (bg, text, accent)       ║
+ * ║  Layer 4: COMPONENT   → Tokens específicos de componente                ║
+ * ║                                                                          ║
+ * ║  Uso:                                                                    ║
+ * ║  - data-theme="light|dark"           → Modo de color                    ║
+ * ║  - data-accent="blue|purple|..."     → Color de acento                  ║
+ * ║  - data-radius="sharp|soft|round"    → Estilo de bordes                 ║
+ * ║  - data-density="compact|normal|loose" → Densidad de espaciado          ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LAYER 1: PRIMITIVES - Valores base inmutables
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─────────────────────────────────────────────────────────────────────────
+     Color Primitives - Paleta completa Tailwind-compatible
+     ───────────────────────────────────────────────────────────────────────── */
+
+  /* Slate (Neutral con tinte azul) */
+  --primitive-slate-50: #f8fafc;
+  --primitive-slate-100: #f1f5f9;
+  --primitive-slate-200: #e2e8f0;
+  --primitive-slate-300: #cbd5e1;
+  --primitive-slate-400: #94a3b8;
+  --primitive-slate-500: #64748b;
+  --primitive-slate-600: #475569;
+  --primitive-slate-700: #334155;
+  --primitive-slate-800: #1e293b;
+  --primitive-slate-900: #0f172a;
+  --primitive-slate-950: #020617;
+
+  /* Gray (Neutral puro) */
+  --primitive-gray-50: #f9fafb;
+  --primitive-gray-100: #f3f4f6;
+  --primitive-gray-200: #e5e7eb;
+  --primitive-gray-300: #d1d5db;
+  --primitive-gray-400: #9ca3af;
+  --primitive-gray-500: #6b7280;
+  --primitive-gray-600: #4b5563;
+  --primitive-gray-700: #374151;
+  --primitive-gray-800: #1f2937;
+  --primitive-gray-900: #111827;
+  --primitive-gray-950: #030712;
+
+  /* Zinc (Neutral frío) */
+  --primitive-zinc-50: #fafafa;
+  --primitive-zinc-100: #f4f4f5;
+  --primitive-zinc-200: #e4e4e7;
+  --primitive-zinc-300: #d4d4d8;
+  --primitive-zinc-400: #a1a1aa;
+  --primitive-zinc-500: #71717a;
+  --primitive-zinc-600: #52525b;
+  --primitive-zinc-700: #3f3f46;
+  --primitive-zinc-800: #27272a;
+  --primitive-zinc-900: #18181b;
+  --primitive-zinc-950: #09090b;
+
+  /* Blue */
+  --primitive-blue-50: #eff6ff;
+  --primitive-blue-100: #dbeafe;
+  --primitive-blue-200: #bfdbfe;
+  --primitive-blue-300: #93c5fd;
+  --primitive-blue-400: #60a5fa;
+  --primitive-blue-500: #3b82f6;
+  --primitive-blue-600: #2563eb;
+  --primitive-blue-700: #1d4ed8;
+  --primitive-blue-800: #1e40af;
+  --primitive-blue-900: #1e3a8a;
+  --primitive-blue-950: #172554;
+
+  /* Indigo */
+  --primitive-indigo-50: #eef2ff;
+  --primitive-indigo-100: #e0e7ff;
+  --primitive-indigo-200: #c7d2fe;
+  --primitive-indigo-300: #a5b4fc;
+  --primitive-indigo-400: #818cf8;
+  --primitive-indigo-500: #6366f1;
+  --primitive-indigo-600: #4f46e5;
+  --primitive-indigo-700: #4338ca;
+  --primitive-indigo-800: #3730a3;
+  --primitive-indigo-900: #312e81;
+  --primitive-indigo-950: #1e1b4b;
+
+  /* Violet */
+  --primitive-violet-50: #f5f3ff;
+  --primitive-violet-100: #ede9fe;
+  --primitive-violet-200: #ddd6fe;
+  --primitive-violet-300: #c4b5fd;
+  --primitive-violet-400: #a78bfa;
+  --primitive-violet-500: #8b5cf6;
+  --primitive-violet-600: #7c3aed;
+  --primitive-violet-700: #6d28d9;
+  --primitive-violet-800: #5b21b6;
+  --primitive-violet-900: #4c1d95;
+  --primitive-violet-950: #2e1065;
+
+  /* Purple */
+  --primitive-purple-50: #faf5ff;
+  --primitive-purple-100: #f3e8ff;
+  --primitive-purple-200: #e9d5ff;
+  --primitive-purple-300: #d8b4fe;
+  --primitive-purple-400: #c084fc;
+  --primitive-purple-500: #a855f7;
+  --primitive-purple-600: #9333ea;
+  --primitive-purple-700: #7e22ce;
+  --primitive-purple-800: #6b21a8;
+  --primitive-purple-900: #581c87;
+  --primitive-purple-950: #3b0764;
+
+  /* Fuchsia */
+  --primitive-fuchsia-50: #fdf4ff;
+  --primitive-fuchsia-100: #fae8ff;
+  --primitive-fuchsia-200: #f5d0fe;
+  --primitive-fuchsia-300: #f0abfc;
+  --primitive-fuchsia-400: #e879f9;
+  --primitive-fuchsia-500: #d946ef;
+  --primitive-fuchsia-600: #c026d3;
+  --primitive-fuchsia-700: #a21caf;
+  --primitive-fuchsia-800: #86198f;
+  --primitive-fuchsia-900: #701a75;
+  --primitive-fuchsia-950: #4a044e;
+
+  /* Pink */
+  --primitive-pink-50: #fdf2f8;
+  --primitive-pink-100: #fce7f3;
+  --primitive-pink-200: #fbcfe8;
+  --primitive-pink-300: #f9a8d4;
+  --primitive-pink-400: #f472b6;
+  --primitive-pink-500: #ec4899;
+  --primitive-pink-600: #db2777;
+  --primitive-pink-700: #be185d;
+  --primitive-pink-800: #9d174d;
+  --primitive-pink-900: #831843;
+  --primitive-pink-950: #500724;
+
+  /* Rose */
+  --primitive-rose-50: #fff1f2;
+  --primitive-rose-100: #ffe4e6;
+  --primitive-rose-200: #fecdd3;
+  --primitive-rose-300: #fda4af;
+  --primitive-rose-400: #fb7185;
+  --primitive-rose-500: #f43f5e;
+  --primitive-rose-600: #e11d48;
+  --primitive-rose-700: #be123c;
+  --primitive-rose-800: #9f1239;
+  --primitive-rose-900: #881337;
+  --primitive-rose-950: #4c0519;
+
+  /* Red */
+  --primitive-red-50: #fef2f2;
+  --primitive-red-100: #fee2e2;
+  --primitive-red-200: #fecaca;
+  --primitive-red-300: #fca5a5;
+  --primitive-red-400: #f87171;
+  --primitive-red-500: #ef4444;
+  --primitive-red-600: #dc2626;
+  --primitive-red-700: #b91c1c;
+  --primitive-red-800: #991b1b;
+  --primitive-red-900: #7f1d1d;
+  --primitive-red-950: #450a0a;
+
+  /* Orange */
+  --primitive-orange-50: #fff7ed;
+  --primitive-orange-100: #ffedd5;
+  --primitive-orange-200: #fed7aa;
+  --primitive-orange-300: #fdba74;
+  --primitive-orange-400: #fb923c;
+  --primitive-orange-500: #f97316;
+  --primitive-orange-600: #ea580c;
+  --primitive-orange-700: #c2410c;
+  --primitive-orange-800: #9a3412;
+  --primitive-orange-900: #7c2d12;
+  --primitive-orange-950: #431407;
+
+  /* Amber */
+  --primitive-amber-50: #fffbeb;
+  --primitive-amber-100: #fef3c7;
+  --primitive-amber-200: #fde68a;
+  --primitive-amber-300: #fcd34d;
+  --primitive-amber-400: #fbbf24;
+  --primitive-amber-500: #f59e0b;
+  --primitive-amber-600: #d97706;
+  --primitive-amber-700: #b45309;
+  --primitive-amber-800: #92400e;
+  --primitive-amber-900: #78350f;
+  --primitive-amber-950: #451a03;
+
+  /* Yellow */
+  --primitive-yellow-50: #fefce8;
+  --primitive-yellow-100: #fef9c3;
+  --primitive-yellow-200: #fef08a;
+  --primitive-yellow-300: #fde047;
+  --primitive-yellow-400: #facc15;
+  --primitive-yellow-500: #eab308;
+  --primitive-yellow-600: #ca8a04;
+  --primitive-yellow-700: #a16207;
+  --primitive-yellow-800: #854d0e;
+  --primitive-yellow-900: #713f12;
+  --primitive-yellow-950: #422006;
+
+  /* Lime */
+  --primitive-lime-50: #f7fee7;
+  --primitive-lime-100: #ecfccb;
+  --primitive-lime-200: #d9f99d;
+  --primitive-lime-300: #bef264;
+  --primitive-lime-400: #a3e635;
+  --primitive-lime-500: #84cc16;
+  --primitive-lime-600: #65a30d;
+  --primitive-lime-700: #4d7c0f;
+  --primitive-lime-800: #3f6212;
+  --primitive-lime-900: #365314;
+  --primitive-lime-950: #1a2e05;
+
+  /* Green */
+  --primitive-green-50: #f0fdf4;
+  --primitive-green-100: #dcfce7;
+  --primitive-green-200: #bbf7d0;
+  --primitive-green-300: #86efac;
+  --primitive-green-400: #4ade80;
+  --primitive-green-500: #22c55e;
+  --primitive-green-600: #16a34a;
+  --primitive-green-700: #15803d;
+  --primitive-green-800: #166534;
+  --primitive-green-900: #14532d;
+  --primitive-green-950: #052e16;
+
+  /* Emerald */
+  --primitive-emerald-50: #ecfdf5;
+  --primitive-emerald-100: #d1fae5;
+  --primitive-emerald-200: #a7f3d0;
+  --primitive-emerald-300: #6ee7b7;
+  --primitive-emerald-400: #34d399;
+  --primitive-emerald-500: #10b981;
+  --primitive-emerald-600: #059669;
+  --primitive-emerald-700: #047857;
+  --primitive-emerald-800: #065f46;
+  --primitive-emerald-900: #064e3b;
+  --primitive-emerald-950: #022c22;
+
+  /* Teal */
+  --primitive-teal-50: #f0fdfa;
+  --primitive-teal-100: #ccfbf1;
+  --primitive-teal-200: #99f6e4;
+  --primitive-teal-300: #5eead4;
+  --primitive-teal-400: #2dd4bf;
+  --primitive-teal-500: #14b8a6;
+  --primitive-teal-600: #0d9488;
+  --primitive-teal-700: #0f766e;
+  --primitive-teal-800: #115e59;
+  --primitive-teal-900: #134e4a;
+  --primitive-teal-950: #042f2e;
+
+  /* Cyan */
+  --primitive-cyan-50: #ecfeff;
+  --primitive-cyan-100: #cffafe;
+  --primitive-cyan-200: #a5f3fc;
+  --primitive-cyan-300: #67e8f9;
+  --primitive-cyan-400: #22d3ee;
+  --primitive-cyan-500: #06b6d4;
+  --primitive-cyan-600: #0891b2;
+  --primitive-cyan-700: #0e7490;
+  --primitive-cyan-800: #155e75;
+  --primitive-cyan-900: #164e63;
+  --primitive-cyan-950: #083344;
+
+  /* Sky */
+  --primitive-sky-50: #f0f9ff;
+  --primitive-sky-100: #e0f2fe;
+  --primitive-sky-200: #bae6fd;
+  --primitive-sky-300: #7dd3fc;
+  --primitive-sky-400: #38bdf8;
+  --primitive-sky-500: #0ea5e9;
+  --primitive-sky-600: #0284c7;
+  --primitive-sky-700: #0369a1;
+  --primitive-sky-800: #075985;
+  --primitive-sky-900: #0c4a6e;
+  --primitive-sky-950: #082f49;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     Spacing Primitives
+     ───────────────────────────────────────────────────────────────────────── */
+  --primitive-space-0: 0;
+  --primitive-space-px: 1px;
+  --primitive-space-0_5: 0.125rem;
+  --primitive-space-1: 0.25rem;
+  --primitive-space-1_5: 0.375rem;
+  --primitive-space-2: 0.5rem;
+  --primitive-space-2_5: 0.625rem;
+  --primitive-space-3: 0.75rem;
+  --primitive-space-3_5: 0.875rem;
+  --primitive-space-4: 1rem;
+  --primitive-space-5: 1.25rem;
+  --primitive-space-6: 1.5rem;
+  --primitive-space-7: 1.75rem;
+  --primitive-space-8: 2rem;
+  --primitive-space-9: 2.25rem;
+  --primitive-space-10: 2.5rem;
+  --primitive-space-11: 2.75rem;
+  --primitive-space-12: 3rem;
+  --primitive-space-14: 3.5rem;
+  --primitive-space-16: 4rem;
+  --primitive-space-20: 5rem;
+  --primitive-space-24: 6rem;
+  --primitive-space-28: 7rem;
+  --primitive-space-32: 8rem;
+  --primitive-space-36: 9rem;
+  --primitive-space-40: 10rem;
+  --primitive-space-44: 11rem;
+  --primitive-space-48: 12rem;
+  --primitive-space-52: 13rem;
+  --primitive-space-56: 14rem;
+  --primitive-space-60: 15rem;
+  --primitive-space-64: 16rem;
+  --primitive-space-72: 18rem;
+  --primitive-space-80: 20rem;
+  --primitive-space-96: 24rem;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     Typography Primitives
+     ───────────────────────────────────────────────────────────────────────── */
+  --primitive-font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --primitive-font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  --primitive-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  --primitive-text-xs: 0.75rem;
+  --primitive-text-sm: 0.875rem;
+  --primitive-text-base: 1rem;
+  --primitive-text-lg: 1.125rem;
+  --primitive-text-xl: 1.25rem;
+  --primitive-text-2xl: 1.5rem;
+  --primitive-text-3xl: 1.875rem;
+  --primitive-text-4xl: 2.25rem;
+  --primitive-text-5xl: 3rem;
+  --primitive-text-6xl: 3.75rem;
+  --primitive-text-7xl: 4.5rem;
+  --primitive-text-8xl: 6rem;
+  --primitive-text-9xl: 8rem;
+
+  --primitive-leading-none: 1;
+  --primitive-leading-tight: 1.25;
+  --primitive-leading-snug: 1.375;
+  --primitive-leading-normal: 1.5;
+  --primitive-leading-relaxed: 1.625;
+  --primitive-leading-loose: 2;
+
+  --primitive-tracking-tighter: -0.05em;
+  --primitive-tracking-tight: -0.025em;
+  --primitive-tracking-normal: 0em;
+  --primitive-tracking-wide: 0.025em;
+  --primitive-tracking-wider: 0.05em;
+  --primitive-tracking-widest: 0.1em;
+
+  --primitive-font-thin: 100;
+  --primitive-font-extralight: 200;
+  --primitive-font-light: 300;
+  --primitive-font-normal: 400;
+  --primitive-font-medium: 500;
+  --primitive-font-semibold: 600;
+  --primitive-font-bold: 700;
+  --primitive-font-extrabold: 800;
+  --primitive-font-black: 900;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     Radius Primitives
+     ───────────────────────────────────────────────────────────────────────── */
+  --primitive-radius-none: 0;
+  --primitive-radius-sm: 0.125rem;
+  --primitive-radius-default: 0.25rem;
+  --primitive-radius-md: 0.375rem;
+  --primitive-radius-lg: 0.5rem;
+  --primitive-radius-xl: 0.75rem;
+  --primitive-radius-2xl: 1rem;
+  --primitive-radius-3xl: 1.5rem;
+  --primitive-radius-full: 9999px;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     Shadow Primitives
+     ───────────────────────────────────────────────────────────────────────── */
+  --primitive-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --primitive-shadow-default: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --primitive-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --primitive-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --primitive-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --primitive-shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --primitive-shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     Animation Primitives
+     ───────────────────────────────────────────────────────────────────────── */
+  --primitive-duration-75: 75ms;
+  --primitive-duration-100: 100ms;
+  --primitive-duration-150: 150ms;
+  --primitive-duration-200: 200ms;
+  --primitive-duration-300: 300ms;
+  --primitive-duration-500: 500ms;
+  --primitive-duration-700: 700ms;
+  --primitive-duration-1000: 1000ms;
+
+  --primitive-ease-linear: linear;
+  --primitive-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --primitive-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --primitive-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --primitive-ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     Z-Index Primitives
+     ───────────────────────────────────────────────────────────────────────── */
+  --primitive-z-0: 0;
+  --primitive-z-10: 10;
+  --primitive-z-20: 20;
+  --primitive-z-30: 30;
+  --primitive-z-40: 40;
+  --primitive-z-50: 50;
+  --primitive-z-auto: auto;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     Opacity Primitives
+     ───────────────────────────────────────────────────────────────────────── */
+  --primitive-opacity-0: 0;
+  --primitive-opacity-5: 0.05;
+  --primitive-opacity-10: 0.1;
+  --primitive-opacity-15: 0.15;
+  --primitive-opacity-20: 0.2;
+  --primitive-opacity-25: 0.25;
+  --primitive-opacity-30: 0.3;
+  --primitive-opacity-40: 0.4;
+  --primitive-opacity-50: 0.5;
+  --primitive-opacity-60: 0.6;
+  --primitive-opacity-70: 0.7;
+  --primitive-opacity-75: 0.75;
+  --primitive-opacity-80: 0.8;
+  --primitive-opacity-90: 0.9;
+  --primitive-opacity-95: 0.95;
+  --primitive-opacity-100: 1;
+}

@@ -12,7 +12,17 @@ Thank you for your interest in contributing to SageBox! 🎉
 ## Development
 
 ```bash
-# Start development server
+# Visual Development (Storybook) - Recommended for component design
+# Runs at http://localhost:6006
+npm run storybook
+
+# Documentation Development
+# Runs Stencil build + Website at http://localhost:3000
+npm run dev
+
+# Integration Mode (Watch only)
+# Compiles and watches files without a server.
+# Useful when using 'npm link' with another project.
 npm start
 
 # Run tests
@@ -29,9 +39,6 @@ npm run format
 
 # Check bundle size
 npm run size
-
-# Run Storybook
-npm run storybook
 
 # Build the project
 npm run build

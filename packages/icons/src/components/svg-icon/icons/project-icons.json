@@ -1,7 +1,22 @@
 [
   "actions",
   "add",
+  "address",
   "attachment",
+  "bell",
+  "chart",
+  "chart-bar",
+  "check-circle-google",
+  "consents",
+  "patients",
+  "physiotherapy",
+  "process",
+  "savings",
+  "sessions",
   "svg-spinners:bars-scale",
-  "tabler:address-book-off"
+  "tabler:address-book-off",
+  "task-alt",
+  "treatment",
+  "trending-down",
+  "trending-up"
 ]

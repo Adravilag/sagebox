@@ -78,18 +78,32 @@ export class AppComponent {
 <sg-icon name="home" size="24"></sg-icon>
 ```
 
-## 🧩 Components
+## 📦 Packages & Components
 
-| Component | Description | Key Features |
-|-----------|-------------|--------------|
-| `sg-button` | Customizable button | 8 variants, 4 sizes, 4 shapes, loading state, icons |
-| `sg-badge` | Labels and indicators | 9 variants, dot indicator, pulse animation, removable |
-| `sg-icon` | SVG icon system | 81 builtin icons, custom icons via `src`/`json-src`, spin, flip |
-| `sg-dropdown` | Dropdown menu | Keyboard navigation, slots (header/footer), backdrop |
-| `sg-skeleton` | Loading placeholder | 3 variants (text/rect/circle), shimmer/pulse animation |
-| `sg-modal` | Modal dialog | Native `<dialog>`, sizes, backdrop click, focus trap |
-| `sg-article-editor` | Rich text editor | HTML/Markdown modes, toolbar, preview, media library |
-| `sg-theme-toggle` | Theme switcher | Light/dark/system modes, auto-sync |
+SageBox is a monorepo divided into multiple packages. Each component has its own documentation:
+
+| Package | Component | Description |
+|---------|-----------|-------------|
+| [`@sage-box/article-editor`](./packages/article-editor/README.md) | `sg-article-editor` | Rich text editor with HTML/Markdown support |
+| [`@sage-box/badge`](./packages/badge/README.md) | `sg-badge` | Labels and status indicators |
+| [`@sage-box/breadcrumb`](./packages/breadcrumb/README.md) | `sg-breadcrumb` | Navigation trail for nested pages |
+| [`@sage-box/button`](./packages/button/README.md) | `sg-button` | Versatile button with variants and states |
+| [`@sage-box/card`](./packages/card/README.md) | `sg-card` | Container for content and actions |
+| [`@sage-box/context-menu`](./packages/context-menu/README.md) | `sg-context-menu` | Right-click custom menu |
+| [`@sage-box/core`](./packages/core/README.md) | Core | Shared utilities and base styles |
+| [`@sage-box/date-picker`](./packages/date-picker/README.md) | `sg-date-picker` | Date selection input |
+| [`@sage-box/dropdown`](./packages/dropdown/README.md) | `sg-dropdown` | Dropdown menus and popovers |
+| [`@sage-box/form-section`](./packages/form-section/README.md) | `sg-form-section` | Grouping for form controls |
+| [`@sage-box/icons`](./packages/icons/README.md) | `sg-icon` | SVG icon system with 80+ icons |
+| [`@sage-box/info-field`](./packages/info-field/README.md) | `sg-info-field` | Read-only data display |
+| [`@sage-box/input`](./packages/input/README.md) | `sg-input` | Text inputs and textareas |
+| [`@sage-box/modal`](./packages/modal/README.md) | `sg-modal` | Dialogs and modal windows |
+| [`@sage-box/search-box`](./packages/search-box/README.md) | `sg-search-box` | Search input with suggestions |
+| [`@sage-box/select`](./packages/select/README.md) | `sg-select` | Select menus and multi-select |
+| [`@sage-box/skeleton`](./packages/skeleton/README.md) | `sg-skeleton` | Loading placeholders |
+| [`@sage-box/stats-card`](./packages/stats-card/README.md) | `sg-stats-card` | Dashboard statistic display |
+| [`@sage-box/theme-toggle`](./packages/theme-toggle/README.md) | `sg-theme-toggle` | Dark/Light mode switcher |
+| [`@sage-box/tooltip`](./packages/tooltip/README.md) | `sg-tooltip` | Contextual information popups |
 
 ### Component Props Quick Reference
 
@@ -254,20 +268,29 @@ await iconEl.registerIcons({
 # Install dependencies
 npm install
 
-# Start dev server with docs
-npm run docs:dev
+# Development Modes:
+
+# 1. Visual Development (Recommended for creating components)
+# Starts Storybook at http://localhost:6006
+npm run storybook
+
+# 2. Documentation Development
+# Starts Stencil build + Website at http://localhost:3000
+npm run dev
+
+# 3. Library Integration Mode
+# Compiles and watches for changes (no server)
+# Use this when linked to another project via 'npm link'
+npm run start
 
 # Build components
 npm run build
 
-# Build documentation
-npm run docs:build
+# Build documentation website
+npm run website:build
 
 # Run tests
 npm test
-
-# Run Storybook
-npm run storybook
 ```
 
 ## 📄 License

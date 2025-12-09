@@ -140,3 +140,73 @@ svg {
 :host([data-size='xxl']) {
   --icon-size: 64px;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DEV MODE STYLES - Only visible when SgIcon.enableDevMode() is called
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Highlight missing icons in dev mode */
+:host(.icon--dev-highlight) {
+  outline: 2px dashed #ff6b6b;
+  outline-offset: 2px;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 4px;
+  position: relative;
+}
+
+/* Dev overlay - shows on hover for missing icons */
+.dev-overlay {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+:host(:hover) .dev-overlay {
+  opacity: 1;
+}
+
+.dev-overlay-content {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 400px;
+}
+
+.dev-overlay-content::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #1a1a2e;
+}
+
+.dev-overlay-icon {
+  font-size: 10px;
+}
+
+.dev-overlay-name {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+.dev-overlay-location {
+  color: #4ecdc4;
+  font-size: 10px;
+  word-break: break-all;
+  white-space: normal;
+}

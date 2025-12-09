@@ -7,12 +7,23 @@ const ICONS_KEY = '__sgUserIcons';
 const CONFIG_KEY = '__sgIconConfig';
 /** Global key for loaded JSON paths */
 const LOADED_KEY = '__sgIconsLoaded';
+/** Global key for dev mode configuration */
+const DEV_MODE_KEY = '__sgIconDevMode';
+
+/** Dev mode options interface */
+interface DevModeOptions {
+  enabled: boolean;
+  highlight?: boolean;
+  logStack?: boolean;
+  showOverlay?: boolean;
+}
 
 /** Type for icon storage in globalThis */
 interface SgIconGlobals {
   [ICONS_KEY]?: Record<string, IconDefinition | string>;
   [CONFIG_KEY]?: { jsonSrc?: string };
   [LOADED_KEY]?: Record<string, boolean>;
+  [DEV_MODE_KEY]?: DevModeOptions;
 }
 
 /** Typed globalThis accessor */
@@ -199,6 +210,143 @@ export class SgIcon {
   // ═══════════════════════════════════════════════════════════════════════════
   // STATIC METHODS - Global Configuration API
   // ═══════════════════════════════════════════════════════════════════════════
+
+  /** Global dev mode flag */
+  private static devMode = false;
+
+  /**
+   * Enable development mode with enhanced debugging information.
+   * When enabled, missing icons will show additional location info in the console
+   * and optionally highlight missing icons visually with an overlay showing the source location.
+   *
+   * @param options - Dev mode options
+   * @param options.highlight - Highlight missing icons with a red border
+   * @param options.logStack - Log stack traces to help find the source
+   * @param options.showOverlay - Show a tooltip overlay with source location on hover
+   * @example
+   * // Enable dev mode (call once in your app initialization)
+   * SgIcon.enableDevMode();
+   *
+   * // With all options enabled
+   * SgIcon.enableDevMode({ highlight: true, logStack: true, showOverlay: true });
+   *
+   * // In Angular main.ts:
+   * if (!environment.production) {
+   *   SgIcon.enableDevMode({ highlight: true, showOverlay: true });
+   * }
+   */
+  static enableDevMode(options: { highlight?: boolean; logStack?: boolean; showOverlay?: boolean } = {}): void {
+    SgIcon.devMode = true;
+    const g = getGlobal();
+    const devOptions: DevModeOptions = { enabled: true, highlight: true, showOverlay: true, ...options };
+    g[DEV_MODE_KEY] = devOptions;
+    console.info(
+      '[SageBox] 🛠️ Icon dev mode enabled.',
+      '\n  📍 Missing icons will show their DOM location.',
+      '\n  🔍 Run SgIcon.findMissingIcons() to scan the page.',
+      devOptions.showOverlay ? '\n  👁️ Hover over missing icons to see location info.' : '',
+      '\n  💡 Add data-source="file.ts:123" to icons for precise location tracking.',
+    );
+  }
+
+  /**
+   * Get current dev mode options
+   */
+  static getDevModeOptions(): DevModeOptions | null {
+    const g = getGlobal();
+    return g[DEV_MODE_KEY] ?? null;
+  }
+
+  /**
+   * Check if dev mode is enabled
+   */
+  static isDevMode(): boolean {
+    const g = getGlobal();
+    return SgIcon.devMode || !!g[DEV_MODE_KEY]?.enabled;
+  }
+
+  /**
+   * Find all missing icons in the current document and log their locations
+   * Useful for auditing icon usage across a page
+   *
+   * @example
+   * // Run in browser console
+   * SgIcon.findMissingIcons();
+   */
+  static findMissingIcons(): { name: string; selector: string; component: string; dataSource: string | null }[] {
+    const icons = document.querySelectorAll('sg-icon');
+    const missing: Array<{
+      name: string;
+      selector: string;
+      component: string;
+      dataSource: string | null;
+      element: Element;
+    }> = [];
+    const userIcons = getUserIcons();
+
+    icons.forEach(icon => {
+      const name = icon.getAttribute('name');
+      if (name) {
+        const normalizedName = name.replace(/^icon-/, '');
+        const exists = userIcons[normalizedName] || userIcons[name] || builtinIcons[normalizedName] || builtinIcons[name];
+        if (!exists) {
+          // Generate a selector for the element
+          let selector = 'sg-icon';
+          if (icon.id) selector += `#${icon.id}`;
+          selector += `[name="${name}"]`;
+
+          // Try to find the parent Angular/Web Component
+          const angularHost = icon.closest('[_nghost-ng-c]') || icon.closest('[ng-reflect-name]')?.parentElement;
+          const webComponent = icon.closest('[data-component]') as HTMLElement | null;
+          const componentName = angularHost?.tagName.toLowerCase() || webComponent?.dataset?.component || icon.parentElement?.tagName.toLowerCase() || 'unknown';
+
+          // Check for explicit data-source attribute
+          const dataSource = (icon as HTMLElement).dataset?.source || null;
+
+          missing.push({
+            name,
+            selector,
+            component: componentName,
+            dataSource,
+            element: icon,
+          });
+        }
+      }
+    });
+
+    if (missing.length === 0) {
+      console.info('[SageBox] ✅ All icons found! No missing icons detected.');
+    } else {
+      console.group(`[SageBox] ⚠️ Found ${missing.length} missing icon(s):`);
+
+      // Group by component
+      const byComponent = missing.reduce(
+        (acc, item) => {
+          if (!acc[item.component]) acc[item.component] = [];
+          acc[item.component].push(item);
+          return acc;
+        },
+        {} as Record<string, typeof missing>,
+      );
+
+      Object.entries(byComponent).forEach(([component, items]) => {
+        console.groupCollapsed(`📦 Component: <${component}> (${items.length} missing)`);
+        items.forEach(({ name, selector, dataSource, element }, index) => {
+          console.log(`  ${index + 1}. "${name}"`, dataSource ? `\n     📍 Source: ${dataSource}` : '', `\n     🎯 Selector: ${selector}`);
+          console.log('     Element:', element);
+        });
+        console.groupEnd();
+      });
+
+      console.groupEnd();
+      console.info('💡 Tips:');
+      console.info('   • Click on "Element" to inspect in DevTools');
+      console.info('   • Add data-source="file.ts:123" attribute to track source location');
+      console.info('   • Use SgIcon.registerIcons({ "icon-name": "<svg>...</svg>" }) to register icons');
+    }
+
+    return missing.map(({ name, selector, component, dataSource }) => ({ name, selector, component, dataSource }));
+  }
 
   /**
    * Configure global settings for sg-icon
@@ -415,6 +563,62 @@ export class SgIcon {
     return typeof icon === 'string';
   }
 
+  /**
+   * Generate a unique CSS selector path for an element to help locate it in DevTools
+   * @param el - The element to generate a selector for
+   * @returns A CSS selector string that uniquely identifies the element
+   */
+  private getElementSelectorPath(el: HTMLElement): string {
+    const parts: string[] = [];
+    let current: HTMLElement | null = el;
+    let depth = 0;
+    const maxDepth = 5; // Limit depth to keep selector manageable
+
+    while (current && current !== document.body && depth < maxDepth) {
+      let selector = current.tagName.toLowerCase();
+
+      // If element has an ID, use it and stop (IDs should be unique)
+      if (current.id) {
+        selector = `#${current.id}`;
+        parts.unshift(selector);
+        break;
+      }
+
+      // Add meaningful classes (skip Angular/framework-generated classes)
+      const meaningfulClasses = Array.from(current.classList || [])
+        .filter(
+          cls =>
+            !cls.startsWith('ng-') &&
+            !cls.startsWith('_ng') &&
+            !cls.startsWith('cdk-') &&
+            !cls.startsWith('mat-') && // Skip Material internal classes
+            !cls.match(/^[a-z]+-\d+$/) && // Skip generated numbered classes
+            cls.length < 30, // Skip very long generated classes
+        )
+        .slice(0, 2); // Max 2 classes
+
+      if (meaningfulClasses.length > 0) {
+        selector += `.${meaningfulClasses.join('.')}`;
+      }
+
+      // Add nth-child for disambiguation if needed
+      const parent = current.parentElement;
+      if (parent) {
+        const siblings = Array.from(parent.children).filter(child => child.tagName === current!.tagName);
+        if (siblings.length > 1) {
+          const index = siblings.indexOf(current) + 1;
+          selector += `:nth-of-type(${index})`;
+        }
+      }
+
+      parts.unshift(selector);
+      current = current.parentElement;
+      depth++;
+    }
+
+    return parts.join(' > ');
+  }
+
   private normalizeSize(value: number | string): string {
     if (typeof value === 'number') {
       return `${value}px`;
@@ -487,8 +691,8 @@ export class SgIcon {
     const effectiveColor = this.getEffectiveColor();
 
     const hostStyle: { [key: string]: string } = {
-      width: width,
-      height: height,
+      'width': width,
+      'height': height,
       '--icon-size': this.normalizeSize(this.size),
       '--icon-width': width,
       '--icon-height': height,
@@ -500,7 +704,7 @@ export class SgIcon {
     }
 
     const hostClasses = {
-      icon: true,
+      'icon': true,
       'icon--spin': this.spin,
       'icon--custom': !!this.src,
     };
@@ -520,55 +724,145 @@ export class SgIcon {
 
     // 2. No icon found - render placeholder or nothing
     if (!icon) {
-      // Log warning when icon is not found (only in development)
-      if (this.name && typeof process !== 'undefined' && process.env?.NODE_ENV !== 'production') {
+      // Always log warning when icon is not found in browser
+      if (this.name) {
         const userIcons = getUserIcons();
         const userIconCount = Object.keys(userIcons).length;
         const builtinIconCount = Object.keys(builtinIcons).length;
+
+        // === DEVELOPMENT HELPER: Get location info ===
+        let usageLocation = '';
+        let domContext = '';
+
+        // 1. Check for explicit data-source attribute (best option - added by dev tools/plugins)
+        const dataSource = this.el.getAttribute('data-source');
+        if (dataSource) {
+          usageLocation = `\n  📍 Source: ${dataSource}`;
+        }
+
+        // 2. Try to get DOM context to help locate the element visually
+        const parentEl = this.el.parentElement;
+        if (parentEl) {
+          const parentTag = parentEl.tagName.toLowerCase();
+          const parentId = parentEl.id ? `#${parentEl.id}` : '';
+          const parentClasses = parentEl.className ? `.${parentEl.className.toString().split(' ').filter(Boolean).join('.')}` : '';
+          const parentSelector = `${parentTag}${parentId}${parentClasses}`;
+
+          // Get component context (Angular, etc.)
+          const ngComponent =
+            parentEl.closest('[_ngcontent-ng-c]')?.tagName.toLowerCase() ||
+            parentEl.closest('[ng-reflect-name]')?.tagName.toLowerCase() ||
+            parentEl.closest('[data-component]')?.getAttribute('data-component');
+
+          domContext = `\n  🔍 DOM location: ${parentSelector}`;
+          if (ngComponent) {
+            domContext += `\n  🅰️ Component: <${ngComponent}>`;
+          }
+
+          // Try to get a unique selector path
+          const selectorPath = this.getElementSelectorPath(this.el);
+          if (selectorPath) {
+            domContext += `\n  🎯 Selector: ${selectorPath}`;
+          }
+        }
+
+        // 3. Capture stack trace (works better in dev builds with source maps)
+        if (!usageLocation && typeof Error !== 'undefined') {
+          const stack = new Error().stack;
+          if (stack) {
+            // Find the first line that's not from sagebox/node_modules
+            const lines = stack.split('\n').slice(1); // Skip "Error" line
+            const relevantLine = lines.find(
+              line =>
+                !line.includes('node_modules') &&
+                !line.includes('svg-icon') &&
+                !line.includes('stenciljs') &&
+                !line.includes('chunk-') &&
+                (line.includes('.ts') || line.includes('.js') || line.includes('.html') || line.includes('.component')),
+            );
+            if (relevantLine) {
+              // Extract file:line:column from stack trace
+              const match = relevantLine.match(/(?:at\s+)?(?:.*?\s+\()?(.+?):(\d+):(\d+)\)?/);
+              if (match) {
+                // Clean up webpack/vite paths
+                let filePath = match[1];
+                filePath = filePath.replace(/^webpack:\/\/[^/]*\//, '');
+                filePath = filePath.replace(/\?.*$/, '');
+                usageLocation = `\n  📍 Stack trace: ${filePath}:${match[2]}:${match[3]}`;
+              }
+            }
+          }
+        }
+
+        // 4. Provide inspection tip
+        const inspectTip = `\n  🔧 Tip: Run in console: document.querySelector('sg-icon[name="${this.name}"]')`;
+
         console.warn(
-          `[SageBox] Icon "${this.name}" not found.`,
-          `\n  - User icons loaded: ${userIconCount}`,
-          `\n  - Builtin icons: ${builtinIconCount}`,
-          userIconCount > 0 ? `\n  - Available user icons: ${Object.keys(userIcons).slice(0, 10).join(', ')}${userIconCount > 10 ? '...' : ''}` : '',
-          `\n  - Available builtin icons: ${Object.keys(builtinIcons).slice(0, 10).join(', ')}...`
+          `[SageBox] ⚠️ Icon "${this.name}" not found.`,
+          `\n  📦 User icons loaded: ${userIconCount}`,
+          `\n  📦 Builtin icons: ${builtinIconCount}`,
+          userIconCount > 0 ? `\n  📋 Available user icons: ${Object.keys(userIcons).slice(0, 10).join(', ')}${userIconCount > 10 ? '...' : ''}` : '',
+          `\n  📋 Sample builtin icons: ${Object.keys(builtinIcons).slice(0, 15).join(', ')}...`,
+          domContext,
+          usageLocation,
+          inspectTip,
+          `\n  💡 To fix: Register the icon or check the name spelling.`,
         );
       }
 
       // Show placeholder when icon not found
       if (this.showPlaceholder || this.loadError) {
+        const devOptions = SgIcon.getDevModeOptions();
+        const isDevMode = SgIcon.isDevMode();
+
+        // Build location info for dev mode overlay
+        let locationInfo = '';
+        if (isDevMode && devOptions?.showOverlay) {
+          const dataSource = this.el.dataset?.source;
+          if (dataSource) {
+            locationInfo = dataSource;
+          } else {
+            // Try to find Angular component context
+            const angularHost = this.el.closest('[_nghost-ng-c]') || this.el.closest('[ng-reflect-name]')?.parentElement;
+            if (angularHost) {
+              const componentName = angularHost.tagName.toLowerCase();
+              locationInfo = `Component: ${componentName}`;
+            } else {
+              locationInfo = this.getElementSelectorPath(this.el);
+            }
+          }
+        }
+
         return (
           <Host
-            class={{ ...hostClasses, 'icon--placeholder': !this.loadError, 'icon--error': this.loadError }}
+            class={{
+              ...hostClasses,
+              'icon--placeholder': !this.loadError,
+              'icon--error': this.loadError,
+              'icon--dev-highlight': !!(isDevMode && devOptions?.highlight),
+            }}
             style={hostStyle}
             title={this.name ? `Icon not found: ${this.name}` : 'Icon not found'}
+            data-icon-name={this.name}
+            data-icon-missing="true"
           >
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               {/* Placeholder: dashed square with question mark */}
-              <rect
-                x="3"
-                y="3"
-                width="18"
-                height="18"
-                rx="2"
-                fill="none"
-                stroke={effectiveColor}
-                stroke-width="1.5"
-                stroke-dasharray="3 2"
-                opacity="0.5"
-              />
-              <text
-                x="12"
-                y="16"
-                text-anchor="middle"
-                font-size="12"
-                font-family="system-ui, sans-serif"
-                font-weight="500"
-                fill={effectiveColor}
-                opacity="0.6"
-              >
+              <rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke={effectiveColor} stroke-width="1.5" stroke-dasharray="3 2" opacity="0.5" />
+              <text x="12" y="16" text-anchor="middle" font-size="12" font-family="system-ui, sans-serif" font-weight="500" fill={effectiveColor} opacity="0.6">
                 ?
               </text>
             </svg>
+            {/* Dev mode overlay with location info */}
+            {isDevMode && devOptions?.showOverlay && (
+              <div class="dev-overlay">
+                <div class="dev-overlay-content">
+                  <span class="dev-overlay-icon">❌</span>
+                  <span class="dev-overlay-name">{this.name}</span>
+                  {locationInfo && <span class="dev-overlay-location">📍 {locationInfo}</span>}
+                </div>
+              </div>
+            )}
           </Host>
         );
       }
@@ -578,13 +872,7 @@ export class SgIcon {
     // 3. Render user-registered SVG string
     if (this.isSvgString(icon)) {
       return (
-        <Host
-          class={{ ...hostClasses, 'icon--user': true }}
-          style={hostStyle}
-          aria-hidden={ariaHidden}
-          role={role}
-          aria-label={!this.decorative ? this.label : undefined}
-        >
+        <Host class={{ ...hostClasses, 'icon--user': true }} style={hostStyle} aria-hidden={ariaHidden} role={role} aria-label={!this.decorative ? this.label : undefined}>
           <div
             class="svg-container"
             ref={el => {

@@ -13,8 +13,7 @@ export default defineConfig({
     mode: 'standalone'
   }),
   server: {
-    port: ICON_MANAGER_PORT,
-    strictPort: false, // Si el puerto está ocupado, busca el siguiente disponible
+    port: ICON_MANAGER_PORT
   },
   vite: {
     server: {

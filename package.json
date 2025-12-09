@@ -6,11 +6,15 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
+  "sideEffects": [
+    "dist/index.js",
+    "dist/sagebox/sagebox.esm.js",
+    "dist/styles/*.css",
+    "**/*.css"
+  ],
   "bin": {
     "sagebox": "./bin/cli.js"
   },
-  "collection": "dist/collection/collection-manifest.json",
-  "collection:main": "dist/collection/index.js",
   "unpkg": "dist/sagebox/sagebox.esm.js",
   "workspaces": [
     "packages/*",
@@ -29,7 +33,7 @@
       "import": "./dist/components/index.js"
     },
     "./angular": {
-      "types": "./dist/angular/types/sagebox-angular.d.ts",
+      "types": "./dist/angular/index.d.ts",
       "import": "./dist/angular/fesm2022/sagebox-angular.mjs"
     },
     "./components/*": {
@@ -69,9 +73,8 @@
       "import": "./loader/index.js",
       "require": "./loader/index.cjs"
     },
-    "./styles/*": {
-      "import": "./dist/styles/*"
-    },
+    "./styles/*.css": "./dist/sagebox/styles/*.css",
+    "./styles/*": "./dist/sagebox/styles/*",
     "./components/sg-modal.js": {
       "types": "./dist/components/sg-modal.d.ts",
       "import": "./dist/components/sg-modal.js"
@@ -92,14 +95,11 @@
     "bin/",
     "tools/"
   ],
-  "sideEffects": [
-    "dist/sagebox/sagebox.esm.js",
-    "loader/index.js"
-  ],
   "scripts": {
-    "build": "stencil build",
+    "build": "stencil build && npm run build:angular",
     "build:fast": "cross-env STENCIL_FAST=true stencil build",
-    "build:all": "npm run build && npm run build:angular && npm run build:react",
+    "build:stencil": "stencil build",
+    "build:all": "npm run build:stencil && npm run build:angular && npm run build:react",
     "build:icons": "cd packages/icons && npm run build",
     "build:components": "cd packages/components && npm run build",
     "build:packages": "turbo run build --filter='./packages/*'",

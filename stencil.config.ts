@@ -53,6 +53,17 @@ export const config: Config = {
   rollupPlugins: {
     before: [aliasPlugin],
   },
+  // Enable aggressive minification and tree-shaking
+  minifyJs: !isDev,
+  minifyCss: !isDev,
+  hashFileNames: !isDev,
+  buildEs5: false, // No need for ES5, modern browsers only
+  extras: {
+    // Disable legacy features for smaller bundle
+    enableImportInjection: false,
+    // Experimental: enable more aggressive optimizations
+    experimentalSlotFixes: true,
+  },
   outputTargets: isDev
     ? [
         // Fast mode: only custom elements, no dist/wrappers/docs
@@ -66,13 +77,23 @@ export const config: Config = {
         {
           type: 'dist',
           esmLoaderPath: '../loader',
-          collectionDir: 'collection',
-          copy: [{ src: 'src/styles/tokens.css', dest: 'styles/tokens.css' }],
+          collectionDir: null, // Disable collection output - not needed for consumers
+          copy: [
+            // Legacy tokens (deprecated, kept for backward compatibility)
+            { src: 'src/styles/tokens.css', dest: 'styles/tokens.css' },
+            // New 4-layer token system v2.0
+            { src: 'packages/core/src/styles/primitives.css', dest: 'styles/primitives.css' },
+            { src: 'packages/core/src/styles/scales.css', dest: 'styles/scales.css' },
+            { src: 'packages/core/src/styles/semantic.css', dest: 'styles/semantic.css' },
+            { src: 'packages/core/src/styles/components.css', dest: 'styles/components.css' },
+            { src: 'packages/core/src/styles/index.css', dest: 'styles/index.css' },
+          ],
         },
         {
           type: 'dist-custom-elements',
-          customElementsExportBehavior: 'auto-define-custom-elements',
+          customElementsExportBehavior: 'single-export-module', // Better tree-shaking
           externalRuntime: false,
+          minify: true,
         },
         angularOutputTarget({
           componentCorePackage: 'sagebox',
