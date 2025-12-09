@@ -19,8 +19,7 @@
   "workspaces": [
     "packages/*",
     "wrappers/*",
-    "website",
-    "tools/*"
+    "website"
   ],
   "exports": {
     ".": {
@@ -78,6 +77,46 @@
     "./components/sg-modal.js": {
       "types": "./dist/components/sg-modal.d.ts",
       "import": "./dist/components/sg-modal.js"
+    },
+    "./components/sg-datagrid.js": {
+      "types": "./dist/components/sg-datagrid.d.ts",
+      "import": "./dist/components/sg-datagrid.js"
+    },
+    "./components/sg-tabs.js": {
+      "types": "./dist/components/sg-tabs.d.ts",
+      "import": "./dist/components/sg-tabs.js"
+    },
+    "./components/sg-alert.js": {
+      "types": "./dist/components/sg-alert.d.ts",
+      "import": "./dist/components/sg-alert.js"
+    },
+    "./components/sg-toast.js": {
+      "types": "./dist/components/sg-toast.d.ts",
+      "import": "./dist/components/sg-toast.js"
+    },
+    "./components/sg-checkbox.js": {
+      "types": "./dist/components/sg-checkbox.d.ts",
+      "import": "./dist/components/sg-checkbox.js"
+    },
+    "./components/sg-radio.js": {
+      "types": "./dist/components/sg-radio.d.ts",
+      "import": "./dist/components/sg-radio.js"
+    },
+    "./components/sg-switch.js": {
+      "types": "./dist/components/sg-switch.d.ts",
+      "import": "./dist/components/sg-switch.js"
+    },
+    "./components/sg-accordion.js": {
+      "types": "./dist/components/sg-accordion.d.ts",
+      "import": "./dist/components/sg-accordion.js"
+    },
+    "./components/sg-progress.js": {
+      "types": "./dist/components/sg-progress.d.ts",
+      "import": "./dist/components/sg-progress.js"
+    },
+    "./components/sg-avatar.js": {
+      "types": "./dist/components/sg-avatar.d.ts",
+      "import": "./dist/components/sg-avatar.js"
     }
   },
   "repository": {
@@ -177,7 +216,6 @@
     "@commitlint/config-conventional": "^18.6.3",
     "@eslint/js": "^9.39.1",
     "@playwright/test": "^1.57.0",
-
     "@size-limit/preset-small-lib": "^12.0.0",
     "@stencil/angular-output-target": "^1.1.1",
     "@stencil/core": "^4.27.1",

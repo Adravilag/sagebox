@@ -1,0 +1,355 @@
+/**
+ * sg-datagrid styles
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+   ═══════════════════════════════════════════════════════════════════════════ */
+:host {
+  /* Typography */
+  --sg-datagrid-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --sg-datagrid-font-size: 0.875rem;
+  --sg-datagrid-font-size-sm: 0.8125rem;
+  --sg-datagrid-line-height: 1.5;
+
+  /* Colors - Light theme */
+  --sg-datagrid-bg: #ffffff;
+  --sg-datagrid-border-color: #e2e8f0;
+  --sg-datagrid-header-bg: #f8fafc;
+  --sg-datagrid-header-color: #475569;
+  --sg-datagrid-row-bg: #ffffff;
+  --sg-datagrid-row-bg-alt: #f8fafc;
+  --sg-datagrid-row-hover-bg: #f1f5f9;
+  --sg-datagrid-row-selected-bg: #eff6ff;
+  --sg-datagrid-row-selected-border: #3b82f6;
+  --sg-datagrid-text-color: #1e293b;
+  --sg-datagrid-text-muted: #64748b;
+
+  /* Spacing */
+  --sg-datagrid-cell-padding-x: 1rem;
+  --sg-datagrid-cell-padding-y: 0.75rem;
+  --sg-datagrid-border-radius: 0.5rem;
+
+  /* Shadows */
+  --sg-datagrid-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  /* Transitions */
+  --sg-datagrid-transition: 150ms ease;
+
+  display: block;
+  font-family: var(--sg-datagrid-font-family);
+  font-size: var(--sg-datagrid-font-size);
+  line-height: var(--sg-datagrid-line-height);
+  color: var(--sg-datagrid-text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COMPACT MODE
+   ═══════════════════════════════════════════════════════════════════════════ */
+:host([compact]) {
+  --sg-datagrid-cell-padding-x: 0.5rem;
+  --sg-datagrid-cell-padding-y: 0.375rem;
+  --sg-datagrid-font-size: 0.8125rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   WRAPPER & CONTAINER
+   ═══════════════════════════════════════════════════════════════════════════ */
+.datagrid-wrapper {
+  position: relative;
+  border-radius: var(--sg-datagrid-border-radius);
+  background: var(--sg-datagrid-bg);
+  box-shadow: var(--sg-datagrid-shadow);
+  overflow: hidden;
+}
+
+.datagrid-container {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TABLE
+   ═══════════════════════════════════════════════════════════════════════════ */
+.datagrid-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════════════════════════ */
+.datagrid-head {
+  background: var(--sg-datagrid-header-bg);
+}
+
+.datagrid-head .datagrid-cell {
+  font-weight: 600;
+  color: var(--sg-datagrid-header-color);
+  text-transform: uppercase;
+  font-size: var(--sg-datagrid-font-size-sm);
+  letter-spacing: 0.025em;
+  border-bottom: 2px solid var(--sg-datagrid-border-color);
+  white-space: nowrap;
+  user-select: none;
+}
+
+:host([sticky-header]) .datagrid-head .datagrid-cell {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--sg-datagrid-header-bg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CELLS
+   ═══════════════════════════════════════════════════════════════════════════ */
+.datagrid-cell {
+  padding: var(--sg-datagrid-cell-padding-y) var(--sg-datagrid-cell-padding-x);
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--sg-datagrid-border-color);
+}
+
+.datagrid-cell--left {
+  text-align: left;
+}
+.datagrid-cell--center {
+  text-align: center;
+}
+.datagrid-cell--right {
+  text-align: right;
+}
+
+.datagrid-cell--checkbox {
+  width: 3rem;
+  text-align: center;
+  padding-left: 0.75rem;
+  padding-right: 0.5rem;
+}
+
+.datagrid-cell--checkbox input[type='checkbox'] {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+  accent-color: var(--sg-datagrid-row-selected-border);
+}
+
+.datagrid-cell--empty {
+  text-align: center;
+  color: var(--sg-datagrid-text-muted);
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SORTABLE COLUMNS
+   ═══════════════════════════════════════════════════════════════════════════ */
+.datagrid-cell--sortable {
+  cursor: pointer;
+  transition: background var(--sg-datagrid-transition);
+}
+
+.datagrid-cell--sortable:hover {
+  background: var(--sg-datagrid-row-hover-bg);
+}
+
+.cell-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sort-icon {
+  font-size: 0.75rem;
+  opacity: 0.5;
+  transition: opacity var(--sg-datagrid-transition);
+}
+
+.datagrid-cell--sorted .sort-icon {
+  opacity: 1;
+  color: var(--sg-datagrid-row-selected-border);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ROWS
+   ═══════════════════════════════════════════════════════════════════════════ */
+.datagrid-row {
+  background: var(--sg-datagrid-row-bg);
+  transition: background var(--sg-datagrid-transition);
+}
+
+:host([hoverable]) .datagrid-row:hover {
+  background: var(--sg-datagrid-row-hover-bg);
+}
+
+:host([selectable]) .datagrid-row {
+  cursor: pointer;
+}
+
+.datagrid-row--selected {
+  background: var(--sg-datagrid-row-selected-bg) !important;
+  box-shadow: inset 3px 0 0 var(--sg-datagrid-row-selected-border);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   STRIPED ROWS
+   ═══════════════════════════════════════════════════════════════════════════ */
+:host([striped]) .datagrid-row:nth-child(even) {
+  background: var(--sg-datagrid-row-bg-alt);
+}
+
+:host([striped]) .datagrid-row:nth-child(even):hover {
+  background: var(--sg-datagrid-row-hover-bg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BORDERED
+   ═══════════════════════════════════════════════════════════════════════════ */
+:host([bordered]) .datagrid-wrapper {
+  border: 1px solid var(--sg-datagrid-border-color);
+}
+
+:host([bordered]) .datagrid-cell {
+  border: 1px solid var(--sg-datagrid-border-color);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PAGINATION
+   ═══════════════════════════════════════════════════════════════════════════ */
+.datagrid-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--sg-datagrid-border-color);
+  background: var(--sg-datagrid-header-bg);
+  font-size: var(--sg-datagrid-font-size-sm);
+}
+
+.pagination-info {
+  color: var(--sg-datagrid-text-muted);
+}
+
+.pagination-size {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pagination-size label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--sg-datagrid-text-muted);
+}
+
+.pagination-size select {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--sg-datagrid-border-color);
+  border-radius: 0.25rem;
+  background: var(--sg-datagrid-bg);
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pagination-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.5rem;
+  border: 1px solid var(--sg-datagrid-border-color);
+  border-radius: 0.25rem;
+  background: var(--sg-datagrid-bg);
+  color: var(--sg-datagrid-text-color);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--sg-datagrid-transition);
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: var(--sg-datagrid-row-hover-bg);
+  border-color: var(--sg-datagrid-text-muted);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination-pages {
+  padding: 0 0.75rem;
+  color: var(--sg-datagrid-text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LOADING STATE
+   ═══════════════════════════════════════════════════════════════════════════ */
+.datagrid-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 20;
+}
+
+.loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--sg-datagrid-border-color);
+  border-top-color: var(--sg-datagrid-row-selected-border);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.datagrid-loading span {
+  color: var(--sg-datagrid-text-muted);
+  font-size: var(--sg-datagrid-font-size-sm);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DARK MODE SUPPORT
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (prefers-color-scheme: dark) {
+  :host {
+    --sg-datagrid-bg: #1e293b;
+    --sg-datagrid-border-color: #334155;
+    --sg-datagrid-header-bg: #0f172a;
+    --sg-datagrid-header-color: #94a3b8;
+    --sg-datagrid-row-bg: #1e293b;
+    --sg-datagrid-row-bg-alt: #0f172a;
+    --sg-datagrid-row-hover-bg: #334155;
+    --sg-datagrid-row-selected-bg: #1e3a5f;
+    --sg-datagrid-row-selected-border: #3b82f6;
+    --sg-datagrid-text-color: #f1f5f9;
+    --sg-datagrid-text-muted: #94a3b8;
+  }
+
+  .datagrid-loading {
+    background: rgba(30, 41, 59, 0.9);
+  }
+}

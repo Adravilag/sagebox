@@ -1,0 +1,122 @@
+:host {
+  --sg-checkbox-size: 1.125rem;
+  --sg-checkbox-color: #3b82f6;
+  --sg-checkbox-border: #cbd5e1;
+  --sg-checkbox-bg: #ffffff;
+  --sg-checkbox-radius: 0.25rem;
+  display: inline-block;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+:host([size='sm']) {
+  --sg-checkbox-size: 0.875rem;
+}
+:host([size='lg']) {
+  --sg-checkbox-size: 1.375rem;
+}
+
+:host([color='success']) {
+  --sg-checkbox-color: #22c55e;
+}
+:host([color='warning']) {
+  --sg-checkbox-color: #f59e0b;
+}
+:host([color='error']) {
+  --sg-checkbox-color: #ef4444;
+}
+
+.checkbox-wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-wrapper--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.checkbox-control {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.checkbox-control input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: inherit;
+}
+
+.checkbox-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sg-checkbox-size);
+  height: var(--sg-checkbox-size);
+  border: 2px solid var(--sg-checkbox-border);
+  border-radius: var(--sg-checkbox-radius);
+  background: var(--sg-checkbox-bg);
+  transition: all 150ms ease;
+}
+
+.checkbox-wrapper--focused .checkbox-box {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+:host([checked]) .checkbox-box,
+:host([indeterminate]) .checkbox-box {
+  background: var(--sg-checkbox-color);
+  border-color: var(--sg-checkbox-color);
+}
+
+.checkbox-icon {
+  width: 70%;
+  height: 70%;
+  color: white;
+}
+
+.checkbox-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding-top: 0.0625rem;
+}
+
+.checkbox-label {
+  font-size: 0.875rem;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+.checkbox-helper {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+:host([error]) .checkbox-helper {
+  color: #ef4444;
+}
+:host([error]) .checkbox-box {
+  border-color: #ef4444;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --sg-checkbox-border: #475569;
+    --sg-checkbox-bg: #1e293b;
+  }
+  .checkbox-label {
+    color: #f1f5f9;
+  }
+  .checkbox-helper {
+    color: #94a3b8;
+  }
+}

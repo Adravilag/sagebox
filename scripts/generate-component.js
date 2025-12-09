@@ -60,7 +60,7 @@ function extractCSSTokens(filePath) {
           tokens.push(`    ${match[1]}: ${match[2].trim()};`);
         }
       }
-    });
+    }
   }
 
   return tokens.join('\n');
@@ -109,10 +109,10 @@ function getPackageJson(name, description) {
       },
       files: ['dist/', 'loader/'],
       scripts: {
-        build: 'stencil build',
+        'build': 'stencil build',
         'build:watch': 'stencil build --watch',
-        test: 'stencil test --spec',
-        storybook: 'stencil build && storybook dev -p 6006',
+        'test': 'stencil test --spec',
+        'storybook': 'stencil build && storybook dev -p 6006',
         'storybook:fast': 'storybook dev -p 6006',
         'build-storybook': 'stencil build && storybook build',
       },
@@ -121,7 +121,7 @@ function getPackageJson(name, description) {
       },
       devDependencies: {
         '@stencil/core': '^4.27.1',
-        typescript: '^5.9.3',
+        'typescript': '^5.9.3',
       },
       keywords: ['sagebox', name, 'web-components', 'stencil'],
       author: 'adravilag',
@@ -129,7 +129,7 @@ function getPackageJson(name, description) {
       publishConfig: { access: 'public' },
     },
     null,
-    2
+    2,
   );
 }
 
@@ -173,7 +173,7 @@ function getTsConfig() {
       exclude: ['node_modules', 'dist'],
     },
     null,
-    2
+    2,
   );
 }
 

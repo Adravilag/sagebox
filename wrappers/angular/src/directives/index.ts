@@ -2,13 +2,18 @@
 import * as d from './proxies';
 
 export const DIRECTIVES = [
+  d.SgAccordion,
+  d.SgAlert,
   d.SgArticleEditor,
+  d.SgAvatar,
   d.SgBadge,
   d.SgBreadcrumb,
   d.SgBreadcrumbItem,
   d.SgButton,
   d.SgCard,
+  d.SgCheckbox,
   d.SgContextMenu,
+  d.SgDatagrid,
   d.SgDatePicker,
   d.SgDropdown,
   d.SgFormSection,
@@ -18,10 +23,15 @@ export const DIRECTIVES = [
   d.SgModal,
   d.SgOption,
   d.SgOptionGroup,
+  d.SgProgress,
+  d.SgRadio,
   d.SgSearchBox,
   d.SgSelect,
   d.SgSkeleton,
   d.SgStatsCard,
+  d.SgSwitch,
+  d.SgTabs,
   d.SgThemeToggle,
+  d.SgToast,
   d.SgTooltip
 ];

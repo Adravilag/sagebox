@@ -1,5 +1,12 @@
 import { dirname, join } from 'node:path';
+import { createRequire } from 'node:module';
 import type { StorybookConfig } from '@storybook/html-vite';
+
+const require = createRequire(import.meta.url);
+
+function getAbsolutePath(value: string): string {
+  return dirname(require.resolve(join(value, 'package.json')));
+}
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)', '../packages/**/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -31,7 +38,3 @@ const config: StorybookConfig = {
 };
 
 export default config;
-
-function getAbsolutePath(value: string): string {
-  return dirname(require.resolve(join(value, 'package.json')));
-}

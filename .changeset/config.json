@@ -19,7 +19,17 @@
       "@sage-box/article-editor",
       "@sage-box/modal",
       "@sage-box/angular",
-      "@sage-box/react"
+      "@sage-box/react",
+      "@sage-box/datagrid",
+      "@sage-box/tabs",
+      "@sage-box/alert",
+      "@sage-box/toast",
+      "@sage-box/checkbox",
+      "@sage-box/radio",
+      "@sage-box/switch",
+      "@sage-box/accordion",
+      "@sage-box/progress",
+      "@sage-box/avatar"
     ]
   ],
   "linked": [],

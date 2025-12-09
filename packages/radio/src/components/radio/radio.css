@@ -1,0 +1,116 @@
+:host {
+  --sg-radio-size: 1.125rem;
+  --sg-radio-color: #3b82f6;
+  --sg-radio-border: #cbd5e1;
+  display: block;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+:host([size='sm']) {
+  --sg-radio-size: 0.875rem;
+}
+:host([size='lg']) {
+  --sg-radio-size: 1.375rem;
+}
+
+:host([color='success']) {
+  --sg-radio-color: #22c55e;
+}
+:host([color='warning']) {
+  --sg-radio-color: #f59e0b;
+}
+:host([color='error']) {
+  --sg-radio-color: #ef4444;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+:host([orientation='horizontal']) .radio-group {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.radio-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio-item--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.radio-control {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.radio-control input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: inherit;
+}
+
+.radio-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sg-radio-size);
+  height: var(--sg-radio-size);
+  border: 2px solid var(--sg-radio-border);
+  border-radius: 50%;
+  background: #ffffff;
+  transition: all 150ms ease;
+}
+
+.radio-item--focused .radio-circle {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.radio-item--checked .radio-circle {
+  border-color: var(--sg-radio-color);
+}
+
+.radio-dot {
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background: var(--sg-radio-color);
+  transform: scale(0);
+  transition: transform 150ms ease;
+}
+
+.radio-item--checked .radio-dot {
+  transform: scale(1);
+}
+
+.radio-label {
+  font-size: 0.875rem;
+  color: #1e293b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --sg-radio-border: #475569;
+  }
+  .radio-circle {
+    background: #1e293b;
+  }
+  .radio-label {
+    color: #f1f5f9;
+  }
+}

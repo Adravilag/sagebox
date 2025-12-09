@@ -36,6 +36,26 @@
       "@sage-box/search-box": ["./packages/search-box/src/index.ts"],
       "@sage-box/info-field": ["./packages/info-field/src/index.ts"],
       "@sage-box/date-picker": ["./packages/date-picker/src/index.ts"]
+    ,
+      "@sage-box/datagrid": ["./packages/datagrid/src/index.ts"]
+    ,
+      "@sage-box/tabs": ["./packages/tabs/src/index.ts"]
+    ,
+      "@sage-box/alert": ["./packages/alert/src/index.ts"]
+    ,
+      "@sage-box/toast": ["./packages/toast/src/index.ts"]
+    ,
+      "@sage-box/checkbox": ["./packages/checkbox/src/index.ts"]
+    ,
+      "@sage-box/radio": ["./packages/radio/src/index.ts"]
+    ,
+      "@sage-box/switch": ["./packages/switch/src/index.ts"]
+    ,
+      "@sage-box/accordion": ["./packages/accordion/src/index.ts"]
+    ,
+      "@sage-box/progress": ["./packages/progress/src/index.ts"]
+    ,
+      "@sage-box/avatar": ["./packages/avatar/src/index.ts"]
     }
   },
   "include": [

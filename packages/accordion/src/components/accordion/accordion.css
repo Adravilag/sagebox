@@ -1,0 +1,134 @@
+:host {
+  --sg-accordion-border: #e2e8f0;
+  --sg-accordion-bg: #ffffff;
+  --sg-accordion-hover: #f8fafc;
+  display: block;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+}
+
+:host([bordered]) .accordion {
+  border: 1px solid var(--sg-accordion-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.accordion-item {
+  border-bottom: 1px solid var(--sg-accordion-border);
+}
+
+.accordion-item:last-child {
+  border-bottom: none;
+}
+
+.accordion-item--disabled {
+  opacity: 0.5;
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1rem;
+  background: var(--sg-accordion-bg);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #1e293b;
+  transition: background 150ms ease;
+}
+
+.accordion-header:hover:not(:disabled) {
+  background: var(--sg-accordion-hover);
+}
+
+.accordion-header:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+}
+
+.accordion-icon {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  color: #64748b;
+  transition: transform 200ms ease;
+}
+
+.accordion-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.accordion-item--expanded .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-item-icon {
+  flex-shrink: 0;
+  font-size: 1.125rem;
+}
+
+.accordion-title {
+  flex: 1;
+}
+
+.accordion-panel {
+  overflow: hidden;
+  transition: max-height 200ms ease;
+}
+
+.accordion-panel[hidden] {
+  display: none;
+}
+
+.accordion-content {
+  padding: 0 1rem 1rem;
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+:host([size='sm']) .accordion-header {
+  padding: 0.75rem;
+  font-size: 0.875rem;
+}
+:host([size='sm']) .accordion-content {
+  padding: 0 0.75rem 0.75rem;
+  font-size: 0.8125rem;
+}
+
+:host([size='lg']) .accordion-header {
+  padding: 1.25rem;
+  font-size: 1rem;
+}
+:host([size='lg']) .accordion-content {
+  padding: 0 1.25rem 1.25rem;
+  font-size: 0.9375rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --sg-accordion-border: #334155;
+    --sg-accordion-bg: #1e293b;
+    --sg-accordion-hover: #334155;
+  }
+  .accordion-header {
+    color: #f1f5f9;
+  }
+  .accordion-content {
+    color: #94a3b8;
+  }
+}
